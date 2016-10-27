@@ -69,6 +69,55 @@
                     Opcional</p>
                 @endif
             @endif
+            <!-- JGT: Se crean las vistas de los nuevos datos-->
+            @if($licenseStage->proceeds_visit)
+                <p>Procede Visita</p>
+            @endif
+
+            @if($licenseStage->date_commition)
+                <p>Fecha de Encargo
+                @if($licenseStage->date_commition_required)
+                    Requerido</p>
+                @else
+                    Opcional</p>
+                @endif
+            @endif
+
+            @if($licenseStage->date_report)
+                <p>Fecha de Informe
+                @if($licenseStage->date_report_required)
+                    Requerido</p>
+                @else
+                    Opcional</p>
+                @endif
+            @endif
+
+            @if($licenseStage->date_firsh_visit)
+                <p>Fecha de Primera Visita
+                @if($licenseStage->date_firsh_visit_required)
+                    Requerido</p>
+                @else
+                    Opcional</p>
+                @endif
+            @endif
+
+            @if($licenseStage->sanctions)
+                <p>Sanción
+                @if($licenseStage->sanctions_required)
+                    Requerido</p>
+                @else
+                    Opcional</p>
+                @endif
+            @endif
+
+            @if($licenseStage->act)
+                <p>Acta
+                @if($licenseStage->act_required)
+                    Requerido</p>
+                @else
+                    Opcional</p>
+                @endif
+            @endif
         </div>
     </div>
 @endsection

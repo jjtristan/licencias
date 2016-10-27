@@ -47,6 +47,13 @@ class CreateLicenseCurrentStagesTable extends Migration
 
             $table->integer('objection_id')->unsigned()->nullable();
             $table->foreign('objection_id')->references('id')->on('objections');
+            #JGT: Se agregan los nuevos campos
+            $table->boolean('proceeds_visit');
+            $table->string('sanctions');
+            $table->date('date_commition');
+            $table->date('date_report');
+            $table->date('date_firsh_visit');
+            $table->boolean('act');
 
             $table->timestamps();
         });

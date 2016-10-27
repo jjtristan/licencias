@@ -194,5 +194,54 @@ class LicenseStageTableSeeder extends Seeder
           'file' => false,
           'objection' => false,
         ]);
+
+        // id = 17
+        factory(CityBoard\Entities\LicenseStage::class)->create([
+          'name' => 'Procede Visita',
+          'date' => false,
+          'date_required' => false,
+          'person' => false,
+          'number' => false,
+          'file' => false,
+          'objection' => false,
+          'proceeds_visit' => true,
+        ]);
+
+        // id = 18
+        factory(CityBoard\Entities\LicenseStage::class)->create([
+          'name' => 'Informe de arquitecto',
+          'date' => false,
+          'date_required' => false,
+          'person' => false,
+          'number' => false,
+          'file' => false,
+          'objection' => true,
+          'date_commition' => true,
+          'date_report' => true,
+        ]);
+
+        // id = 19
+        factory(CityBoard\Entities\LicenseStage::class)->create([
+          'name' => 'Primera Visita',
+          'date' => false,
+          'date_required' => false,
+          'person' => false,
+          'number' => false,
+          'file' => false,
+          'objection' => false,
+          'date_firsh_visit' => true,
+        ]);
+
+        // id = 20
+        factory(CityBoard\Entities\LicenseStage::class)->create([
+          'name' => 'Acta',
+          'date' => false,
+          'date_required' => false,
+          'person' => false,
+          'number' => false,
+          'file' => false,
+          'objection' => false,
+          'act' => true,
+        ]);
     }
 }

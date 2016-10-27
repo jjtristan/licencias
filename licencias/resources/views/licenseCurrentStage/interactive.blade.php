@@ -92,7 +92,7 @@
     <div id="stage-form" class="panel-body">
         @foreach($license->licenseCurrentStages as $currentStage)
             <div class="btn-group" role="group" style="margin-bottom:10px;">
-                <button type="button" class="btn" ng-class="{ 'btn-default' : requiredStages[{{ $currentStage->license_stage_id }}], 'btn-success' : !requiredStages[{{ $currentStage->license_stage_id }}], 'current-stage' : stageData.license_stage_id == {{ $currentStage->license_stage_id }}, 'other-stage' : stageData.license_stage_id != {{ $currentStage->license_stage_id }} }" ng-click="goToStage({{ $currentStage->license_stage_id }})">{{ $currentStage->licenseStage->name }}</button>
+                <button type="button" id="{{ $currentStage->license_stage_id }}" class="btn" ng-class="{ 'btn-default' : requiredStages[{{ $currentStage->license_stage_id }}], 'btn-success' : !requiredStages[{{ $currentStage->license_stage_id }}], 'current-stage' : stageData.license_stage_id == {{ $currentStage->license_stage_id }}, 'other-stage' : stageData.license_stage_id != {{ $currentStage->license_stage_id }} }" ng-click="goToStage({{ $currentStage->license_stage_id }})">{{ $currentStage->licenseStage->name }}</button>
             </div>
         @endforeach
     </div>
@@ -127,6 +127,37 @@
                 <div class="form-group" ng-class="stageError.number ? 'has-error' : ''" ng-show="stageFields.number">
                     {!! Form::label('number', 'Número', ['class' => 'control-label']) !!}
                     {!! Form::text('number', null, ['class' => 'form-control', 'id' => 'number_input', 'placeholder' => 'Número', 'ng-model' => 'stageData.number', 'ng-change' => 'stageSave = true']) !!}
+                </div>
+                <!-- JGT: Se agrega el nuevo campo procede visita-->
+                <div class="form-group" ng-class="stageError.proceeds_visit ? 'has-error' : ''" ng-show="stageFields.proceeds_visit">
+                    {!! Form::label('proceeds_visit', '¿Procede visita?', ['class' => 'control-label']) !!} <br>
+                    {!! Form::radio('proceeds_visit', 'Si', NULL, [ 'id' => 'proceeds_visit', 'ng-model' => 'stageData.proceeds_visit', 'ng-change' => 'stageSave = true']) !!} Si <br>
+                    {!! Form::radio('proceeds_visit', NULL, NULL, [ 'id' => 'proceeds_visit', 'ng-model' => 'stageData.proceeds_visit', 'ng-change' => 'stageSave = true']) !!} No
+                </div>
+                <!-- JGT: Campo de fecha de encargo -->
+                <div class="form-group" ng-class="stageError.date_commition ? 'has-error' : ''" ng-show="stageFields.date_commition">
+                    {!! Form::label('date_commition', 'Fecha de encargo', ['class' => 'control-label']) !!}
+                    {!! Form::date('date_commition', null, ['ng-model' => 'stageData.date_commition', 'ng-change' => 'stageSave = true']) !!}
+                </div>
+                <!-- JGT: Campo de fecha de reporte -->
+                <div class="form-group" ng-class="stageError.date_report ? 'has-error' : ''" ng-show="stageFields.date_report">
+                    {!! Form::label('date_report', 'Fecha de reporte', ['class' => 'control-label']) !!}
+                    {!! Form::date('date_report', null, ['ng-model' => 'stageData.date_report', 'ng-change' => 'stageSave = true']) !!}
+                </div>
+                <!-- JGT: Campo de fecha de primera visita -->
+                <div class="form-group" ng-class="stageError.date_firsh_visit ? 'has-error' : ''" ng-show="stageFields.date_firsh_visit">
+                    {!! Form::label('date_firsh_visit', 'Fecha de primera visita', ['class' => 'control-label']) !!}
+                    {!! Form::date('date_firsh_visit', null, ['ng-model' => 'stageData.date_firsh_visit', 'ng-change' => 'stageSave = true']) !!}
+                    <button type="buton" class="btn btn-primary" ng-click="sanctions = !sanctions">Sanción</button>
+                    <div class="form-group" ng-class="stageError.penalties ? 'has-error' : ''" ng-show="sanctions">
+                        {!! Form::label('sanctions', 'Indique la sanción', ['class' => 'control-label']) !!}
+                        {!! Form::text('sanctions', null, ['class' => 'form-control', 'id' => 'sanctions_input', 'placeholder' => 'Sanción', 'ng-model' => 'stageData.sanctions', 'ng-change' => 'stageSave = true']) !!}
+                    </div>
+                </div>
+                <!-- JGT: Campo de acta -->
+                <div class="form-group" ng-class="stageError.act ? 'has-error' : ''" ng-show="stageFields.act">
+                    {!! Form::label('act', 'Tipo de acta:', ['class' => 'control-label']) !!}
+                    {!! Form::select('act', ['1' => 'Favorable', '0' => 'Desfavorable'], null, ['class' => 'form-control', 'placeholder' => 'Selecciona un tipo de acta...', 'ng-model' => 'stageData.act', 'ng-change' => 'stageSave = true']) !!}
                 </div>
                 @{{errorMsg}}
                 @if(env('FILE_UPLOAD'))

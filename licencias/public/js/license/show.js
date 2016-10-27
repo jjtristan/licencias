@@ -20,7 +20,7 @@ stageApp.directive('convertToNumber', function() {
 });
 
 stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$timeout', '$location', '$anchorScroll', function ($scope, $http, Upload, $timeout, $location, $anchorScroll) {
-
+    $scope.sanctions = false;
     $scope.alert = {};
     $scope.typeAlert = {};
     $scope.alertTable = {};
@@ -321,6 +321,17 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
             $scope.showNotificationDate = true;
         }
         hideSaveStageButton();
+        if ($scope.stageData.proceeds_visit == '') {
+            //$scope.stageNext = !$scope.stageNext;
+            //JGT: SE DEJA EL 16 HARDCODE POR QUE ES EL ID DE FINALIZAR LICENCIA
+            var nombre = $('#16').val();
+            $scope.goToStage(16);
+        };
+        if ($scope.stageData.act == 1) {
+            $scope.goToStage(16);
+        } else if ($scope.stageData.act == 0)  {
+            $scope.goToStage(19);
+        }
     }
 
     function hideSaveStageButton(response) {
@@ -484,6 +495,7 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
     }
 
     function initializeStageFields(response) {
+        
         $scope.stageFields = response.data.stageFields;
         $scope.stageFromList = response.data.stageFromList;
         $scope.license = response.data.license;
@@ -497,6 +509,18 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
 
         if ($scope.stageFields.date === true) {
             $scope.stageData.date = new Date();
+        }
+
+        if ($scope.stageFields.date_commition === true) {
+            $scope.stageData.date_commition = new Date();
+        }
+
+        if ($scope.stageFields.date_firsh_visit === true) {
+            $scope.stageData.date_firsh_visit = new Date();
+        }
+
+        if ($scope.stageFields.date_report === true) {
+            $scope.stageData.date_report = new Date();
         }
 
         if ($scope.stageFields.objection === true) {
@@ -546,6 +570,9 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
     function sanitizeStageData() {
         if (! $scope.stageFields.date) {
             $scope.stageData.date = undefined;
+            $scope.stageData.date_commition = undefined;
+            $scope.stageData.date_firsh_visit = undefined;
+            $scope.stageData.date_report = undefined;
         } else {
             if ($scope.stageData.date === null) {
                 $scope.stageData.date = new Date();
@@ -553,6 +580,30 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
             }
             else {
                 $scope.stageData.date = new Date($scope.stageData.date);
+            }
+            //JGT: sE AGREGAN LOS NUEVOS CAMPOS
+            if ($scope.stageData.date_commition === null) {
+                $scope.stageData.date_commition = new Date();
+                $scope.stageSave = true;
+            }
+            else {
+                $scope.stageData.date_commition = new Date($scope.stageData.date_commition);
+            }
+
+            if ($scope.stageData.date_report === null) {
+                $scope.stageData.date_report = new Date();
+                $scope.stageSave = true;
+            }
+            else {
+                $scope.stageData.date_report = new Date($scope.stageData.date_report);
+            }
+
+            if ($scope.stageData.date_firsh_visit === null) {
+                $scope.stageData.date_firsh_visit = new Date();
+                $scope.stageSave = true;
+            }
+            else {
+                $scope.stageData.date_firsh_visit = new Date($scope.stageData.date_firsh_visit);
             }
         }
 

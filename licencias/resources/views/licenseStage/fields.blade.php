@@ -72,6 +72,72 @@
         {!! Form::checkbox('objection_required', 'Campo Reparo Requerido') !!} Campo Reparo Requerido
     </label>
 </div>
-
+<!-- JGT: Se agregan los nuevos campos para  el paso-->
+<!-- JGT: Procede visita-->
+<div class="checkbox @if($errors->first('proceeds_visit')) has-error @endif">
+    <label>
+        {!! Form::checkbox('proceeds_visit', 'Campo Procede Visita') !!} Campo Procede Visita
+    </label>
+</div>
+<!-- JGT: Fecha de Encargo-->
+<div class="checkbox @if($errors->first('date_commition')) has-error @endif">
+    <label>
+        {!! Form::checkbox('date_commition', 'Campo Fecha de Encargo') !!} Campo Fecha de Encargo
+    </label>
+</div>
+<!-- JGT: Fecha de Encargo Requerida -->
+<div class="checkbox @if($errors->first('date_commition_required')) has-error @endif">
+    <label>
+        {!! Form::checkbox('date_commition_required', 'Campo Fecha de Encargo Requerido') !!} Campo Fecha de Encargo Requerido
+    </label>
+</div>
+<!-- JGT: Fecha de Informe-->
+<div class="checkbox @if($errors->first('date_report')) has-error @endif">
+    <label>
+        {!! Form::checkbox('date_report', 'Campo Fecha de Informe') !!} Campo Fecha de Informe
+    </label>
+</div>
+<!-- JGT: Fecha de Informe Requerido -->
+<div class="checkbox @if($errors->first('date_report_required')) has-error @endif">
+    <label>
+        {!! Form::checkbox('date_report_required', 'Campo Fecha de Informe Requerido') !!} Campo Fecha de Informe Requerido
+    </label>
+</div>
+<!-- JGT: Fecha de Primera Visita -->
+<div class="checkbox @if($errors->first('date_firsh_visit')) has-error @endif">
+    <label>
+        {!! Form::checkbox('date_firsh_visit', 'Campo Fecha de Primera Visita') !!} Campo Fecha de Primera Visita
+    </label>
+</div>
+<!-- JGT: Fecha de Primera Visita Requerida -->
+<div class="checkbox @if($errors->first('date_firsh_visit_required')) has-error @endif">
+    <label>
+        {!! Form::checkbox('date_firsh_visit_required', 'Campo Fecha de Primera Visita Requerida') !!} Campo Fecha de Primera Visita Requerida
+    </label>
+</div>
+<!-- JGT: Sanciones -->
+<div class="checkbox @if($errors->first('sanctions')) has-error @endif">
+    <label>
+        {!! Form::checkbox('sanctions', 'Campo Sancion') !!} Campo Sanción
+    </label>
+</div>
+<!-- JGT: Sanciones Requerida -->
+<div class="checkbox @if($errors->first('sanctions_required')) has-error @endif">
+    <label>
+        {!! Form::checkbox('sanctions_required', 'Campo Sancion Requerida') !!} Campo Sanción Requerida
+    </label>
+</div>
+<!-- JGT: acta -->
+<div class="checkbox @if($errors->first('act')) has-error @endif">
+    <label>
+        {!! Form::checkbox('act', 'Campo Acta') !!} Campo Acta
+    </label>
+</div>
+<!-- JGT: Acta Requerida -->
+<div class="checkbox @if($errors->first('act_required')) has-error @endif">
+    <label>
+        {!! Form::checkbox('act_required', 'Campo Acta Requerida') !!} Campo Acta Requerida
+    </label>
+</div>
 
 @include('licenseStage.exposed.angular')
