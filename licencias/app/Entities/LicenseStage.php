@@ -32,6 +32,18 @@ class LicenseStage extends Model
       'objection_required' => 'boolean',
       'optional' => 'boolean',
       'person_position_id' => 'integer',
+      #JGT: Se agregan los nuevos campos
+      'proceeds_visit' => 'boolean',
+      'date_commition' => 'boolean',
+      'date_commition_required' => 'boolean',
+      'date_report' => 'boolean',
+      'date_report_required' => 'boolean',
+      'date_firsh_visit' => 'boolean',
+      'date_firsh_visit_required' => 'boolean',
+      'sanctions' => 'boolean',
+      'sanctions_required' => 'boolean',
+      'act' => 'boolean',
+      'act_required' => 'boolean',
     ];
 
     /**
@@ -53,6 +65,18 @@ class LicenseStage extends Model
       'objection',
       'objection_required',
       'optional',
-      'person_position_id'
+      'person_position_id',
+      #JGT: Se agregan los nuevos campos
+      'proceeds_visit',
+      'date_commition',
+      'date_commition_required',
+      'date_report',
+      'date_report_required',
+      'date_firsh_visit',
+      'date_firsh_visit_required',
+      'sanctions',
+      'sanctions_required',
+      'act',
+      'act_required'
     ];
 }

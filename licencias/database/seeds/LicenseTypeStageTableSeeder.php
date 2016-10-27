@@ -8,12 +8,10 @@ class LicenseTypeStageTableSeeder extends Seeder {
     // Tipo 1 - Comunicado de Actividad
 
     $stagesTypeOne = [
-      1,
-      2,
-      12,
-      13,
-      14,
-      15,
+      17,
+      18,
+      19,
+      20,
       16
     ];
 
@@ -22,13 +20,10 @@ class LicenseTypeStageTableSeeder extends Seeder {
     // Tipo 2 Licencias Sin Calificación
 
     $stagesTypeTwo = [
-      1,
-      2,
-      7,
-      8,
-      13,
-      14,
-      15,
+      17,
+      18,
+      19,
+      20,
       16
     ];
 

@@ -81,7 +81,7 @@
 
     <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
     <script src="//code.jquery.com/jquery-2.2.3.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="{{ asset('js/angular.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bower_components/angular-animate/angular-animate.min.js') }}"></script>
     <script src="https://rawgit.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-1.3.2.min.js"></script>
@@ -119,14 +119,15 @@
         });
     </script>
 
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB39CtwtvOwhb2aAuKsTjHDYUimouVFHpc"></script>
+    <script src="{{ asset('assets/js/plugins/gmapsjs/gmaps.min.js') }}"></script>
 
     <script src="{{ asset('js/angular-route.js') }}"></script>
     <script src="{{ asset('js/ng-file-upload-shim.min.js') }}"></script>
     <script src="{{ asset('js/ng-file-upload.min.js') }}"></script>
     <script src="{{ asset('js/sortable.js') }}"></script>
 
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyB39CtwtvOwhb2aAuKsTjHDYUimouVFHpc"></script>
-    <script src="{{ asset('assets/js/plugins/gmapsjs/gmaps.min.js') }}"></script>
+    
 
     @yield('scripts_at_body')
 </body>

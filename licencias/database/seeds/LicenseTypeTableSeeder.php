@@ -8,17 +8,17 @@ class LicenseTypeTableSeeder extends Seeder
     public function run()
     {
         factory(CityBoard\Entities\LicenseType::class)->create([
-          'name' => 'Comunicado de actividad',
+          'name' => 'Actividades inocuas',
           'visit' => false,
         ]);
 
         factory(CityBoard\Entities\LicenseType::class)->create([
-          'name' => 'Licencia sin calificación',
+          'name' => 'Actividades sujetas a declaración responsable',
           'visit' => false,
         ]);
 
         factory(CityBoard\Entities\LicenseType::class)->create([
-          'name' => 'Licencia con calificación',
+          'name' => 'Licencias de actividad',
           'visit' => true,
         ]);
     }

@@ -29,6 +29,18 @@ class CreateLicenseStagesTable extends Migration
             $table->boolean('objection_required')->default(false);
             $table->boolean('optional')->default(false);
             $table->integer('person_position_id')->nullable();
+            #JGT: Se agregan los campos para las modificaciones
+            $table->boolean('proceeds_visit')->default(false);
+            $table->boolean('date_commition');
+            $table->boolean('date_commition_required')->default(false);
+            $table->boolean('date_report');
+            $table->boolean('date_report_required')->default(false);
+            $table->boolean('date_firsh_visit');
+            $table->boolean('date_firsh_visit_required')->default(false);
+            $table->boolean('sanctions');
+            $table->boolean('sanctions_required')->default(false);
+            $table->boolean('act');
+            $table->boolean('act_required')->default(false);
 
             $table->timestamps();
         });
