@@ -321,17 +321,21 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
             $scope.showNotificationDate = true;
         }
         hideSaveStageButton();
-        if ($scope.stageData.proceeds_visit == '') {
-            //$scope.stageNext = !$scope.stageNext;
-            //JGT: SE DEJA EL 16 HARDCODE POR QUE ES EL ID DE FINALIZAR LICENCIA
-            var nombre = $('#16').val();
-            $scope.goToStage(16);
+        if ($scope.stageFromList.license_stage_id == 17) {
+            if ($scope.stageData.proceeds_visit == '') {
+                //$scope.stageNext = !$scope.stageNext;
+                //JGT: SE DEJA EL 16 HARDCODE POR QUE ES EL ID DE FINALIZAR LICENCIA
+                $scope.goToStage(16);
+            };
+            
         };
-        if ($scope.stageData.act == 1) {
-            $scope.goToStage(16);
-        } else if ($scope.stageData.act == 0)  {
-            $scope.goToStage(19);
-        }
+        if ($scope.stageFromList.license_stage_id == 20) {
+            if ($scope.stageData.act == 1) {
+                $scope.goToStage(16);
+            } else if ($scope.stageData.act == 0)  {
+                $scope.goToStage(19);
+            }
+        };
     }
 
     function hideSaveStageButton(response) {
