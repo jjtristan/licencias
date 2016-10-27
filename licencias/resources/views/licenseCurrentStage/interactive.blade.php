@@ -132,7 +132,7 @@
                 <div class="form-group" ng-class="stageError.proceeds_visit ? 'has-error' : ''" ng-show="stageFields.proceeds_visit">
                     {!! Form::label('proceeds_visit', '¿Procede visita?', ['class' => 'control-label']) !!} <br>
                     {!! Form::radio('proceeds_visit', 'Si', NULL, [ 'id' => 'proceeds_visit', 'ng-model' => 'stageData.proceeds_visit', 'ng-change' => 'stageSave = true']) !!} Si <br>
-                    {!! Form::radio('proceeds_visit', NULL, NULL, [ 'id' => 'proceeds_visit', 'ng-model' => 'stageData.proceeds_visit', 'ng-change' => 'stageSave = true']) !!} No
+                    {!! Form::radio('proceeds_visit', '', NULL, [ 'id' => 'proceeds_visit', 'ng-model' => 'stageData.proceeds_visit', 'ng-change' => 'stageSave = true']) !!} No
                 </div>
                 <!-- JGT: Campo de fecha de encargo -->
                 <div class="form-group" ng-class="stageError.date_commition ? 'has-error' : ''" ng-show="stageFields.date_commition">
