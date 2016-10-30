@@ -117,11 +117,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('alert', 'AlertController');
 
     Route::get('mapa',['as' => 'mapa', 'uses' => 'LicenseController@getMapa']);
+
+    //Guardar las denuncias
+    Route::post('denunciamodal', 'DenunciationController@createModal');
+    Route::get('getdenuncia/{id}', 'DenunciationController@getDenunciaLicenses');
+    Route::post('postUpdateDenuncia', 'DenunciationController@updateEstatus');
+
     Route::get('caducarlicense/{id}', 'LicenseController@caducarLicense');
     Route::post('validalicencia', 'LicenseController@validaLicencia');
+
     #Rutas para el guardado de la informacion de las visitas
     Route::get('getvisit/{id}', 'VisitController@getVisit');
     Route::post('createvisit', 'VisitController@createVisit');
+
 });
 
 

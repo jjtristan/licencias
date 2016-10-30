@@ -216,6 +216,7 @@ class LicenseStageTableSeeder extends Seeder
           'number' => false,
           'file' => false,
           'objection' => true,
+          'optional' => true,
         ]);
 
         // id = 19
@@ -227,7 +228,7 @@ class LicenseStageTableSeeder extends Seeder
           'number' => false,
           'file' => false,
           'objection' => true,
-          
+          'optional' => true,
         ]);
 
         // id = 19

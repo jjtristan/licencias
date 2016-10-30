@@ -89,6 +89,7 @@ class LicenseStageRepository implements RepositoryInterface
         $licenseStage->person_position_id = $request->input('person_position_id');
         #JGT: Se agregan los nuevos campos
         $licenseStage->proceeds_visit = $request->input('proceeds_visit');
+        $licenseStage->optional = $this->processingCheckbox($request->input('optional'));
         $licenseStage->date_firsh_visit = $this->processingCheckbox($request->input('date_firsh_visit'));
         
         
@@ -118,6 +119,7 @@ class LicenseStageRepository implements RepositoryInterface
         $licenseStage->person_position_id = $request->input('person_position_id');
         #JGT: Se agregan los nuevos campos
         $licenseStage->proceeds_visit = $request->input('proceeds_visit');
+        $licenseStage->optional = $this->processingCheckbox($request->input('optional'));
         $licenseStage->date_firsh_visit = $this->processingCheckbox($request->input('date_firsh_visit'));
 
 
