@@ -119,6 +119,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('mapa',['as' => 'mapa', 'uses' => 'LicenseController@getMapa']);
     Route::get('caducarlicense/{id}', 'LicenseController@caducarLicense');
     Route::post('validalicencia', 'LicenseController@validaLicencia');
+    #Rutas para el guardado de la informacion de las visitas
+    Route::get('getvisit/{id}', 'VisitController@getVisit');
+    Route::post('createvisit', 'VisitController@createVisit');
 });
 
 

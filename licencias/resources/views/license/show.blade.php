@@ -243,6 +243,7 @@
                             <div role="tabpanel" class="tab-pane panel panel-body" id="license-details">
                                 <!-- Detalles -->
                                 <div ng-repeat="value in licenseObject">
+                                    @{{(value.proceeds_visit == 1 ? Si : No)}}
                                     <h3>@{{ value.license_stage.name }}</h3>
                                     <div ng-if="value.date">
                                         <p><strong>Fecha:</strong> @{{ value.date | date:'dd-MM-yyyy' }}</p>
@@ -281,6 +282,48 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- JGT: Se agregan los nuevos campos-->
+                                    <div ng-if="value.proceeds_visit">
+                                        <p><strong>Pocede visita?:</strong> 
+                                            <div ng-switch="value.proceeds_visit">
+                                                <div ng-switch-when="1">
+                                                    Si
+                                                </div>
+                                                <div ng-switch-when="0">
+                                                    No
+                                                </div>
+                                                <div ng-switch-default></div>
+                                            </div></p>
+                                    </div>
+                                    <div ng-if="value.license_stage.date_firsh_visit">
+                                        <p><strong>Visita:</strong></p>
+                                        <br>
+                                        <div ng-if="visitObject.length">
+                                            <table class="table table-condensed">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fecha</th>
+                                                        <th>Sanción</th>
+                                                        <th>Acta</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody ng-repeat="visits in visitObject">
+                                                    <tr>
+                                                        <td>@{{visits.date_visit}}</td>
+                                                        <td>@{{visits.sanctions}}</td>
+                                                        <td>
+                                                            <div ng-switch="@{{visits.act}}">
+                                                                <div ng-switch-when="1">Favorable</div>
+                                                                <div ng-switch-when="0">Desfavorable</div>
+                                                                <div ng-switch-default></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane panel panel-body" id="license-titulars">
