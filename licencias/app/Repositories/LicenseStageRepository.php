@@ -88,17 +88,10 @@ class LicenseStageRepository implements RepositoryInterface
         $licenseStage->objection_required = $this->processingCheckbox($request->input('objection_required'));
         $licenseStage->person_position_id = $request->input('person_position_id');
         #JGT: Se agregan los nuevos campos
-        $licenseStage->proceeds_visit = $this->processingCheckbox($request->input('proceeds_visit'));
-        $licenseStage->date_commition = $this->processingCheckbox($request->input('date_commition'));
-        $licenseStage->date_commition_required = $this->processingCheckbox($request->input('date_commition_required'));
-        $licenseStage->date_report = $this->processingCheckbox($request->input('date_report'));
-        $licenseStage->date_report_required = $this->processingCheckbox($request->input('date_report_required'));
+        $licenseStage->proceeds_visit = $request->input('proceeds_visit');
+        $licenseStage->optional = $this->processingCheckbox($request->input('optional'));
         $licenseStage->date_firsh_visit = $this->processingCheckbox($request->input('date_firsh_visit'));
-        $licenseStage->date_firsh_visit_required = $this->processingCheckbox($request->input('date_firsh_visit_required'));
-        $licenseStage->sanctions = $this->processingCheckbox($request->input('sanctions'));
-        $licenseStage->sanctions_required = $this->processingCheckbox($request->input('sanctions_required'));
-        $licenseStage->act = $this->processingCheckbox($request->input('act'));
-        $licenseStage->act_required = $this->processingCheckbox($request->input('act_required'));
+        
         
         $licenseStage->save();
 
@@ -125,17 +118,9 @@ class LicenseStageRepository implements RepositoryInterface
         $licenseStage->objection_required = $this->processingCheckbox($request->input('objection_required'));
         $licenseStage->person_position_id = $request->input('person_position_id');
         #JGT: Se agregan los nuevos campos
-        $licenseStage->proceeds_visit = $this->processingCheckbox($request->input('proceeds_visit'));
-        $licenseStage->date_commition = $this->processingCheckbox($request->input('date_commition'));
-        $licenseStage->date_commition_required = $this->processingCheckbox($request->input('date_commition_required'));
-        $licenseStage->date_report = $this->processingCheckbox($request->input('date_report'));
-        $licenseStage->date_report_required = $this->processingCheckbox($request->input('date_report_required'));
+        $licenseStage->proceeds_visit = $request->input('proceeds_visit');
+        $licenseStage->optional = $this->processingCheckbox($request->input('optional'));
         $licenseStage->date_firsh_visit = $this->processingCheckbox($request->input('date_firsh_visit'));
-        $licenseStage->date_firsh_visit_required = $this->processingCheckbox($request->input('date_firsh_visit_required'));
-        $licenseStage->sanctions = $this->processingCheckbox($request->input('sanctions'));
-        $licenseStage->sanctions_required = $this->processingCheckbox($request->input('sanctions_required'));
-        $licenseStage->act = $this->processingCheckbox($request->input('act'));
-        $licenseStage->act_required = $this->processingCheckbox($request->input('act_required'));
 
 
         $licenseStage->save();
