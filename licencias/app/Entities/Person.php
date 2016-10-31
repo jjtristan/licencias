@@ -55,4 +55,14 @@ class Person extends Model
         return $this->id . " ". $this->first_name . " " . $this->last_name . " " . $this->personPosition->name;
     }
 
+    /**
+     * A LicenseCurrentStage belongs to Person.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function licenseCurrentStage()
+    {
+        return $this->hasMany('CityBoard\Entities\LicenseCurrentStage');
+    }
+
 }

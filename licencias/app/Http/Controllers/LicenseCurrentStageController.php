@@ -57,8 +57,8 @@ class LicenseCurrentStageController extends Controller
     public function index()
     {
         $amount = $this->licenseCurrentStageRepository->all()->count();
-        $licenseCurrentStages = $this->licenseCurrentStageRepository->paginate(20);
-
+        $licenseCurrentStages = LicenseCurrentStage::with('person')
+            ->with('objection')->paginate(20);
         return view('licenseCurrentStage.index',
           compact('licenseCurrentStages', 'amount'));
     }

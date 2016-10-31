@@ -5,7 +5,7 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-8">
-                    Préstamo
+                    <h3>Préstamo</h3>
                 </div>
                 <div class="col-md-4 text-right">
                     <a class="btn btn-warning" href="{{ route('loan.index') }}" role="button">Volver al listado</a>

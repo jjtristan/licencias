@@ -36,6 +36,15 @@
                             <li>
                                 <a href="{{ route('mapa') }}"><i class="fa fa-map-marker"></i>Mapa</a>
                             </li>
+                            <li>
+                                <a href="{{ route('loan.index') }}"><i class="fa fa-exchange"></i><span class="sidebar-mini-hide">Prestamos</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ route('objection.index') }}"><i class="glyphicon glyphicon-screenshot"></i>Reparos</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('denunciation.index') }}"><i class="fa fa-balance-scale"></i><span class="sidebar-mini-hide">Denuncias</span></a>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -44,39 +53,24 @@
                             <li>
                                 <a href="{{ route('alert.index') }}"><i class="si si-list"></i>Listado de alertas</a>
                             </li>
+                            <li>
+                                <a href="{{ route('calendario') }}"><i class="si si-calendar"></i>Calendario</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
                         <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-bar-chart"></i><span class="sidebar-mini-hide">Estad&iacute;sticas</span></a>
                     </li>
-
-                @if(Auth::user()->is(1))
                     <li>
                         <a  href="{{ route('titular.index') }}"><i class="fa fa-users"></i><span class="sidebar-mini-hide">Titulares</span></a>
                     </li>
-                    <li>
-                        <a href="{{ route('person.index') }}"><i class="fa fa-user-md"></i><span class="sidebar-mini-hide">Personas de visita</span></a>
-                    </li>
-                    <li>
-                        <a href="{{ route('loan.index') }}"><i class="fa fa-exchange"></i><span class="sidebar-mini-hide">Prestamos</span></a>
-                    </li>
-                    <li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" ><i class="glyphicon glyphicon-screenshot"></i><span class="sidebar-mini-hide">Reparos</span></a>
-                        <ul>
-                            <li>
-                                <a href="{{ route('license.index') }}"><i class="glyphicon glyphicon-screenshot"></i>Reparos</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('titularitychange.index') }}"><i class="glyphicon glyphicon-alert"></i>Notificaciones de reparos</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{{ route('denunciation.index') }}"><i class="fa fa-balance-scale"></i><span class="sidebar-mini-hide">Denuncias</span></a>
-                    </li>
+                @if(Auth::user()->is(1))
                     <li>
                         <a class="nav-submenu" data-toggle="nav-submenu" ><i class="si si-settings"></i><span class="sidebar-mini-hide">Configuracion</span></a>
                         <ul>
+                            <li>
+                                <a href="{{ route('person.index') }}"><i class="fa fa-user-md"></i><span class="sidebar-mini-hide">Listado de técnicos</span></a>
+                            </li>
                             <li>
                                 <a href="{{ route('licensetype.index') }}">Tipos de licencias</a>
                             </li>

@@ -5,10 +5,10 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         Solicitud de Cambio de titularidad {{ $titularityChange->license->number }}/{{ $titularityChange->license->year }}
                     </div>
-                    <div class="col-md-4 text-right">
+                    <div class="col-md-6 text-right">
                         <a class="btn btn-warning" href="{{ route('titularitychange.index') }}" role="button">Volver al listado</a>
                         <a class="btn btn-warning" href="{{ route('license.show', ['id' => $titularityChange->license->id]) }}" role="button">Volver a la licencia</a>
                         <a class="btn btn-warning" href="{{ route('titularitychange.edit', ['id' => $titularityChange->id]) }}" role="button">Editar</a>
@@ -46,13 +46,6 @@
                 <p><strong>Nuevo Titular:</strong> {{ $titularityChange->titular->first_name }} {{ $titularityChange->titular->last_name }}</p>
                 <p><strong>Actividad:</strong> {{ $titularityChange->license->activity->name }}</p>
                 <p><strong>Emplazamiento:</strong> {{ $titularityChange->license->street->name }} , {{ $titularityChange->license->street_number }} - {{ $titularityChange->license->postcode }} ({{ $titularityChange->license->city }})</p>
-                <p><strong>Finalizado:</strong>
-
-                    @if (isset($titularityChange->finished))
-                        {{ $titularityChange->finished }}
-                    @endif
-
-                </p>
                 <p><strong>Fecha de finalización:</strong>
 
                     @if (isset($titularityChange->finished_date_output))
@@ -82,14 +75,6 @@
 @endsection
 
 @section('scripts_at_body')
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui.js') }}"></script>
-    <script src="{{ asset('js/angular.min.js') }}"></script>
-    <script src="{{ asset('js/angular-route.js') }}"></script>
-    <script src="{{ asset('js/ng-file-upload-shim.min.js') }}"></script>
-    <script src="{{ asset('js/ng-file-upload.min.js') }}"></script>
-    <script src="{{ asset('js/sortable.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script>
         var titularChangeApp = angular.module('titularChangeApp', ['ngFileUpload']);
 

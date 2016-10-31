@@ -22,4 +22,14 @@ class Titular extends Model
     {
         return $this->nif . " " . $this->full_name;
     }
+
+    /**
+     * A License belongs to Titular.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function license()
+    {
+        return $this->hasOne('CityBoard\Entities\License');
+    }
 }

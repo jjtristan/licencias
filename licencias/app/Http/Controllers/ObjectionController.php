@@ -52,8 +52,8 @@ class ObjectionController extends Controller
      */
     public function index()
     {
-        $amount = $this->objectionRepository->all()->count();
-        $objections = $this->objectionRepository->paginate(20);
+        $amount = Objection::whereNull('correction_date')->count();
+        $objections = Objection::whereNull('correction_date')->paginate(20);
 
         return view('objection.index', compact('objections', 'amount'));
     }

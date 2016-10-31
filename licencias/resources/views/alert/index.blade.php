@@ -10,7 +10,6 @@
             <i class="fa fa-bell"></i> Alertas
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <a class="btn btn-primary" href="{{ route('calendario') }}" role="button"><i class="fa fa-calendar"></i> Calendario</a>
             <a class="btn btn-success" href="{{ route('alert.create') }}" role="button"><i class="fa fa-plus"></i> Alta de alertas</a>
         </div>
     </div>
