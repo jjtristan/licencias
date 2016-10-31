@@ -5,7 +5,7 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-8">
-                    Editar etapa de la Licencia {{ $licenseCurrentStage->name }}
+                    <h3>Editar etapa de la Licencia {{ $licenseCurrentStage->name }}</h3>
                 </div>
                 <div class="col-md-4 text-right">
                     <a class="btn btn-warning" href="{{ route('licensecurrentstage.index') }}" role="button">Volver al listado</a>

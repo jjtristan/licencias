@@ -5,7 +5,7 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-8">
-                    Alta de Reparo
+                    <h3>Alta de Reparo</h3>
                 </div>
                 <div class="col-md-4 text-right">
                     <a class="btn btn-warning" href="{{ route('objection.index') }}" role="button">Volver al listado</a>

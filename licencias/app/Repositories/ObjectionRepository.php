@@ -89,10 +89,10 @@ class ObjectionRepository implements RepositoryInterface
         }
         $objection->report_date = $request->input('report_date');
 
-        $file = new File();
+        /*$file = new File();
         $fileId = $this->fileRepository->saveFile($request, $file);
 
-        $objection->file_id = $fileId;
+        $objection->file_id = $fileId;*/
 
         $objection->save();
 
