@@ -50,7 +50,7 @@
                 <div class="modal-body" style="height: 400px">
                     <div class"row">
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                            <label>Número de expediente de la licencia;</label>
+                            <label>Número de expediente de la licencia:</label>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 col-md-offset-1 col-lg-offset-1 col-sm-offset-1 col-xs-offset-1">
                             <p id="modalExpedient"></p>
@@ -122,7 +122,7 @@
                 modal_type : "ajax", 
                 modal_title : function (e) {
                     $('#tituloModal').text(e.title);
-                    $('#modalConten').text(e.description);
+                    document.getElementById("modalConten").innerHTML = e.description;
                     $('#modalExpedient').text(e.license);
                     $('#modalAlertType').text(e.type_alert);
                     $('#url').attr('href', e.urlLicencia);

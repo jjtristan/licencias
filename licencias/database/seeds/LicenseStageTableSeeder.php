@@ -18,6 +18,7 @@ class LicenseStageTableSeeder extends Seeder
           'file' => false,
           'objection' => true,
           'objection_required' => false,
+          'person_position_id' => 1
         ]);
 
         // id = 2
@@ -90,6 +91,7 @@ class LicenseStageTableSeeder extends Seeder
           'file' => false,
           'objection' => true,
           'objection_required' => false,
+          'person_position_id' => 2
         ]);
 
         // id = 8
@@ -115,6 +117,7 @@ class LicenseStageTableSeeder extends Seeder
           'file' => false,
           'objection' => true,
           'objection_required' => false,
+          'person_position_id' => 3
         ]);
 
         // id = 10

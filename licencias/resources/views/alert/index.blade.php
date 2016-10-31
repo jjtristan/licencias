@@ -37,7 +37,7 @@
                             <tr>
                             	<input type="hidden" ng-model="idAlert" value="{{$alert['id']}}">
                                 <td>{{ $alert['title'] }}</td>
-                                <td>{{ $alert['description'] }}</td>
+                                <td>{!! $alert['description'] !!}</td>
                                 <td>{{ $alert['date'] }}</td>
                                 <td>{{ $alert['type'] }}</td>
                                 <td>{{ $alert['expedient_number']}}</td>

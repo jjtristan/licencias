@@ -30,8 +30,7 @@ class AlertController extends Controller
     public function index()
     {
     
-        $alerts2 = Alert::whereDate('date', '>=', date('Y-m-d'))
-        ->OrderBy('date', 'Asc')->get();
+        $alerts2 = Alert::OrderBy('date', 'Asc')->get();
         
         $alerts = array();
 
