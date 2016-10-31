@@ -7,6 +7,6 @@ class PersonTableSeeder extends Seeder
 
     public function run()
     {
-        factory(CityBoard\Entities\Person::class, 2)->create();
+        factory(CityBoard\Entities\Person::class, 10)->create();
     }
 }

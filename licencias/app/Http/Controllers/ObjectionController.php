@@ -234,12 +234,13 @@ class ObjectionController extends Controller
                 
             $activties = Activity::find($licenseAlert->activity_id);
                 
-            $descripcion .= '* Nombre del negocio: ' . $licenseAlert->commerce_name; 
-            $descripcion .= " * Dirección:  ". $streets->name . ' número: ' . $licenseAlert->street_number; 
-            $descripcion .= " * Ciudad: ". $licenseAlert->city; 
-            $descripcion .= " * Actividad: ". $activties->name; 
-            $descripcion .= " * Persona: ". $people->first_name . ' ' . $people->last_name; 
-                
+            $descripcion .= '<strong>Nombre del negocio:</strong> ' . $licenseAlert->commerce_name;
+            $descripcion .= "</br><strong>Dirección:  </strong>". $streets->name . ' <strong>número</strong>: ' . $licenseAlert->street_number;
+            $descripcion .= "<br><strong>Ciudad: </strong>". $licenseAlert->city;
+            $descripcion .= "<br><strong>Actividad:</strong>". $activties->name;
+            $descripcion .= "<br><strong>Persona:</strong> ". $people->first_name . ' ' . $people->last_name;
+
+
             $alertPrue->description = $descripcion;
                 
             

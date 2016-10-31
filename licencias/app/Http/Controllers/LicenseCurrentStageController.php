@@ -435,11 +435,11 @@ class LicenseCurrentStageController extends Controller
             $activties = Activity::find($licenseAlert->activity_id);
                 
             $alertPrue->title = $licenseAlert->expedient_number . ' - Información pública';
-                
-            $descripcion .= 'Nombre del negocio: ' . $licenseAlert->commerce_name; 
-            $descripcion .= "Dirección:  * Calle ". $streets->name . ' número: ' . $licenseAlert->street_number; 
-            $descripcion .= "Ciudad: ". $licenseAlert->city; 
-            $descripcion .= "Actividad: ". $activties->name; 
+
+            $descripcion .= '<strong>Nombre del negocio:</strong> ' . $licenseAlert->commerce_name;
+            $descripcion .= "</br><strong>Dirección:  </strong>". $streets->name . ' <strong>número</strong>: ' . $licenseAlert->street_number;
+            $descripcion .= "<br><strong>Ciudad: </strong>". $licenseAlert->city;
+            $descripcion .= "<br><strong>Actividad:</strong>". $activties->name;
                 
             $alertPrue->description = $descripcion;
             $timeLimit = TimeLimit::where('code', 'LTAIP')->get()[0];
