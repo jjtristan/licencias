@@ -29,12 +29,8 @@ class LicenseCurrentStage extends Model
         'file_id',
         'objection_id',
         'optional',
-        'sanctions',
-        'date_commition',
-        'date_report',
         'proceeds_visit',
         'date_firsh_visit',
-        'act',
     ];
 
     /**

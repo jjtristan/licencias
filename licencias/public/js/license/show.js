@@ -21,9 +21,13 @@ stageApp.directive('convertToNumber', function() {
 
 stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$timeout', '$location', '$anchorScroll', function ($scope, $http, Upload, $timeout, $location, $anchorScroll) {
     $scope.sanctions = false;
+    $scope.ver = null; //JGT: Variable con la cual se puede ver los botones de finalizar licencia en caso de que la acta sea desfavorable.
     $scope.alert = {};
     $scope.typeAlert = {};
     $scope.alertTable = {};
+    $scope.visitObject = {};
+    $scope.visit = {};
+    $scope.stepFianl = {};
     $scope.denuncia = {};
     $scope.denuncias = {};
 
@@ -35,6 +39,7 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
         .success(function (response){
             $scope.typeAlert = response;
         });
+        $http.get('../getvisit/' + $scope.license.id).then(readVisitLicense);
         $('.date').datetimepicker({
             locale: 'es',
             format: 'YYYY-MM-DD HH:mm:ss'
@@ -322,20 +327,36 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
         }
         hideSaveStageButton();
         if ($scope.stageFromList.license_stage_id == 17) {
-            if ($scope.stageData.proceeds_visit == '') {
-                //$scope.stageNext = !$scope.stageNext;
-                //JGT: SE DEJA EL 16 HARDCODE POR QUE ES EL ID DE FINALIZAR LICENCIA
-                $scope.goToStage(16);
-            };
+            var objetosBuscados = $('#stage-form').find('button');
+            if ($scope.stageData.proceeds_visit == 'false') {
+                
+                angular.forEach(objetosBuscados, function(value, key){
+                    if (value.innerText != $scope.stepFianl.license_stage.name && key != 0) {
+                        $('#'+value.id).css('display', 'none');
+                    };
+                    if (key == 0 ) {
+                        $('#'+value.id).addClass('btn-success');
+                    };
+                });
+                $scope.goToStage($scope.stepFianl.license_stage.id);
+            }else {
+                angular.forEach(objetosBuscados, function(value, key){
+                    if (value.innerText != $scope.stepFianl.license_stage.name && key != 0) {
+                        $('#'+value.id).css('display', 'block');
+                    };
+                    if (key == 0 ) {
+                        $('#'+value.id).addClass('btn-success');
+                    };
+                });
+            }
             
         };
-        if ($scope.stageFromList.license_stage_id == 20) {
-            if ($scope.stageData.act == 1) {
-                $scope.goToStage(16);
-            } else if ($scope.stageData.act == 0)  {
-                $scope.goToStage(19);
-            }
-        };
+        
+    }
+
+    $scope.initArry = function (object) {
+        var json = JSON.parse(object);
+        $scope.stepFianl = json.pop();
     }
 
     function hideSaveStageButton(response) {
@@ -496,6 +517,11 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
                 }
             });
         }
+        if (typeof($scope.visit) != 'undefined') {
+            if ($scope.visit.act == 0) {
+                $scope.ver = true;
+            };
+        };
     }
 
     function initializeStageFields(response) {
@@ -802,4 +828,26 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
         }
         return new Date(initial_date);
     };
+
+    $scope.saveVisit = function() {
+        $scope.visit.license_id = $scope.license.id;
+        $http.post('../createvisit', $scope.visit)
+        .success(function (data){
+            $http.get('../getvisit/' + $scope.license.id).then(readVisitLicense);
+            if ($scope.visit.act == 1) {
+                $('#20').addClass('btn-success');
+                $scope.ver = null;  
+            };
+            $scope.sanctions = true;
+        })
+        .error(function (error){
+            console.log(error);
+            swal("Error", "Ha ocurrido un error!!!", "error");
+            $scope.visit = {};
+        });
+    }
+
+    function readVisitLicense (response) {
+        $scope.visitObject = response.data;
+    }
 }]);

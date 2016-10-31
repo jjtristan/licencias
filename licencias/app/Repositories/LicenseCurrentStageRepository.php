@@ -325,44 +325,9 @@ class LicenseCurrentStageRepository implements RepositoryInterface
 
         #JGT: SE INSERTAN NUEVOS campos
         if (isset($requestJson['proceeds_visit']) && ! empty($requestJson['proceeds_visit'])) {
-            $licenseCurrentStage->proceeds_visit = $this->processingCheckbox($requestJson['proceeds_visit']);
+            $licenseCurrentStage->proceeds_visit = $requestJson['proceeds_visit'] === 'true'? true: false;
         } else {
             $licenseCurrentStage->proceeds_visit = NULL;
-        }
-
-        #JGT: Se inserta las sanciones en caso de que existan
-        if (isset($requestJson['sanctions']) && ! empty($requestJson['sanctions'])) {
-            $licenseCurrentStage->sanctions = $requestJson['sanctions'];
-        } else {
-            $licenseCurrentStage->sanctions = NULL;
-        }
-
-        #JGT: Se inserta la fecha de encargo
-        if (isset($requestJson['date_commition']) && ! empty($requestJson['date_commition'])) {
-            $licenseCurrentStage->date_commition = $requestJson['date_commition'];
-        } else {
-            $licenseCurrentStage->date_commition = NULL;
-        }
-
-        #JGT: Se inserta la fecha de reporte
-        if (isset($requestJson['date_report']) && ! empty($requestJson['date_report'])) {
-            $licenseCurrentStage->date_report = $requestJson['date_report'];
-        } else {
-            $licenseCurrentStage->date_report = NULL;
-        }
-
-        #JGT: Se Inserta la fecha de primera visita
-        if (isset($requestJson['date_firsh_visit']) && ! empty($requestJson['date_firsh_visit'])) {
-            $licenseCurrentStage->date_firsh_visit = $requestJson['date_firsh_visit'];
-        } else {
-            $licenseCurrentStage->date_firsh_visit = NULL;
-        }
-
-        #JGT: Se inserta el campo de acta
-        if (isset($requestJson['act']) && ! empty($requestJson['act'])) {
-            $licenseCurrentStage->act = $this->processingCheckbox($requestJson['act']);
-        } else {
-            $licenseCurrentStage->act = NULL;
         } 
 
         if (isset($requestJson['previous'])) {
@@ -596,36 +561,7 @@ class LicenseCurrentStageRepository implements RepositoryInterface
                         ];
                     }
                 }
-                #JGT: Configuración de campos requeridos
-                if($licenseStage->date_commition_required) {
-                    if(empty($currentStage->date_commition)) {
-                        $requiredFailFields[] = [
-                          'id' => $licenseStage->id,
-                          'field' => "Fecha de encargo",
-                          'stage' =>$licenseStage->name,
-                        ];
-                    }
-                }
-
-                if($licenseStage->date_report_required) {
-                    if(empty($currentStage->date_report)) {
-                        $requiredFailFields[] = [
-                          'id' => $licenseStage->id,
-                          'field' => "Fecha de reporte",
-                          'stage' =>$licenseStage->name,
-                        ];
-                    }
-                }
-
-                if($licenseStage->date_firsh_visit_required) {
-                    if(empty($currentStage->date_firsh_visit)) {
-                        $requiredFailFields[] = [
-                          'id' => $licenseStage->id,
-                          'field' => "Fecha de primera visita",
-                          'stage' =>$licenseStage->name,
-                        ];
-                    }
-                }
+                
             }
         }
 
@@ -680,19 +616,8 @@ class LicenseCurrentStageRepository implements RepositoryInterface
             }
 
             #JGT: Se indican los campos requeridos
-            if($licenseStage->date_commition_required) {
-                if(empty($currentStage->date_commition)) {
-                    $requiredStages[$licenseStage->id] = true;
-                }
-            }
 
-            if($licenseStage->date_report_required) {
-                if(empty($currentStage->date_report)) {
-                    $requiredStages[$licenseStage->id] = true;
-                }
-            }
-
-            if($licenseStage->date_firsh_visit_required) {
+            if($licenseStage->date_firsh_visit) {
                 if(empty($currentStage->date_firsh_visit)) {
                     $requiredStages[$licenseStage->id] = true;
                 }
@@ -703,12 +628,7 @@ class LicenseCurrentStageRepository implements RepositoryInterface
                     $requiredStages[$licenseStage->id] = true;
                 }
             }
-
-            if($licenseStage->act_required) {
-                if(empty($currentStage->act)) {
-                    $requiredStages[$licenseStage->id] = true;
-                }
-            }                
+               
         }
 
         return $requiredStages;
