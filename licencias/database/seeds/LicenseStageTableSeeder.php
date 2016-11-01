@@ -230,7 +230,7 @@ class LicenseStageTableSeeder extends Seeder
           'person' => false,
           'number' => false,
           'file' => false,
-          'objection' => true,
+          'objection' => false,#JGT: Se quita el reparo
           'optional' => true,
         ]);
 

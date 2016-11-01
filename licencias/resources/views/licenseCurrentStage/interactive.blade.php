@@ -140,18 +140,20 @@
 
                     <div class="col-md-3" ng-class="stageError.date_firsh_visit ? 'has-error' : ''">
                         {!! Form::label('date_firsh_visit', 'Fecha de visita', ['class' => 'control-label']) !!}
-                        {!! Form::date('date_firsh_visit', null, ['ng-model' => 'visit.date_visit']) !!}
+                        {!! Form::date('date_firsh_visit', null, ['class' => 'form-control', 'ng-model' => 'visit.date_visit']) !!}
+                    </div>
+
+                    <!-- JGT: Campo de acta -->
+                    <div class="col-md-3" ng-class="stageError.act ? 'has-error' : ''" >
+                        {!! Form::label('act', 'Tipo de acta:', ['class' => 'control-label']) !!}
+                        {!! Form::select('act', ['1' => 'Favorable', '0' => 'Desfavorable'], null, ['class' => 'form-control', 'ng-model' => 'visit.act']) !!}
                     </div>
                     
                     <div class="col-md-4" ng-class="stageError.penalties ? 'has-error' : ''" >
                         {!! Form::label('sanctions', 'Indique la sanción', ['class' => 'control-label']) !!}
                         {!! Form::text('sanctions', null, ['class' => 'form-control', 'id' => 'sanctions_input', 'placeholder' => 'Sanción', 'ng-model' => 'visit.sanctions']) !!}
                     </div>
-                    <!-- JGT: Campo de acta -->
-                    <div class="col-md-3" ng-class="stageError.act ? 'has-error' : ''" >
-                        {!! Form::label('act', 'Tipo de acta:', ['class' => 'control-label']) !!}
-                        {!! Form::select('act', ['1' => 'Favorable', '0' => 'Desfavorable'], null, ['class' => 'form-control', 'ng-model' => 'visit.act']) !!}
-                    </div>
+                    
                     <div class="col-md-2">
                         <br>
                         <button type="buton" class="btn btn-primary" ng-click="saveVisit()">Añadir visita</button>
