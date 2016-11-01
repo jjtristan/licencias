@@ -11,7 +11,7 @@
                     </div>
                     <div class="block-content block-content-full block-content-narrow">
                         <!-- Login Title -->
-                        <img src="{{ asset(env('LOGO')) }}" class="responsive-img" style="width: 100%; height: 200px">
+                        <img src="{{ asset(env('LOGO')) }}" class="responsive-img" style="width: 100%; height: 150px">
                         <!-- END Login Title -->
 
                         <!-- Login Form -->

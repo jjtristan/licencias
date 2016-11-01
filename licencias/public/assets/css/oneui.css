@@ -5208,6 +5208,12 @@ a.list-group-item:focus {
   max-width: 100%;
   overflow-x: hidden;
 }
+.side-content2 {
+  margin: 0 auto;
+  padding: 13px 7px 1px;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 .side-content p,
 .side-content .push,
 .side-content .block,
