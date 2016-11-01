@@ -150,43 +150,51 @@
 @endsection
 
 @section('content')
-    <div ng-app="sortableApp" ng-controller="sortableController" class="container" ng-cloak>
-
-        <h2>Creación de rutas</h2>
-
-        <div class="floatleft">
-
-            <div ui-sortable="sortableOptions" class="apps-container screen floatleft" ng-model="allStages">
-                <div class="app" ng-repeat="stage in allStages">@{{$index}} @{{stage.name}}</div>
+    <div ng-app="sortableApp" ng-controller="sortableController" class="" ng-cloak>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Creación de rutas</h3>
+                    </div>
+                </div>
             </div>
+            <div class="panel-body">
+                <div class="col-lg-6">
+                    <div class="col-lg-6">
+                        <div ui-sortable="sortableOptions" class="apps-container screen" ng-model="allStages">
+                            <div class="app" ng-repeat="stage in allStages">@{{$index}} @{{stage.name}}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div ui-sortable="sortableOptions" class="apps-container screen" ng-model="customStages">
+                            <div class="app" ng-repeat="stage in customStages">@{{$index}} @{{stage.name}}</div>
+                        </div>
+                     </div>
+                    <div style="clear: both;"></div>
 
+                </div>
 
-            <div ui-sortable="sortableOptions" class="apps-container screen floatleft" ng-model="customStages">
-                <div class="app" ng-repeat="stage in customStages">@{{$index}} @{{stage.name}}</div>
+                <div class="col-lg-6">
+                    <div class="form-group @if($errors->first('license_type_id')) has-error @endif">
+                        {!! Form::label('license_type_id', 'Tipo de Licencia', ['class' => 'control-label']) !!}
+                        {!! Form::select('license_type_id', $licenseTypes, null, ['class' => 'form-control', 'placeholder' => 'Selecciona un tipo de licencia...', 'ng-change' => 'changeLicenseType()', 'ng-model' => 'licenseType']) !!}
+                        licenseType = @{{ licenseType }}
+                    </div>
+
+                    <button type="button" ng-click="logModels()">Log Models</button>
+
+                    <ul class="list logList">
+                        <li ng-repeat="entry in sortingLog" class="logItem">
+                            @{{entry}}
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="clear"></div>
             </div>
-
-            <div style="clear: both;"></div>
-
         </div>
-
-        <div class="floatright">
-            <div class="form-group @if($errors->first('license_type_id')) has-error @endif">
-                {!! Form::label('license_type_id', 'Tipo de Licencia', ['class' => 'control-label']) !!}
-                {!! Form::select('license_type_id', $licenseTypes, null, ['class' => 'form-control', 'placeholder' => 'Selecciona un tipo de licencia...', 'ng-change' => 'changeLicenseType()', 'ng-model' => 'licenseType']) !!}
-                licenseType = @{{ licenseType }}
-            </div>
-
-            <button type="button" ng-click="logModels()">Log Models</button>
-
-            <ul class="list logList">
-                <li ng-repeat="entry in sortingLog" class="logItem">
-                    @{{entry}}
-                </li>
-            </ul>
-
-        </div>
-
-        <div class="clear"></div>
     </div>
 @endsection
 

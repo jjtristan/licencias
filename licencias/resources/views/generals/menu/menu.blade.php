@@ -78,9 +78,6 @@
                                 <a href="{{ route('licensestage.index') }}">Pasos de Licencia</a>
                             </li>
                             <li>
-                                <a href="{{ route('licensecurrentstage.index') }}">Etapas de licencias</a>
-                            </li>
-                            <li>
                                 <a href="{{ route('licensetypestage.index') }}">Asignacion de pasos</a>
                             </li>
                             <li>
