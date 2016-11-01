@@ -5,15 +5,16 @@
         <!-- Adding .sidebar-mini-hide to an element will hide it when the sidebar is in mini mode -->
         <div class="sidebar-content">
             <!-- Side Header -->
-            <div class="side-header side-content" style="background-color: rgba(255, 255, 255, 0.5);">
+            <div class="side-header side-content2" style="background-color: rgba(255, 255, 255, 0.5);">
                 <!-- Layout API, functionality initialized in App() -> uiLayoutApi() -->
                 <button class="btn btn-link text-gray pull-right hidden-md hidden-lg" type="button" data-toggle="layout" data-action="sidebar_close">
                     <i class="fa fa-times"></i>
                 </button>
                 <!-- Themes functionality initialized in App() -> uiHandleTheme() -->
 
-                <a class="text-white" href="{{ route('home') }}">
-                    <img src="{{ asset(env('LOGO')) }}" class="responsive-img" style="width: 100%; height: 100px">
+                <a class="text-white" href="{{ route('home') }}" style="margin-left: 0px">
+                    <img src="{{ asset(env('FAVICO')) }}" class="responsive-img" style="width: 45px; height: 100%">
+                    <img src="{{ asset(env('LOGOCIEZA')) }}" class="responsive-img sidebar-mini-hide text-center" style="width: 125px; height: 52px">
                 </a>
             </div>
             <!-- END Side Header -->
@@ -28,22 +29,22 @@
                                 <a href="{{ route('license.index') }}"><i class="si si-book-open"></i>Licencias</a>
                             </li>
                             <li>
-                                <a href="{{ route('expire') }}"><i class="fa fa-book"></i>Licencias pendientes a caducar</a>
-                            </li>
-                            <li>
                                 <a href="{{ route('titularitychange.index') }}"><i class="si si-user"></i>Cambios de titularidad</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('mapa') }}"><i class="fa fa-map-marker"></i>Mapa</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('loan.index') }}"><i class="fa fa-exchange"></i><span class="sidebar-mini-hide">Prestamos</span></a>
                             </li>
                             <li>
                                 <a href="{{ route('objection.index') }}"><i class="glyphicon glyphicon-screenshot"></i>Reparos</a>
                             </li>
                             <li>
+                                <a href="{{ route('expire') }}"><i class="fa fa-book"></i>Caducidad</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('denunciation.index') }}"><i class="fa fa-balance-scale"></i><span class="sidebar-mini-hide">Denuncias</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ route('loan.index') }}"><i class="fa fa-exchange"></i><span class="sidebar-mini-hide">Prestamos</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ route('mapa') }}"><i class="fa fa-map-marker"></i>Mapa</a>
                             </li>
                         </ul>
                     </li>
@@ -76,9 +77,6 @@
                             </li>
                             <li>
                                 <a href="{{ route('licensestage.index') }}">Pasos de Licencia</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('licensecurrentstage.index') }}">Etapas de licencias</a>
                             </li>
                             <li>
                                 <a href="{{ route('licensetypestage.index') }}">Asignacion de pasos</a>

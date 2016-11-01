@@ -486,7 +486,7 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
     }
 
     function currentStage(response) {
-        scrollTo('stage-form');
+        //scrollTo('stage-form');
         initializeStageFields(response);
         if (response.data.stageData !== null) {
             $scope.stageData = response.data.stageData;

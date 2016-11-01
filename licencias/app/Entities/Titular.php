@@ -28,8 +28,8 @@ class Titular extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function license()
+    public function licenses()
     {
-        return $this->hasOne('CityBoard\Entities\License');
+        return $this->hasMany('CityBoard\Entities\License');
     }
 }

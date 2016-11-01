@@ -10,7 +10,7 @@
                     </div>
                     <div class="col-md-6 text-right">
                         <a class="btn btn-warning" href="{{ route('titularitychange.index') }}" role="button">Volver al listado</a>
-                        <a class="btn btn-warning" href="{{ route('license.show', ['id' => $titularityChange->license->id]) }}" role="button">Volver a la licencia</a>
+                        <a class="btn btn-info" href="{{ route('license.show', ['id' => $titularityChange->license->id]) }}" role="button">Ir a la licencia</a>
                         <a class="btn btn-warning" href="{{ route('titularitychange.edit', ['id' => $titularityChange->id]) }}" role="button">Editar</a>
                     </div>
                 </div>
