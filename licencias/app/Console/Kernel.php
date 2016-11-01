@@ -66,7 +66,7 @@ class Kernel extends ConsoleKernel
                         $activties = Activity::find($value->activity_id);
 
                         $descripcion .= '<strong>Nombre del negocio:</strong> ' . $value->commerce_name;
-                        $descripcion .= "</br><strong>Dirección:  </strong>". $streets->name . ' <strong>número</strong>: ' . $value->street_number;
+                        $descripcion .= "</br><strong>Dirección:  </strong>". $streets->name . ' <strong>Número</strong>: ' . $value->street_number;
                         $descripcion .= "<br><strong>Ciudad: </strong>". $value->city;
                         $descripcion .= "<br><strong>Actividad:</strong>". $activties->name;
                             

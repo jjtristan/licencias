@@ -53,6 +53,7 @@ class AlertController extends Controller
                     'title' => $value->title,
                     'description' => $value->description,
                     'type' => $type,
+                    'type_id' => $value->type_alert_id,#JGT: Se agrega el tipo de alerta para mostrar o no, en la interfaz el boton de eliminar
                     'expedient_number' => $expedient_number,
                     'date' => $value->date
                 );
@@ -62,6 +63,7 @@ class AlertController extends Controller
                     'title' => $value->title,
                     'description' => $value->description,
                     'type' => $type,
+                    'type_id' => $value->type_alert_id,#JGT: Se agrega el tipo de alerta para mostrar o no, en la interfaz el boton de eliminar
                     'expedient_number' => $expedient_number,
                     'date' => $value->date
                 );
@@ -72,6 +74,7 @@ class AlertController extends Controller
                     'title' => $value->title,
                     'description' => $value->description,
                     'type' => $type,
+                    'type_id' => $value->type_alert_id,#JGT: Se agrega el tipo de alerta para mostrar o no, en la interfaz el boton de eliminar
                     'expedient_number' => $expedient_number,
                     'date' => $value->date
                 );

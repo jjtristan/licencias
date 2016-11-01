@@ -10,7 +10,7 @@
             <i class="fa fa-bell"></i> Alertas
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right">
-            <a class="btn btn-success" href="{{ route('alert.create') }}" role="button"><i class="fa fa-plus"></i> Alta de alertas</a>
+            <!--<a class="btn btn-success" href="{{ route('alert.create') }}" role="button"><i class="fa fa-plus"></i> Alta de alertas</a> -->
         </div>
     </div>
 @endsection
@@ -28,7 +28,7 @@
                             <th>Fecha de publicación</th>
                             <th>Tipo de alerta</th>
                             <th>No. de expediente de licencia</th>
-                            <th></th>
+                            <!--<th></th>-->
                             <th></th>
                         </tr>
                     </thead>
@@ -41,8 +41,13 @@
                                 <td>{{ $alert['date'] }}</td>
                                 <td>{{ $alert['type'] }}</td>
                                 <td>{{ $alert['expedient_number']}}</td>
-                                <td><a class="btn btn-warning" href="{{ route('alert.edit', ['id' => $alert['id']]) }}" role="button">Editar</a></td>
-                                <td><a class="btn btn-danger" href="#" role="button" ng-click="deleteAlert({{$alert['id']}})">Eliminar</a></td>
+                                <!--<td><a class="btn btn-warning" href="{{ route('alert.edit', ['id' => $alert['id']]) }}" role="button">Editar</a></td>-->
+                                <td>
+                                    <!-- JGT: Se valida el tipo de alerta para mostrar el botón de eliminar -->
+                                    @if($alert['type_id'] == 4)
+                                        <a class="btn btn-danger" href="#" role="button" ng-click="deleteAlert({{$alert['id']}})">Eliminar</a>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

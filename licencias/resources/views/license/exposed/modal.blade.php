@@ -12,11 +12,10 @@
                 </div>
                 <div class="block-content">
                     <form class="form-horizontal push-10-t" >
-                        
                             <div class="form-group">
                                 <div class="col-sm-9">
-                                    <div class="form-material floating">
-                                        <input class="form-control" type="text" id="title" name="title" ng-model="alert.title">
+                                    <div class="form-material">
+                                        <input class="form-control" type="text" id="title" name="title" ng-model="alert.title" readOnly>
                                         <label for="title">Titulo</label>
                                     </div>
                                 </div>

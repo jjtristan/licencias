@@ -437,7 +437,7 @@ class LicenseCurrentStageController extends Controller
             $alertPrue->title = $licenseAlert->expedient_number . ' - Información pública';
 
             $descripcion .= '<strong>Nombre del negocio:</strong> ' . $licenseAlert->commerce_name;
-            $descripcion .= "</br><strong>Dirección:  </strong>". $streets->name . ' <strong>número</strong>: ' . $licenseAlert->street_number;
+            $descripcion .= "</br><strong>Dirección:  </strong>". $streets->name . ' <strong>Número</strong>: ' . $licenseAlert->street_number;
             $descripcion .= "<br><strong>Ciudad: </strong>". $licenseAlert->city;
             $descripcion .= "<br><strong>Actividad:</strong>". $activties->name;
                 

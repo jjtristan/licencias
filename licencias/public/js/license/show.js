@@ -30,6 +30,7 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
     $scope.stepFianl = {};
     $scope.denuncia = {};
     $scope.denuncias = {};
+    $scope.expedient_number;//JGT: Se guardara el valor del número de expediente de la licencia
 
     angular.element(document).ready(function () {
         $http.get('../currentstage/' + $scope.license.id).then(currentStage);
@@ -91,6 +92,13 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
                 jQuery('#modal-alert').modal('hide');
             }
         });
+    }
+
+    /*
+    * JGT: Función para inicar el titulo de la alerta
+    */
+    $scope.initTitleAlert = function () {
+        $scope.alert.title = $scope.expedient_number; 
     }
 
     $scope.updateStatus = function(Object) {
@@ -429,6 +437,8 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
 
     function readObjectLicense(response){
         $scope.licenseObject = response.data.object.license_current_stages;
+        $scope.expedient_number = response.data.object.expedient_number;// JGT: Se obtiene el número de expediente de la licencia
+        $scope.initTitleAlert();
     }
 
     function retrievePreviousStageForLicenseId() {
@@ -541,17 +551,6 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
             $scope.stageData.date = new Date();
         }
 
-        if ($scope.stageFields.date_commition === true) {
-            $scope.stageData.date_commition = new Date();
-        }
-
-        if ($scope.stageFields.date_firsh_visit === true) {
-            $scope.stageData.date_firsh_visit = new Date();
-        }
-
-        if ($scope.stageFields.date_report === true) {
-            $scope.stageData.date_report = new Date();
-        }
 
         if ($scope.stageFields.objection === true) {
             $scope.stageObjections = {};
@@ -579,6 +578,7 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
     }
 
     function initializeObjection(response) {
+        $scope.visit.date_visit = new Date();// JGT: Se inicializa la fecha de visita con la fecha actual
         if ($scope.stageObjection === undefined) {
             $scope.stageObjection = {};
             $scope.stageObjection.first_person_position_id = null;
@@ -598,11 +598,10 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
     }
 
     function sanitizeStageData() {
+        $scope.visit.date_visit = new Date();// JGT: Se inicializa la fecha de visita con la fecha actual
         if (! $scope.stageFields.date) {
             $scope.stageData.date = undefined;
-            $scope.stageData.date_commition = undefined;
-            $scope.stageData.date_firsh_visit = undefined;
-            $scope.stageData.date_report = undefined;
+            
         } else {
             if ($scope.stageData.date === null) {
                 $scope.stageData.date = new Date();
@@ -611,30 +610,7 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
             else {
                 $scope.stageData.date = new Date($scope.stageData.date);
             }
-            //JGT: sE AGREGAN LOS NUEVOS CAMPOS
-            if ($scope.stageData.date_commition === null) {
-                $scope.stageData.date_commition = new Date();
-                $scope.stageSave = true;
-            }
-            else {
-                $scope.stageData.date_commition = new Date($scope.stageData.date_commition);
-            }
-
-            if ($scope.stageData.date_report === null) {
-                $scope.stageData.date_report = new Date();
-                $scope.stageSave = true;
-            }
-            else {
-                $scope.stageData.date_report = new Date($scope.stageData.date_report);
-            }
-
-            if ($scope.stageData.date_firsh_visit === null) {
-                $scope.stageData.date_firsh_visit = new Date();
-                $scope.stageSave = true;
-            }
-            else {
-                $scope.stageData.date_firsh_visit = new Date($scope.stageData.date_firsh_visit);
-            }
+            
         }
 
         if ((! $scope.stageFields.person) && ($scope.stageData.person_id === null)) {

@@ -273,7 +273,7 @@
                                 </div>
                                 <!-- JGT: Se agregan los nuevos campos-->
                                 <div ng-if="value.proceeds_visit">
-                                    <p><strong>Pocede visita?:</strong>
+                                    <p>
                                         <div ng-switch="value.proceeds_visit">
                                             <div ng-switch-when="1">
                                                 Si
@@ -285,7 +285,6 @@
                                         </div></p>
                                     </div>
                                     <div ng-if="value.license_stage.date_firsh_visit">
-                                        <p><strong>Visita:</strong></p>
                                         <br>
                                         <div ng-if="visitObject.length">
                                             <table class="table table-condensed">
