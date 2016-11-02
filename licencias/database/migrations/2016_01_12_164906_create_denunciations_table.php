@@ -25,9 +25,9 @@ class CreateDenunciationsTable extends Migration
             $table->integer('file_id')->unsigned()->nullable();
             $table->foreign('file_id')->references('id')->on('files');
 
+            $table->string('status')->default('Abierta');#JGT: Se le da un default al campo de status. 
 
             $table->timestamps();
-            $table->string('status');
         });
     }
 

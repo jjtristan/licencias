@@ -113,6 +113,7 @@ class DenunciationRepository implements RepositoryInterface
         $denunciation->license_id = $request->input('license_id');
         $denunciation->register_date = $request->input('register_date');
         $denunciation->expedient_number = $request->input('expedient_number');
+        $denunciation->status = $request->input('status'); #JGT: Se agrega la actualización del estatus de denuncia
 
         $reason = $request->input('reason');
         if(! is_null($reason)) {
