@@ -376,8 +376,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    @if(isset($titularChange->lastTitular))
-                                                    <p><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <strong>Anterior titular:</strong> {{ $titularChange->lastTitular->first_name}} {{ $titularChange->lastTitular->last_name }}</p>
+                                                    @if($titularChange->titularBefore)
+                                                    <p><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <strong>Anterior titular:</strong> {{ $titularChange->titularBefore->first_name}} {{ $titularChange->titularBefore->last_name }}</p>
                                                     @endif
                                                 </div>
                                                 <div class="col-md-6">

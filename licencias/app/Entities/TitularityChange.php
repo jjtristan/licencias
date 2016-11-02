@@ -31,6 +31,7 @@ class TitularityChange extends Model
         'finished_date',
         'status',
         'file_id',
+        'before_titular_id',
     ];
 
     /**
@@ -51,6 +52,11 @@ class TitularityChange extends Model
     public function titular()
     {
         return $this->belongsTo('CityBoard\Entities\Titular');
+    }
+
+    public function titularBefore()
+    {
+        return $this->belongsTo('CityBoard\Entities\Titular', 'before_titular_id');
     }
 
     /**
@@ -164,5 +170,10 @@ class TitularityChange extends Model
     {
         $titularityChangeRepository = new TitularityChangeRepository();
        return $titularityChangeRepository->lastTitular($this);
+    }
+
+    public function setBeforeTitularIdAttribute($value) {
+        $license = License::findOrFail($value);
+        $this->attributes['before_titular_id'] = $license->titular_id;
     }
 }
