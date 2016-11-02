@@ -65,8 +65,8 @@ class HomeController extends Controller
         $licenseStatusId = null;
         $registerInitialDate = Carbon::now();
         $registerFinalDate = Carbon::now();
-        $titularityChanges = TitularityChange::where('finished', false)->paginate(10, ['*'],'titularityChanges');
-        $titularityChangesAmount = TitularityChange::where('finished', false)->count();
+        $titularityChanges = TitularityChange::whereNull('finished')->orWhere('finished', false)->paginate(20);
+        $titularityChangesAmount = TitularityChange::whereNull('finished')->orWhere('finished', false)->count();
 
         $expedientNumber = $request->input('expedient_number');
         $registerNumber = $request->input('register_number');
