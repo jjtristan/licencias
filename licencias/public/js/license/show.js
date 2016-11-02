@@ -100,10 +100,39 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
     $scope.initTitleAlert = function () {
         $scope.alert.title = $scope.expedient_number; 
     }
-
+    /*
+    * Modificación: Se pone una confirmación antes de cerrar la denuncia.
+    * Autor modificación: JGT.
+    */
     $scope.updateStatus = function(Object) {
-        $http.post('../postUpdateDenuncia', Object)
-            .success(function(data){}).error(function(error){});
+        swal(
+            {
+                title: "Cerrado de denuncia",
+                text: "Desea cerrar la denuncia?",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },function(isConfirm){
+                if(isConfirm){
+                    $http.post('../postUpdateDenuncia', Object)
+                    .success(function(data){
+                        swal("Exito", "La denuncia se ha cerrado correctamente.", "success");
+                    }).error(function(error){
+                        swal("Error", "Ha ocurrido un error!!!", "error");
+                    });
+                }else{
+                    $scope.denuncias = {};
+                    $http.get('../getdenuncia/' + $scope.license.id).then(readObjectDenuncia);
+                    
+                }
+
+            }
+        );
+        
     }
 
     // guardar las denuncias por modal

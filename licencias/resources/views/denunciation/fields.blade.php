@@ -28,4 +28,11 @@
     {!! Form::text('reason', null, ['class' => 'form-control', 'id' => 'reason_input', 'placeholder' => 'Razón']) !!}
 </div>
 
+@if(isset($denunciation))
+    <div class="form-group @if($errors->first('status')) has-error @endif">
+        {!! Form::label('status', 'Estatus', ['class' => 'control-label']) !!}
+        {!! Form::select('status', ['Abierta' => 'Abierta', 'Cerrada' => 'Cerrada'], $denunciation->status, ['class' => 'form-control', 'placeholder' => 'Selecciona un estatus...']) !!}
+    </div>
+@endif
+
 @include('file.exposed.fields')

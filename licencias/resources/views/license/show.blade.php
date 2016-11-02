@@ -442,7 +442,7 @@
                                                 <td>
                                                     <div ng-switch on="d.status">
                                                         <div ng-switch-when="Abierta">
-                                                            <select ng-model="d.status" name="d.id" ng-change="updateStatus(d)">
+                                                            <select ng-model="d.status" name="d.id" class="form-control" ng-change="updateStatus(d)">
                                                                 <option data-ng-repeat="record in estatus" value="@{{ record.valor }}"> @{{record.label}}  </option>
                                                             </select>
                                                         </div>
