@@ -155,7 +155,7 @@
                     <h3 class="page-heading">Cambios de titularidad</h3>
                 </div>
                 <div class="block-content">
-                    <table class="table table-striped table-hover table-header-bg">
+                    <table class="table table-header-bg table-striped js-dataTable-full-pagination">
                         <thead>
                             <tr>
                                 <th>Licencia</th>
@@ -269,6 +269,7 @@
                     angular.forEach($scope.allTypes, function(value2, key2) {
                         if(value2.id == value.license_type_id){
                             value.type = value2.name;
+                            console.log(value.type);
                         }
                     });
                 });
@@ -278,8 +279,7 @@
             // Fileds for search in user model
             $scope.availableSearchParams = [
                 { key: "status", name: "Estado", placeholder: "Estado..."  ,  restrictToSuggestedValues: true, suggestedValues: $scope.status},
-                { key: "type", name: "Tipos de licencias", placeholder: "Tipos de licencaias..."  ,  restrictToSuggestedValues: true, suggestedValues: $scope.types},
-
+                { key: "type", name: "Tipos de licencias", placeholder: "Tipos de licencias..."  ,  restrictToSuggestedValues: true, suggestedValues: $scope.types},
                 { key: "expedient_number", name: "No expediente", placeholder: "Nº expediente..." },
                 { key: "register_number", name: "No de registro", placeholder: "No de registro..." },
                 { key: "identifier", name: "No de licencia", placeholder: "No de licencia..."},

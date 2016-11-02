@@ -527,4 +527,11 @@ class LicenseController extends Controller
       ];
       return response()->json($response, 200);
     }
+
+    public function getlicensesFiltroMapa(Request $request){
+        $response = [
+            'data' => License::filterMapaLicenses($request)
+        ];
+        return response()->json($response, 200);
+    }
 }

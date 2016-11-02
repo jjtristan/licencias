@@ -19,6 +19,42 @@
     <span ng-app="licenseApp" ng-controller="licenseController" ng-cloak>
     <div class="row">
         <div class="block">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="form-group" ng-class="stageError.status ? 'has-error' : ''">
+                            {!! Form::label('status', 'Licencia estatus', ['class' => 'control-label']) !!}
+                            <select class="form-control" id="status" name="status"
+                                    ng-model="mapaData.status">
+                                <option value="">Selecciona una estatus...</option>
+                                <option ng-repeat="statusObj in status" value="@{{ statusObj.id }}">
+                                    @{{ statusObj.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="form-group" ng-class="stageError.status ? 'has-error' : ''">
+                            {!! Form::label('actividad_id', 'Actividad', ['class' => 'control-label']) !!}
+                            <select class="form-control" id="actividad_id" name="actividad_id"
+                                    ng-model="mapaData.actividad_id">
+                                <option value="">Selecciona una actividad...</option>
+                                <option ng-repeat="actividad in getAllActivities" value="@{{ actividad.id }}">
+                                    @{{ actividad.name }}</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <br>
+                            <button id="obtenerInformacion" name="obtenerInformacion" class="btn btn-info" ng-click="obtenerInformacion()"><i class="fa fa-search"></i> Filtar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Markers Map Container -->
             <div id="js-map-markers" style="height: 600px;"></div>
         </div>
@@ -43,6 +79,7 @@
             $scope.types = [];
             $scope.allTypes = [];
             $scope.markers = [];
+            $scope.mapaData = {};
 
             $http.get('../api/v1/getAllLicenseType')
                     .success(function (response){
@@ -55,7 +92,7 @@
             $http.get('../api/v1/getAllLicenseStatus')
                     .success(function (response){
                         angular.forEach(response.data, function(value, key) {
-                            $scope.status.push(value.name);
+                            $scope.status.push(value);
                         });
                     });
 
@@ -69,7 +106,7 @@
             $http.get('../api/v1/getAllActivities')
                     .success(function (response){
                         angular.forEach(response.data, function(value, key) {
-                            $scope.getAllActivities.push(value.name);
+                            $scope.getAllActivities.push(value);
                         });
                     });
 
@@ -118,22 +155,43 @@
                 }).addMarkers($scope.markers);
             });
 
+            $scope.obtenerInformacion = function(){
+                $scope.markers = [];
+                $http.post('../api/v1/getlicensesFiltroMapa', $scope.mapaData)
+                .success(function (response){
+                    $scope.licenses = response.data;
+                    angular.forEach($scope.licenses, function(value, key) {
 
-            // Fileds for search in user model
-            $scope.availableSearchParams = [
-                { key: "status", name: "Estado", placeholder: "Estado..."  ,  restrictToSuggestedValues: true, suggestedValues: $scope.status},
-                { key: "type", name: "Tipos de licencias", placeholder: "Tipos de licencaias..."  ,  restrictToSuggestedValues: true, suggestedValues: $scope.types},
+                        var icono = '';
 
-                { key: "expedient_number", name: "No expediente", placeholder: "Nº expediente..." },
-                { key: "register_number", name: "No de registro", placeholder: "No de registro..." },
-                { key: "identifier", name: "No de licencia", placeholder: "No de licencia..."},
-                { key: "nif", name: "NIF", placeholder: "NIF...", restrictToSuggestedValues: true, suggestedValues: $scope.nifs },
-                { key: "activity_name", name: "Actividad", placeholder: "Actividad...", restrictToSuggestedValues: true, suggestedValues: $scope.getAllActivities },
-                { key: "street_name", name: "Dirección", placeholder: "Dirección..." , restrictToSuggestedValues: true, suggestedValues: $scope.getAllStreets  },
-                { key: "commerce_name", name: "Nombre Comercial" , placeholder: "Nombre Comercial..." },
-                { key: "volumeyear", name: "Archivo" , placeholder: "Archivo..." },
-                { key: "closet", name: "Armario" , placeholder: "Armario..." },
-            ];
+                        if(value.license_type_id ==1){
+                            icono = '../img/markers/rojo.svg';
+                        }
+                        if(value.license_type_id ==2){
+                            icono = '../img/markers/azul.svg';
+                        }
+                        if(value.license_type_id ==3){
+                            icono = '../img/markers/verde.svg';
+                        }
+
+                        $scope.markers.push( {
+                            lat: value.lat ,
+                            lng: value.lng,
+                            title: value.expedient_number,
+                            animation: google.maps.Animation.DROP,
+                            icon  : icono,
+                            infoWindow: {content: '<strong>'+value.expedient_number+'</strong>'}});
+                    });
+                    new GMaps({
+                        div: '#js-map-markers',
+                        lat: 38.2413027,
+                        lng: -1.42233,
+                        zoom: 15,
+                        scrollwheel: false
+                    }).addMarkers($scope.markers);
+                });
+            }
+
 
             $scope.activitySearch = function () {
                 $scope.activity_id = null;

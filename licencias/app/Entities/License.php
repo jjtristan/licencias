@@ -374,4 +374,24 @@ class License extends Model
             $this->attributes['lng'] = $output->results[0]->geometry->location->lng;
         }
     }
+
+    public static function filterMapaLicenses($requets)
+    {
+        return License::statuslicence($requets->input('status'))
+            ->actividadlicense($requets->input('actividad_id'))->get();
+    }
+
+    public function scopeStatuslicence($query, $status)
+    {
+        if (trim($status) != "") {
+            $query->where('license_status_id', $status);
+        }
+    }
+
+    public function scopeActividadlicense($query, $actividad_id)
+    {
+        if (trim($actividad_id) != "") {
+            $query->where('activity_id', $actividad_id);
+        }
+    }
 }

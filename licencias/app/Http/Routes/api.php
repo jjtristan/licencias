@@ -13,6 +13,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'api/v1'], function () {
     //Obtener licencias
     Route::get('getlicenses', 'LicenseController@getAllLicense');
 
+    //Obtener licencias
+    Route::post('getlicensesFiltroMapa', 'LicenseController@getlicensesFiltroMapa');
+
+
     //Obtener tipos de Actividades
     Route::get('getAllActivities', 'ActivityController@getAllActivities');
 
