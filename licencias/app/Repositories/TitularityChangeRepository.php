@@ -75,6 +75,7 @@ class TitularityChangeRepository implements RepositoryInterface
     private function assignValues(Request $request, TitularityChange $titularityChange)
     {
         $titularityChange->license_id = $request->input('license_id');
+        $titularityChange->before_titular_id = $request->input('license_id');
         $titularityChange->expedient_number = $request->input('expedient_number');
         $titularityChange->register_number = $request->input('register_number');
         $titularityChange->register_date = $request->input('register_date');
@@ -120,6 +121,7 @@ class TitularityChangeRepository implements RepositoryInterface
     private function updateValues(Request $request, TitularityChange $titularityChange)
     {
         $titularityChange->license_id = $request->input('license_id');
+        $titularityChange->before_titular_id = $request->input('license_id');
         $titularityChange->expedient_number = $request->input('expedient_number');
         $titularityChange->register_number = $request->input('register_number');
         $titularityChange->register_date = $request->input('register_date');

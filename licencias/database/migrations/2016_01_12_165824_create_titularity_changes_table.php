@@ -31,6 +31,9 @@ class CreateTitularityChangesTable extends Migration
             $table->integer('file_id')->unsigned()->nullable()->default(null);
             $table->foreign('file_id')->references('id')->on('files');
 
+            $table->integer('before_titular_id')->unsigned();
+            $table->foreign('before_titular_id')->references('id')->on('titulars');
+
             $table->timestamps();
         });
     }

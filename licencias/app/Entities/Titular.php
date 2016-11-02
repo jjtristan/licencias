@@ -23,6 +23,11 @@ class Titular extends Model
         return $this->nif . " " . $this->full_name;
     }
 
+    
+    public function ChangeTitular(){
+        return $this->hasOne('CityBoard\Entities\TitularityChange', 'before_titular_id');
+    }
+
     /**
      * A License belongs to Titular.
      *

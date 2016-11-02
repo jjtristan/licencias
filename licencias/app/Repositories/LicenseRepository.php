@@ -264,9 +264,9 @@ class LicenseRepository implements RepositoryInterface
 
     public function finish($license_id) {
         $license = $this->findOrFailById($license_id);
-        if (is_null($license->identifier)) {
+        /*if (is_null($license->identifier)) {
             $this->createTitularChange($license);
-        }
+        }*/
         $this->setIdentifier($license);
         $this->changeStatusToIdentifier($license);
         $this->changeFinished($license, true);
