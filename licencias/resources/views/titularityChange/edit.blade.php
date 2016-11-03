@@ -21,14 +21,11 @@
             <div class="panel-body">
                 @if(isset($titularityChange) && ! $titularityChange->finished)
                     {!! Form::model($titularityChange, array('route' => array('titularitychange.change', $titularityChange->id), 'method' => 'put', 'files' => true, 'autocomplete' => 'off')) !!}
-                    <div class="col-md-2 text-right">
-
-                    </div>
-                    <div class="col-md-4 text-right">
+                    <div class="col-md-4">
                         {!! Form::label('titular_change_date', 'Fecha del cambio de estado', ['class' => 'control-label']) !!}
-                        {!! Form::date('titular_change_date', new \DateTime()) !!}
+                        {!! Form::date('titular_change_date', new \DateTime(), ['class' => 'form-control']) !!}
                     </div>
-                    <div class="col-md-6 text-right">
+                    <div class="col-md-6">
                         {!! Form::label('titularChange_status', 'Selecciona una estado', ['class' => 'control-label']) !!}
                         {!! Form::select('titularChange_status', $titularityChangeStatuses, $titularityChange->status, ['class' => 'form-control', 'placeholder' => 'Selecciona un estado...', 'ng-change' => 'showChangeButton[' . $titularityChange->id .'] = true', 'ng-model' => 'titular_change_date[' . $titularityChange->id . ']', 'ng-init' => 'titular_change_date[' . $titularityChange->id . '] = "' . $titularityChange->status . '"']) !!}
 
