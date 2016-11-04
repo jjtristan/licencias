@@ -1,3 +1,4 @@
+
 <div class="panel panel-default" ng-show="license.identifier === null && (license.license_status_id == {!! $reopenStatus->id !!} || license.license_status_id == {!! $initialStatus->id !!})" style="background-color:aliceblue">
         <div class="row" style="margin:10px">
             <div class="col-md-2 text-right" style="padding-top:8px">
@@ -15,6 +16,7 @@
         </div>
 </div>
 
+@if($license->license_status_id === 1 || $license->license_status_id === 2)
 <div class="panel panel-default" ng-show="license.identifier !== null && (license.license_status_id != {!! $reopenStatus->id !!} && license.license_status_id != {!! $initialStatus->id !!})" style="background-color:aliceblue">
     <div class="row" style="margin:10px">
         <div class="col-md-2 text-right" style="padding-top:8px">
@@ -31,7 +33,7 @@
         </div>
     </div>
 </div>
-
+@endif
 
 <div class="panel panel-default" ng-show="license.finished" style="background-color:wheat">
     <div class="row" style="margin:10px">
@@ -102,10 +104,6 @@
         <div class="row">
             <div class="col-md-12">
                 <h3 ng-show="stageFields.id">@{{ stageFields.name }}</h3>
-
-                {!! Form::hidden('license_id', null, ['ng-model' => 'license.id', 'ng-init' => 'license.id=' . $license->id]) !!}
-
-                {!! Form::hidden('license_stage_id', null, ['ng-model' => 'stageFields.id']) !!}
 
                 <div class="form-group" ng-class="stageError.date ? 'has-error' : ''" ng-show="stageFields.date">
                     {!! Form::label('date', 'Fecha', ['class' => 'control-label']) !!}

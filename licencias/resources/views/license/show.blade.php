@@ -3,6 +3,10 @@
 <div class="block">
     <div class="block-content">
         <div ng-app="currentStageApp" ng-controller="currentStageController" ng-cloak>
+
+            {!! Form::hidden('license_id', null, ['ng-model' => 'license.id', 'ng-init' => 'license.id=' . $license->id]) !!}
+
+            {!! Form::hidden('license_stage_id', null, ['ng-model' => 'stageFields.id']) !!}
             
             @if($license->license_status_id != 4)
                 @include('licenseCurrentStage.interactive')
@@ -159,6 +163,9 @@
                         <li role="presentation"><a href="#license-titulars" aria-controls="license-titulars" role="tab" data-toggle="tab">Cambios de titularidad</a></li>
                         <li role="presentation"><a href="#license-denunciations" aria-controls="license-denunciations" role="tab" data-toggle="tab">Denuncias</a></li>
                         <li role="presentation"><a href="#license-avisos" aria-controls="license-avisos" role="tab" data-toggle="tab">Avisos/Alertas</a></li>
+                        @if($license->license_status_id != 4)
+                        <li role="presentation"><a href="#license-caducidad" aria-controls="license-caducidad" role="tab" data-toggle="tab">Caducidad</a></li>
+                        @endif
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active panel panel-body" id="license-data">
@@ -492,6 +499,42 @@
                             </table>
                             @include('license.exposed.modal')
                         </div>
+                        @if($license->license_status_id != 4)
+                        <div role="tabpanel" class="tab-pane panel panel-body" id="license-caducidad">
+                            <!-- Caducidad-->
+                            <div class="col-md-12 text-right">
+                                <button class="btn btn-success" type="button" ng-click="caducarlicenciaShow()">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Iniciar Caducidad
+                                </button>
+                            </div>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Registro interno</th>
+                                        <th>Estado</th>
+                                        <th>Titular</th>
+                                        <th>Actividad</th>
+                                        <th>Emplazamiento</th>
+                                        <th>Estatus de caducidad</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="license in licensesCaducar">
+                                    <tr >
+                                        <td>@{{ license.register_number }}</td>
+                                        <td>@{{ license.license_status.name }}</td>
+                                        <td>@{{ license.titular.first_name }} @{{ license.titular.last_name }}</td>
+                                        <td>@{{ license.activity.name }}</td>
+                                        <td>@{{ license.street.name }}, @{{ license.street_number}} - @{{ license.city}} @{{ license.postcode}} </td>
+                                        <td>@{{ license.expiration }}</td>
+                                        <td>
+                                            <a class="btn btn-warning" ng-click="caducarLicenseShow(license.id)" role="button">Caducar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

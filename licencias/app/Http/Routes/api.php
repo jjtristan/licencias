@@ -33,4 +33,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'api/v1'], function () {
     //Obtener licencias
     Route::get('getlicensespendietes', 'LicenseController@getLicensePendiente');
 
+    //Obtener licencia pendiente a caducar espesifica
+    Route::get('getlicensespendietescadu/{id}', 'LicenseController@getLicensePendienteShow');
+
 });

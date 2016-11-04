@@ -528,6 +528,16 @@ class LicenseController extends Controller
       return response()->json($response, 200);
     }
 
+    public function getLicensePendienteShow($id) {
+      $licenses = License::where('id', $id)->where('expiration', 'Pendiente')->with('activity')->with('street')
+        ->with('titular')->with('licenseStatus')->with('licenseCurrentStages')->get();
+      
+      $response = [
+        'data' => $licenses,
+      ];
+      return response()->json($response, 200);
+    }
+
     public function getlicensesFiltroMapa(Request $request){
         $response = [
             'data' => License::filterMapaLicenses($request)
