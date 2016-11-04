@@ -3,7 +3,10 @@
 <div class="block">
     <div class="block-content">
         <div ng-app="currentStageApp" ng-controller="currentStageController" ng-cloak>
-            @include('licenseCurrentStage.interactive')
+            
+            @if($license->license_status_id != 4)
+                @include('licenseCurrentStage.interactive')
+            @endif
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
@@ -74,9 +77,11 @@
                                 </p>
                             </div>
                             <div>
+                                @if($license->license_status_id != 4)
                                 <button class="btn btn-success" ng-click="licenseLoanEdit=true" ng-hide="licenseLoanEdit || license.on_loan">
                                 Prestar
                                 </button>
+                                @endif
                                 <span ng-show="licenseLoanEdit || license.on_loan">
                                     <label for="loan_person" ng-hide="license.on_loan">
                                         Prestar a
@@ -141,7 +146,9 @@
                         </div>
                         <div class="col-md-4 text-right">
                             <a class="btn btn-warning" href="{{ route('license.index') }}" role="button">Volver al listado</a>
+                            @if($license->license_status_id != 4)
                             <a class="btn btn-warning" href="{{ route('license.edit', ['id' => $license->id]) }}" role="button">Editar</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -282,215 +289,216 @@
                                                 No
                                             </div>
                                             <div ng-switch-default></div>
-                                        </div></p>
-                                    </div>
-                                    <div ng-if="value.license_stage.date_firsh_visit">
-                                        <br>
-                                        <div ng-if="visitObject.length">
-                                            <table class="table table-condensed">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Fecha</th>
-                                                        <th>Sanción</th>
-                                                        <th>Acta</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody ng-repeat="visits in visitObject">
-                                                    <tr>
-                                                        <td>@{{visits.date_visit}}</td>
-                                                        <td>@{{visits.sanctions}}</td>
-                                                        <td>
-                                                            <div ng-switch="@{{visits.act}}">
-                                                                <div ng-switch-when="1">Favorable</div>
-                                                                <div ng-switch-when="0">Desfavorable</div>
-                                                                <div ng-switch-default></div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
                                         </div>
+                                    </p>
+                                </div>
+                                <div ng-if="value.license_stage.date_firsh_visit">
+                                    <br>
+                                    <div ng-if="visitObject.length">
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Sanción</th>
+                                                    <th>Acta</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody ng-repeat="visits in visitObject">
+                                                <tr>
+                                                    <td>@{{visits.date_visit}}</td>
+                                                    <td>@{{visits.sanctions}}</td>
+                                                    <td>
+                                                        <div ng-switch="@{{visits.act}}">
+                                                            <div ng-switch-when="1">Favorable</div>
+                                                            <div ng-switch-when="0">Desfavorable</div>
+                                                            <div ng-switch-default></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane panel panel-body" id="license-titulars">
-                                <!-- Cambios de titularidad -->
-                                @if(! is_null($license->identifier))
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                Titulares para {{ $license->licenseType->name }} {{ $license->number }}/{{ $license->year }}
-                                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane panel panel-body" id="license-titulars">
+                            <!-- Cambios de titularidad -->
+                            @if(! is_null($license->identifier))
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            Titulares para {{ $license->licenseType->name }} {{ $license->number }}/{{ $license->year }}
+                                        </div>
+                                        <div class="col-md-4 text-right">
+                                            @if(! $license->titularity_change_active)
+                                            <a class="btn btn-warning" href="{{ route('license.titularitychange', ['id' => $license->id]) }}" role="button">Nuevo Cambio de Titularidad</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                @foreach($license->titularChanges as $titularChange)
+                                <div class="panel-heading"
+                                    @if($titularChange->status == "Solicitado")
+                                    style="background-color: #f7ecb5;"
+                                    @elseif($titularChange->status == "Desistido")
+                                    style="background-color: #d9534f;"
+                                    @else
+                                    style="background-color: #dff0d8;"
+                                    @endif
+                                    >
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <!--Solicitud {{ $titularChange->register_number }}-->
+                                        </div>
+                                        @if( ! $titularChange->finished)
+                                        {!! Form::model($titularChange, array('route' => array('titularitychange.change', $titularChange->id), 'method' => 'put', 'files' => true, 'autocomplete' => 'off')) !!}
+                                        <div class="col-md-10 text-right">
                                             <div class="col-md-4 text-right">
-                                                @if(! $license->titularity_change_active)
-                                                <a class="btn btn-warning" href="{{ route('license.titularitychange', ['id' => $license->id]) }}" role="button">Nuevo Cambio de Titularidad</a>
+                                                {!! Form::label('titular_change_date', 'Fecha del cambio de estado', ['class' => 'control-label']) !!}
+                                                {!! Form::date('titular_change_date', new \DateTime()) !!}
+                                            </div>
+                                            <div class="col-md-6 text-right">
+                                                {!! Form::label('titularChange_status', 'Selecciona una estado', ['class' => 'control-label']) !!}
+                                                {!! Form::select('titularChange_status', $titularChangeStatuses, $titularChange->status, ['class' => 'form-control', 'placeholder' => 'Selecciona un estado...', 'ng-change' => 'showChangeButton[' . $titularChange->id .'] = true', 'ng-model' => 'titular_change_date[' . $titularChange->id . ']', 'ng-init' => 'titular_change_date[' . $titularChange->id . '] = "' . $titularChange->status . '"']) !!}
+                                                {!! Form::button('Cambiar estado', ['class'=> 'btn btn-danger', 'type' => 'submit', 'ng-show' => 'showChangeButton[' . $titularChange->id .']']) !!}
+                                                {!! Form::close() !!}
+                                            </div>
+                                            <div class="col-md-2 text-right">
+                                                <a class="btn btn-warning" href="{{ route('license.titularitychange.edit', ['license_id' => $license->id, 'id' => $titularChange->id]) }}" role="button">Editar</a>
+                                            </div>
+                                        </div>
+                                        @endif
+                                    </div>
+                                    <div class="panel panel-body panel-default">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <p><strong>Número de registro de entrada:</strong> {{ $titularChange->register_number }}</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p><strong>Fecha de registro:</strong> {{ $titularChange->register_date_output }}</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p><strong>Número de expediente:</strong> {{ $titularChange->expedient_number }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                @if($titularChange->titularBefore)
+                                                <p><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <strong>Anterior titular:</strong> {{ $titularChange->titularBefore->first_name}} {{ $titularChange->titularBefore->last_name }}</p>
+                                                @endif
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <strong>Nuevo Titular:</strong> {{ $titularChange->titular->first_name }} {{ $titularChange->titular->last_name }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p><strong>Estado:</strong> {{ isset($titularChange->status) ?  $titularChange->status : '' }}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                @if(isset($titularChange->finished_date_output) && $titularChange->finished_date_output != "")
+                                                <p><strong>Fecha de finalización:</strong> {{ $titularChange->finished_date_output }}</p>
                                                 @endif
                                             </div>
                                         </div>
-                                    </div>
-                                    @foreach($license->titularChanges as $titularChange)
-                                    <div class="panel-heading"
-                                        @if($titularChange->status == "Solicitado")
-                                        style="background-color: #f7ecb5;"
-                                        @elseif($titularChange->status == "Desistido")
-                                        style="background-color: #d9534f;"
-                                        @else
-                                        style="background-color: #dff0d8;"
+                                        @if(env('FILE_UPLOAD'))
+                                        @if(isset($titularChange->file->filename))
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p><strong>Fichero:</strong><a href="{{ route('file.download', ['file' => $titularChange->file->id]) }}">{{ $titularChange->file->filename }}</a></p>
+                                            </div>
+                                        </div>
                                         @endif
-                                        >
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <!--Solicitud {{ $titularChange->register_number }}-->
-                                            </div>
-                                            @if( ! $titularChange->finished)
-                                            {!! Form::model($titularChange, array('route' => array('titularitychange.change', $titularChange->id), 'method' => 'put', 'files' => true, 'autocomplete' => 'off')) !!}
-                                            <div class="col-md-10 text-right">
-                                                <div class="col-md-4 text-right">
-                                                    {!! Form::label('titular_change_date', 'Fecha del cambio de estado', ['class' => 'control-label']) !!}
-                                                    {!! Form::date('titular_change_date', new \DateTime()) !!}
-                                                </div>
-                                                <div class="col-md-6 text-right">
-                                                    {!! Form::label('titularChange_status', 'Selecciona una estado', ['class' => 'control-label']) !!}
-                                                    {!! Form::select('titularChange_status', $titularChangeStatuses, $titularChange->status, ['class' => 'form-control', 'placeholder' => 'Selecciona un estado...', 'ng-change' => 'showChangeButton[' . $titularChange->id .'] = true', 'ng-model' => 'titular_change_date[' . $titularChange->id . ']', 'ng-init' => 'titular_change_date[' . $titularChange->id . '] = "' . $titularChange->status . '"']) !!}
-                                                    {!! Form::button('Cambiar estado', ['class'=> 'btn btn-danger', 'type' => 'submit', 'ng-show' => 'showChangeButton[' . $titularChange->id .']']) !!}
-                                                    {!! Form::close() !!}
-                                                </div>
-                                                <div class="col-md-2 text-right">
-                                                    <a class="btn btn-warning" href="{{ route('license.titularitychange.edit', ['license_id' => $license->id, 'id' => $titularChange->id]) }}" role="button">Editar</a>
-                                                </div>
-                                            </div>
-                                            @endif
+                                        @endif
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+                        </div>
+                        <div role="tabpanel" class="tab-pane panel panel-body" id="license-denunciations">
+                            <!-- Denuncias -->
+                            @if(! is_null($license->identifier))
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            Denuncias para {{ $license->licenseType->name }} {{ $license->number }}/{{ $license->year }}
                                         </div>
-                                        <div class="panel panel-body panel-default">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <p><strong>Número de registro de entrada:</strong> {{ $titularChange->register_number }}</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <p><strong>Fecha de registro:</strong> {{ $titularChange->register_date_output }}</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <p><strong>Número de expediente:</strong> {{ $titularChange->expedient_number }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    @if($titularChange->titularBefore)
-                                                    <p><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <strong>Anterior titular:</strong> {{ $titularChange->titularBefore->first_name}} {{ $titularChange->titularBefore->last_name }}</p>
-                                                    @endif
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <strong>Nuevo Titular:</strong> {{ $titularChange->titular->first_name }} {{ $titularChange->titular->last_name }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <p><strong>Estado:</strong> {{ isset($titularChange->status) ?  $titularChange->status : '' }}</p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    @if(isset($titularChange->finished_date_output) && $titularChange->finished_date_output != "")
-                                                    <p><strong>Fecha de finalización:</strong> {{ $titularChange->finished_date_output }}</p>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            @if(env('FILE_UPLOAD'))
-                                            @if(isset($titularChange->file->filename))
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <p><strong>Fichero:</strong><a href="{{ route('file.download', ['file' => $titularChange->file->id]) }}">{{ $titularChange->file->filename }}</a></p>
-                                                </div>
-                                            </div>
-                                            @endif
-                                            @endif
+                                        <div class="col-md-4 text-right">
+                                            <button class="btn btn-success" data-toggle="modal" data-target="#modal-denuncia" type="button">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> Nueva Denuncia
+                                            </button>
                                         </div>
                                     </div>
-                                    @endforeach
-                                </div>
-                                @endif
-                            </div>
-                            <div role="tabpanel" class="tab-pane panel panel-body" id="license-denunciations">
-                                <!-- Denuncias -->
-                                @if(! is_null($license->identifier))
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                Denuncias para {{ $license->licenseType->name }} {{ $license->number }}/{{ $license->year }}
-                                            </div>
-                                            <div class="col-md-4 text-right">
-                                                <button class="btn btn-success" data-toggle="modal" data-target="#modal-denuncia" type="button">
-                                                <i class="fa fa-plus" aria-hidden="true"></i> Nueva Denuncia
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <table class="table table-condensed">
-                                        <thead>
-                                            <tr>
-                                                <th>Número expediente</th>
-                                                <th>Fecha de denuncia</th>
-                                                <th>Razón</th>
-                                                <th>Estatus</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody ng-repeat="d in denuncias">
-                                            <tr>
-                                                <td>@{{d.expedient_number}}</td>
-                                                <td>@{{d.register_date}}</td>
-                                                <td>@{{d.reason}}</td>
-                                                <td>
-                                                    <div ng-switch on="d.status">
-                                                        <div ng-switch-when="Abierta">
-                                                            <select ng-model="d.status" name="d.id" class="form-control" ng-change="updateStatus(d)">
-                                                                <option data-ng-repeat="record in estatus" value="@{{ record.valor }}"> @{{record.label}}  </option>
-                                                            </select>
-                                                        </div>
-                                                        <div ng-switch-when="Cerrada">  @{{d.status}} </div>
-                                                        <div ng-switch-default></div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    @include('license.exposed.modal2')
-                                </div>
-                                @endif
-                            </div>
-                            <div role="tabpanel" class="tab-pane panel panel-body" id="license-avisos">
-                                <!-- Avisos/Alertas-->
-                                <div class="col-md-12 text-right">
-                                    <button class="btn btn-success" data-toggle="modal" data-target="#modal-alert" type="button">
-                                    <i class="fa fa-plus" aria-hidden="true"></i> Agregar alerta
-                                    </button>
                                 </div>
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>
-                                            <th>Titulo</th>
-                                            <th>Fecha</th>
-                                            <th>Descripción</th>
-                                            <th>Tipo de alerta</th>
+                                            <th>Número expediente</th>
+                                            <th>Fecha de denuncia</th>
+                                            <th>Razón</th>
+                                            <th>Estatus</th>
                                         </tr>
                                     </thead>
-                                    <tbody ng-repeat="alert in alertTable">
+                                    <tbody ng-repeat="d in denuncias">
                                         <tr>
-                                            <td>@{{alert.title}}</td>
-                                            <td>@{{alert.date}}</td>
-                                            <td>@{{alert.description}}</td>
-                                            <td>@{{alert.type}}</td>
+                                            <td>@{{d.expedient_number}}</td>
+                                            <td>@{{d.register_date}}</td>
+                                            <td>@{{d.reason}}</td>
+                                            <td>
+                                                <div ng-switch on="d.status">
+                                                    <div ng-switch-when="Abierta">
+                                                        <select ng-model="d.status" name="d.id" class="form-control" ng-change="updateStatus(d)">
+                                                            <option data-ng-repeat="record in estatus" value="@{{ record.valor }}"> @{{record.label}}  </option>
+                                                        </select>
+                                                    </div>
+                                                    <div ng-switch-when="Cerrada">  @{{d.status}} </div>
+                                                    <div ng-switch-default></div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                @include('license.exposed.modal')
+                                @include('license.exposed.modal2')
                             </div>
+                            @endif
+                        </div>
+                        <div role="tabpanel" class="tab-pane panel panel-body" id="license-avisos">
+                            <!-- Avisos/Alertas-->
+                            <div class="col-md-12 text-right">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#modal-alert" type="button">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Agregar alerta
+                                </button>
+                            </div>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Titulo</th>
+                                        <th>Fecha</th>
+                                        <th>Descripción</th>
+                                        <th>Tipo de alerta</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="alert in alertTable">
+                                    <tr>
+                                        <td>@{{alert.title}}</td>
+                                        <td>@{{alert.date}}</td>
+                                        <td>@{{alert.description}}</td>
+                                        <td>@{{alert.type}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @include('license.exposed.modal')
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @endsection
-    @section('scripts_at_body')
-    <script src="{{ asset('js/license/show.js') }}"></script>
-    @endsection
+</div>
+@endsection
+@section('scripts_at_body')
+<script src="{{ asset('js/license/show.js') }}"></script>
+@endsection
