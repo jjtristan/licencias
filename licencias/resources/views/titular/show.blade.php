@@ -51,7 +51,7 @@
                         <tr>
                             <th>Número de expediente</th>
                             <th>Fecha de registro</th>
-                            <th>Número de registro</th>
+                            <th>Estado</th>
                             <th>Actividad</th>
                             <th>Archivo</th>
                             <th>Armario</th>
@@ -63,7 +63,7 @@
                             <tr>
                                 <td>{{ $license->expedient_number }}</td>
                                 <td>{{ $license->register_date_output }}</td>
-                                <td>{{ $license->register_number }}</td>
+                                <td>{{ $license->licenseStatus->name }}</td>
                                 <td>{{ $license->activity->name }}</td>
                                 <td>{{ isset($license->archive->name) ? $license->archive->name : '' }}</td>
                                 <td>{{ isset($license->archive->place) ? $license->archive->place : '' }}</td>

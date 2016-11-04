@@ -227,6 +227,7 @@
             $scope.status = [];
             $scope.types = [];
             $scope.allTypes = [];
+            $scope.titulares = [];
 
             $http.get('api/v1/getAllLicenseType')
             .success(function (response){
@@ -263,13 +264,16 @@
                 angular.forEach($scope.licenses, function(value, key) {
                     $scope.nifs.push(value.titular.nif);
                     value.nif = value.titular.nif;
+                    value.titular_name = value.titular.first_name +' '+ value.titular.last_name;
+                    if($scope.titulares.indexOf(value.titular_name) == -1){
+                        $scope.titulares.push(value.titular.first_name +' '+ value.titular.last_name);
+                    }
                     value.activity_name = value.activity.name;
                     value.street_name = value.street.name;
                     value.status = value.license_status.name;
                     angular.forEach($scope.allTypes, function(value2, key2) {
                         if(value2.id == value.license_type_id){
                             value.type = value2.name;
-                            console.log(value.type);
                         }
                     });
                 });
@@ -284,6 +288,7 @@
                 { key: "register_number", name: "No de registro", placeholder: "No de registro..." },
                 { key: "identifier", name: "No de licencia", placeholder: "No de licencia..."},
                 { key: "nif", name: "NIF", placeholder: "NIF...", restrictToSuggestedValues: true, suggestedValues: $scope.nifs },
+                { key: "titular_name", name: "Titular", placeholder: "Titular...", restrictToSuggestedValues: true, suggestedValues: $scope.titulares },
                 { key: "activity_name", name: "Actividad", placeholder: "Actividad...", restrictToSuggestedValues: true, suggestedValues: $scope.getAllActivities },
                 { key: "street_name", name: "Dirección", placeholder: "Dirección..." , restrictToSuggestedValues: true, suggestedValues: $scope.getAllStreets  },
                 { key: "commerce_name", name: "Nombre Comercial" , placeholder: "Nombre Comercial..." },

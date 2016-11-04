@@ -18,14 +18,11 @@
             <div class="panel-body">
                 @if(isset($titularityChange) && ! $titularityChange->finished)
                     {!! Form::model($titularityChange, array('route' => array('titularitychange.change', $titularityChange->id), 'method' => 'put', 'files' => true, 'autocomplete' => 'off')) !!}
-                    <div class="col-md-2 text-right">
-
-                    </div>
-                    <div class="col-md-4 text-right">
+                    <div class="col-md-4 ">
                         {!! Form::label('titular_change_date', 'Fecha del cambio de estado', ['class' => 'control-label']) !!}
-                        {!! Form::date('titular_change_date', new \DateTime()) !!}
+                        {!! Form::date('titular_change_date', new \DateTime(), ['class' => 'form-control']) !!}
                     </div>
-                    <div class="col-md-6 text-right">
+                    <div class="col-md-6">
                         {!! Form::label('titularChange_status', 'Selecciona una estado', ['class' => 'control-label']) !!}
                         {!! Form::select('titularChange_status', $titularityChangeStatuses, $titularityChange->status, ['class' => 'form-control', 'placeholder' => 'Selecciona un estado...', 'ng-change' => 'showChangeButton[' . $titularityChange->id .'] = true', 'ng-model' => 'titular_change_date[' . $titularityChange->id . ']', 'ng-init' => 'titular_change_date[' . $titularityChange->id . '] = "' . $titularityChange->status . '"']) !!}
 
@@ -36,24 +33,24 @@
                 @endif
             </div>
             <div class="panel-body">
-                <p><strong>Licencia:</strong> {{ $titularityChange->license->licenseType->name }} {{ $titularityChange->license->number }}/{{ $titularityChange->license->year }} </p>
-                <p><strong>Número de expediente:</strong> {{ $titularityChange->expedient_number }}</p>
-                <p><strong>Número de registro de entrada:</strong> {{ $titularityChange->register_number }}</p>
-                <p><strong>Fecha de registro:</strong> {{ $titularityChange->register_date_output }}</p>
+                <p class="col-lg-12"><strong>Licencia:</strong> {{ $titularityChange->license->licenseType->name }} {{ $titularityChange->license->number }}/{{ $titularityChange->license->year }} </p>
+                <p class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><strong>Número de expediente:</strong> {{ $titularityChange->expedient_number }}</p>
+                <p class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><strong>Número de registro de entrada:</strong> {{ $titularityChange->register_number }}</p>
+                <p class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><strong>Fecha de registro:</strong> {{ $titularityChange->register_date_output }}</p>
                 @if(isset($titularityChange->lastTitular))
-                    <p><strong>Último titular:</strong> {{ $titularityChange->lastTitular->first_name}} {{ $titularityChange->lastTitular->last_name }}</p>
+                    <p class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><strong>Último titular:</strong> {{ $titularityChange->lastTitular->first_name}} {{ $titularityChange->lastTitular->last_name }}</p>
                 @endif
-                <p><strong>Nuevo Titular:</strong> {{ $titularityChange->titular->first_name }} {{ $titularityChange->titular->last_name }}</p>
-                <p><strong>Actividad:</strong> {{ $titularityChange->license->activity->name }}</p>
-                <p><strong>Emplazamiento:</strong> {{ $titularityChange->license->street->name }} , {{ $titularityChange->license->street_number }} - {{ $titularityChange->license->postcode }} ({{ $titularityChange->license->city }})</p>
-                <p><strong>Fecha de finalización:</strong>
+                <p class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><strong>Nuevo Titular:</strong> {{ $titularityChange->titular->first_name }} {{ $titularityChange->titular->last_name }}</p>
+                <p class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><strong>Actividad:</strong> {{ $titularityChange->license->activity->name }}</p>
+                <p class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><strong>Emplazamiento:</strong> {{ $titularityChange->license->street->name }} , {{ $titularityChange->license->street_number }} - {{ $titularityChange->license->postcode }} ({{ $titularityChange->license->city }})</p>
+                <p class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><strong>Fecha de finalización:</strong>
 
                     @if (isset($titularityChange->finished_date_output))
                         {{ $titularityChange->finished_date_output }}
                     @endif
 
                 </p>
-                <p><strong>Estado:</strong>
+                <p class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><strong>Estado:</strong>
 
                     @if (isset($titularityChange->status))
                         {{ $titularityChange->status }}
@@ -61,7 +58,7 @@
 
                 </p>
                 @if(env('FILE_UPLOAD'))
-                    <p><strong>Fichero:</strong>
+                    <p class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><strong>Fichero:</strong>
 
                         @if (isset($titularityChange->file->filename))
                              <a href="{{ route('file.download', ['file' => $titularityChange->file->id]) }}" target="_blank">Descargar {{ $titularityChange->file->filename }}</a>
