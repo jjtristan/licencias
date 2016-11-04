@@ -10,6 +10,7 @@ use CityBoard\Entities\License;
 use CityBoard\Entities\Alert;
 use CityBoard\Entities\TypeAlert;
 use CityBoard\Entities\TimeLimit;
+use CityBoard\Entities\LicenseCurrentStage;
 use Carbon\Carbon;
 use CityBoard\Repositories\LicenseRepository;
 
@@ -29,7 +30,8 @@ class AlertController extends Controller
      */
     public function index()
     {
-    
+        $fechaActual = Carbon::now();
+
         $alerts2 = Alert::OrderBy('date', 'Asc')->get();
         
         $alerts = array();
@@ -47,7 +49,7 @@ class AlertController extends Controller
             foreach ($typeA as $key => $typAl) {
                 $type = $typAl->type;
             }
-            if ($value->type_alert_id == 1) {
+            if ($value->type_alert_id == 1) { # Reparos
                 $alerts[] = array(
                     'id' => $value->id,
                     'title' => $value->title,
@@ -57,17 +59,7 @@ class AlertController extends Controller
                     'expedient_number' => $expedient_number,
                     'date' => $value->date
                 );
-            } elseif($value->type_alert_id == 4) {
-                $alerts[] = array(
-                    'id' => $value->id,
-                    'title' => $value->title,
-                    'description' => $value->description,
-                    'type' => $type,
-                    'type_id' => $value->type_alert_id,#JGT: Se agrega el tipo de alerta para mostrar o no, en la interfaz el boton de eliminar
-                    'expedient_number' => $expedient_number,
-                    'date' => $value->date
-                );
-            }elseif ($value->type_alert_id == 2) {
+            } elseif ($value->type_alert_id == 3) { # Plazo de espera JGT: Solo se mostraran en el listado las alertas 1 y 3
                 
                 $alerts[] = array(
                     'id' => $value->id,
@@ -78,6 +70,21 @@ class AlertController extends Controller
                     'expedient_number' => $expedient_number,
                     'date' => $value->date
                 );
+            } else {
+                #JGT: Se hacen las modificaciones para ver las alertas
+                if ($value->type_alert_id == 2 || $value->type_alert_id == 4) { # Información pública
+                    if ($fechaActual->diffInDays(Carbon::parse($value->date), false) <= 0) {
+                        $alerts[] = array(
+                            'id' => $value->id,
+                            'title' => $value->title,
+                            'description' => $value->description,
+                            'type' => $type,
+                            'type_id' => $value->type_alert_id,#JGT: Se agrega el tipo de alerta para mostrar o no, en la interfaz el boton de eliminar
+                            'expedient_number' => $expedient_number,
+                            'date' => Carbon::parse($value->date)->format('Y-m-d')
+                        );
+                    }
+                }
             }
         }
         return view('alert.index', compact('alerts'));
@@ -247,7 +254,7 @@ class AlertController extends Controller
                     'urlLicencia' => "../license/".$value->license_id
                 );
             }
-            if ($value->type_alert_id == 3) {
+            if ($value->type_alert_id == 4) { #JGT: Las alertas 2 y 4 ahora se
                 $result[] = array(
                     'id' => $value->id,
                     'title' => $value->title,
