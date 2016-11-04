@@ -21,8 +21,10 @@
                 {!! Form::model($license, array('route' => array('license.update', $license->id), 'method' => 'put', 'autocomplete' => 'off')) !!}
 
                     @include('license.fields')
-                
+                    
+                    @if($license->license_status_id != 4)
                     {!! Form::button('Guardar', ['class'=> 'btn btn-success', 'type' => 'submit']) !!}
+                    @endif
                 {!! Form::close() !!}
             </div>
         </div>
