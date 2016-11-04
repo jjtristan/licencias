@@ -31,6 +31,7 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
     $scope.denuncia = {};
     $scope.denuncias = {};
     $scope.expedient_number;//JGT: Se guardara el valor del número de expediente de la licencia
+    $scope.licensesCaducar = {};//JGT: Almacena las licencias pendientes a caducar
 
     angular.element(document).ready(function () {
         $http.get('../currentstage/' + $scope.license.id).then(currentStage);
@@ -48,6 +49,7 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
 
         $http.get('../getdenuncia/' + $scope.license.id).then(readObjectDenuncia);
         $scope.estatus = [{valor:'Abierta',label:'Abierta'},{valor:'Cerrada',label:'Cerrada'}];
+        $http.get('../api/v1/getlicensespendietescadu/'+ $scope.license.id).then(readLicencesCaducar);//JGT: Trae las licencias pendientes a caducar
 
     });
 
@@ -855,4 +857,59 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
     function readVisitLicense (response) {
         $scope.visitObject = response.data;
     }
+
+    /*
+    * JGT: Caducar la licencia en la ventana del show
+    */
+    $scope.caducarlicenciaShow = function () {
+        swal({
+            title: "Inicio de proceso",
+            text: "Desea iniciar el proceso para caducar la licencia?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Iniciar proceso",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        },
+        function(isConfirm){
+            if (isConfirm) {
+                $http.get('../caducarlicense/' + $scope.license.id)
+                .success(function (data) {
+                    swal("Se ha iniciado el proceso para caducar la licencia");
+                    $http.get('../api/v1/getlicensespendietescadu/' + $scope.license.id).then(readLicencesCaducar);
+                    
+                });
+            } 
+        });
+    };
+
+    function readLicencesCaducar (response) {
+        $scope.licensesCaducar = response.data.data;
+    }
+
+    $scope.caducarLicenseShow = function (id) {
+        swal({
+            title: "Caducar licencia",
+            text: "Desea caducar la licencia?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Caducar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        },
+        function(isConfirm){
+            if (isConfirm) {
+                $http.get('../caducarlicense/' + id)
+                .success(function (data) {
+                    swal("Se ha completado el proceso para caducar la licencia");
+                    location.reload();
+                });
+            } 
+        });
+    }
+
 }]);
