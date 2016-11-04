@@ -31,7 +31,7 @@
                     function ($scope, $attrs, $element, $timeout, $filter, setFocusFor) {
 
                         $scope.parametersLabel = $scope.parametersLabel || 'Filtar por: ';
-                        $scope.parametersDisplayLimit = $scope.parametersDisplayLimit || 20;
+                        $scope.parametersDisplayLimit = $scope.parametersDisplayLimit || 1000;
                         $scope.placeholder = $scope.placeholder || 'Buscar ...';
                         $scope.searchThrottleTime = $scope.searchThrottleTime || 1000;
                         $scope.searchParams = [];
