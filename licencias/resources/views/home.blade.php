@@ -10,7 +10,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-book-open fa-2x"></i>
                             <div class="h1 font-w700">{{ $activityCommunicationAmount }}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Comunicados de actividad</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">Actividades inocuas</div>
                         </div>
                         <div class="block-content block-content-full block-content-mini bg-danger text-white">
                         </div>
@@ -21,7 +21,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-book-open fa-2x"></i>
                             <div class="h1 font-w700">{{ $withQualificationAmount }}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Licencias con calificación</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">Licencias de actividad</div>
                         </div>
                         <div class="block-content block-content-full block-content-mini bg-warning text-white">
                         </div>
@@ -32,7 +32,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-book-open fa-2x"></i>
                             <div class="h1 font-w700">{{ $withoutQualificationAmount }}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Licencias sin calificación</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">Actividades sujetas a declaración responsable</div>
                         </div>
                     </div>
                     <div class="block-content block-content-full block-content-mini bg-primary text-white">
@@ -112,7 +112,7 @@
                             <th>Dirección</th>
                             <th>Titular</th>
                             <th>Tipo</th>
-                            <th>Fecha Último cambio</th>
+                            <!-- <th>Fecha Último cambio</th> -->
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -125,9 +125,9 @@
                             <td>
                                 @{{ license.type }}
                             </td>
-                            <td>
+                            {{--<td>
                                 @{{ license.updated_at }}
-                            </td>
+                            </td> --}}
                            {{-- <td>
                                  @if (isset($license->license_data_current_stage))
                                      @{{ $license->license_data_current_stage->updated_at }}
