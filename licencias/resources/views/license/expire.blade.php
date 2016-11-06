@@ -47,7 +47,7 @@
                             <td>@{{ license.status }}</td>
                             <td>@{{ license.titular.first_name }} @{{ license.titular.last_name }}</td>
                             <td>@{{ license.activity_name }}</td>
-                            <td>@{{ license.street.name }}, @{{ license.street_number}} - @{{ license.city}} @{{ license.postcode}} </td>
+                            <td>@{{ license.street.name }}, @{{ license.street_number}} <!-- - @{{ license.city}} @{{ license.postcode}} --></td>
                             <td>@{{ license.expiration }}</td>
                             
                             <td>

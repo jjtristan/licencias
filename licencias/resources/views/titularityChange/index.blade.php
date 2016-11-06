@@ -70,7 +70,7 @@
                                 {{ $titularityChange->license->activity->name }}
                             </td>
                             <td>
-                                {{ $titularityChange->license->street->name }} , {{ $titularityChange->license->street_number }} - {{ $titularityChange->license->postcode }} ({{ $titularityChange->license->city }})
+                                {{ $titularityChange->license->street->name }} , {{ $titularityChange->license->street_number }} <!-- - {{ $titularityChange->license->postcode }} ({{ $titularityChange->license->city }}) -->
                             </td>
                             <!--
                             <td>{{ $titularityChange->register_number }}</td>

@@ -174,7 +174,7 @@
                             </thead>
                             <tbody ng-repeat="visits in visitObject">
                                 <tr>
-                                    <td>@{{visits.date_visit}}</td>
+                                    <td>@{{visits.date_visit | date:'dd-MM-yyyy'}}</td>
                                     <td>@{{visits.sanctions}}</td>
                                     <td>
                                         <div ng-switch="@{{visits.act}}">
