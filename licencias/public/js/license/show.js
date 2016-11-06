@@ -32,6 +32,8 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
     $scope.denuncias = {};
     $scope.expedient_number;//JGT: Se guardara el valor del número de expediente de la licencia
     $scope.licensesCaducar = {};//JGT: Almacena las licencias pendientes a caducar
+    $scope.closeVisists = {};
+    $scope.closeVisitModal = {};
 
     angular.element(document).ready(function () {
         $http.get('../currentstage/' + $scope.license.id).then(currentStage);
@@ -47,10 +49,15 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
             format: 'YYYY-MM-DD HH:mm:ss'
         });
 
+        $('.dategeneric').datetimepicker({
+            locale: 'es',
+            format: 'YYYY-MM-DD'
+        });
+
         $http.get('../getdenuncia/' + $scope.license.id).then(readObjectDenuncia);
         $scope.estatus = [{valor:'Abierta',label:'Abierta'},{valor:'Cerrada',label:'Cerrada'}];
         $http.get('../api/v1/getlicensespendietescadu/'+ $scope.license.id).then(readLicencesCaducar);//JGT: Trae las licencias pendientes a caducar
-
+        $http.get('../getvisitclose/' + $scope.license.id).then(readCloseVisit);
     });
 
     function readObjectDenuncia (response){
@@ -910,6 +917,42 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
                 });
             } 
         });
+    }
+
+    /*
+    * JGT: Se guardan las visitas que se hagan con la licencia cerrada
+    */
+    $scope.createVisitClose = function () {
+        $scope.closeVisitModal.license_id = $scope.license.id;
+        $scope.closeVisitModal.type_visit = 'Cierre';
+        $scope.closeVisitModal.date_visit = $('#date_visit').val();
+        swal({
+            title: "Registro de visista",
+            text: "Se registrará la visita con los datos que a ingresado, desea continuar con el registro?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Aceptar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        },
+        function(isConfirm){
+            if (isConfirm) {
+                
+                $http.post('../createvisit', $scope.closeVisitModal)
+                .success(function (data) {
+                    swal("Éxito","Se Registrado la visita", "success");
+                    $scope.closeVisitModal = {};
+                    $http.get('../getvisitclose/' + $scope.license.id).then(readCloseVisit);
+                    jQuery('#modal-visit').modal('hide');
+                });
+            } 
+        });
+    };
+
+    function readCloseVisit (response) {
+        $scope.closeVisists = response.data;
     }
 
 }]);

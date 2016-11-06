@@ -12,5 +12,6 @@ class Visit extends Model
     	'date_visit',
     	'sanctions',
         'act',
+        'type_visit',
     ];
 }

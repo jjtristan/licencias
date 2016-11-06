@@ -19,6 +19,7 @@ class CreateVisitsTable extends Migration
             $table->date('date_visit');
             $table->string('sanctions');
             $table->boolean('act');
+            $table->string('type_visit')->default('Paso');
 
             $table->timestamps();
         });

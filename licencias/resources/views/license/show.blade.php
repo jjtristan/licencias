@@ -166,6 +166,7 @@
                         @if($license->license_status_id != 4)
                         <li role="presentation"><a href="#license-caducidad" aria-controls="license-caducidad" role="tab" data-toggle="tab">Caducidad</a></li>
                         @endif
+                        <li role="presentation"><a href="#license-visitas" aria-controls="license-visitas" role="tab" data-toggle="tab">Visitas</a></li>
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active panel panel-body" id="license-data">
@@ -541,6 +542,39 @@
                             </table>
                         </div>
                         @endif
+                        <div role="tabpanel" class="tab-pane panel panel-body" id="license-visitas">
+                            <!-- Visitas-->
+                            @if(! is_null($license->identifier))
+                            <div class="col-md-12 text-right">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#modal-visit" type="button">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Agregar visita
+                                </button>
+                            </div>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Sanción</th>
+                                        <th>Acta</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-repeat="visit in closeVisists">
+                                    <tr>
+                                        <td>@{{visit.date_visit | date:'dd-MM-yyyy'}}</td>
+                                        <td>@{{visit.sanctions}}</td>
+                                        <td>
+                                            <div ng-switch="@{{visit.act}}">
+                                                <div ng-switch-when="1">Favorable</div>
+                                                <div ng-switch-when="0">Desfavorable</div>
+                                                <div ng-switch-default></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @include('license.exposed.modalVisit')
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
