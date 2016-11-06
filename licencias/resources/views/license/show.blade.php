@@ -237,7 +237,7 @@
                                     <p><strong>Estatus:</strong> {{ isset($license->visit_status) ? $license->visit_status : '' }}</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p><strong>Fecha de visita:</strong> {{ isset($license->visit_date) ? $license->visit_date : '' }}</p>
+                                    <p><strong>Fecha de visita:</strong> {{ isset($license->visit_date) ? date('d-m-Y', strtotime($license->visit_date)) : '' }}</p>
                                 </div>
                             </div>
                             @endif
@@ -312,7 +312,7 @@
                                             </thead>
                                             <tbody ng-repeat="visits in visitObject">
                                                 <tr>
-                                                    <td>@{{visits.date_visit}}</td>
+                                                    <td>@{{visits.date_visit | date:'dd-MM-yyyy'}}</td>
                                                     <td>@{{visits.sanctions}}</td>
                                                     <td>
                                                         <div ng-switch="@{{visits.act}}">
@@ -405,7 +405,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 @if(isset($titularChange->finished_date_output) && $titularChange->finished_date_output != "")
-                                                <p><strong>Fecha de finalización:</strong> {{ $titularChange->finished_date_output }}</p>
+                                                <p><strong>Fecha de finalización:</strong> {{ date('Y-m-d', strtotime($titularChange->finished_date_output)) }}</p>
                                                 @endif
                                             </div>
                                         </div>
@@ -452,7 +452,7 @@
                                     <tbody ng-repeat="d in denuncias">
                                         <tr>
                                             <td>@{{d.expedient_number}}</td>
-                                            <td>@{{d.register_date}}</td>
+                                            <td>@{{d.register_date | date:'dd-MM-yyyy'}}</td>
                                             <td>@{{d.reason}}</td>
                                             <td>
                                                 <div ng-switch on="d.status">
@@ -491,7 +491,7 @@
                                 <tbody ng-repeat="alert in alertTable">
                                     <tr>
                                         <td>@{{alert.title}}</td>
-                                        <td>@{{alert.date}}</td>
+                                        <td>@{{alert.date | date:'dd-MM-yyyy'}}</td>
                                         <td>@{{alert.description}}</td>
                                         <td>@{{alert.type}}</td>
                                     </tr>
@@ -525,7 +525,7 @@
                                         <td>@{{ license.license_status.name }}</td>
                                         <td>@{{ license.titular.first_name }} @{{ license.titular.last_name }}</td>
                                         <td>@{{ license.activity.name }}</td>
-                                        <td>@{{ license.street.name }}, @{{ license.street_number}} - @{{ license.city}} @{{ license.postcode}} </td>
+                                        <td>@{{ license.street.name }}, @{{ license.street_number}} <!-- - @{{ license.city}} @{{ license.postcode}} --></td>
                                         <td>@{{ license.expiration }}</td>
                                         <td>
                                             <a class="btn btn-warning" ng-click="caducarLicenseShow(license.id)" role="button">Caducar</a>

@@ -57,7 +57,7 @@ class AlertController extends Controller
                     'type' => $type,
                     'type_id' => $value->type_alert_id,#JGT: Se agrega el tipo de alerta para mostrar o no, en la interfaz el boton de eliminar
                     'expedient_number' => $expedient_number,
-                    'date' => $value->date
+                    'date' => Carbon::parse($value->date)->format('d-m-Y')
                 );
             } elseif ($value->type_alert_id == 3) { # Plazo de espera JGT: Solo se mostraran en el listado las alertas 1 y 3
                 
@@ -68,7 +68,7 @@ class AlertController extends Controller
                     'type' => $type,
                     'type_id' => $value->type_alert_id,#JGT: Se agrega el tipo de alerta para mostrar o no, en la interfaz el boton de eliminar
                     'expedient_number' => $expedient_number,
-                    'date' => $value->date
+                    'date' => Carbon::parse($value->date)->format('d-m-Y')
                 );
             } else {
                 #JGT: Se hacen las modificaciones para ver las alertas
@@ -81,7 +81,7 @@ class AlertController extends Controller
                             'type' => $type,
                             'type_id' => $value->type_alert_id,#JGT: Se agrega el tipo de alerta para mostrar o no, en la interfaz el boton de eliminar
                             'expedient_number' => $expedient_number,
-                            'date' => Carbon::parse($value->date)->format('Y-m-d')
+                            'date' => Carbon::parse($value->date)->format('d-m-Y')
                         );
                     }
                 }
