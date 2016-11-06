@@ -98,7 +98,12 @@ class VisitController extends Controller
     }
 
     public function getVisit ($id) {
-        $visit = Visit::where('license_id', $id)->get();
+        $visit = Visit::where('license_id', $id)->where('type_visit', 'Paso')->get();
+        return $visit;
+    }
+
+    public function getVisitClose ($id) {
+        $visit = Visit::where('license_id', $id)->where('type_visit', 'Cierre')->get();
         return $visit;
     }
 }

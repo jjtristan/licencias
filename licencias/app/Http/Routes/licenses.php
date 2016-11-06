@@ -129,6 +129,7 @@ Route::group(['middleware' => 'auth'], function () {
     #Rutas para el guardado de la informacion de las visitas
     Route::get('getvisit/{id}', 'VisitController@getVisit');
     Route::post('createvisit', 'VisitController@createVisit');
+    Route::get('getvisitclose/{id}', 'VisitController@getVisitClose');
 
 });
 
