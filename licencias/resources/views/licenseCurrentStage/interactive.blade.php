@@ -1,35 +1,39 @@
 
 <div class="panel panel-default" ng-show="license.identifier === null && (license.license_status_id == {!! $reopenStatus->id !!} || license.license_status_id == {!! $initialStatus->id !!})" style="background-color:aliceblue">
-        <div class="row" style="margin:10px">
-            <div class="col-md-2 text-right" style="padding-top:8px">
-                {!! Form::label('rejectReason', 'Razón', ['class' => 'control-label']) !!}
-            </div>
-            <div class="col-md-8 text-center">
-                <div class="form-inline form-group">
-                    {!! Form::text('rejectReason', null, ['class' => 'form-control', 'id' => 'reason', 'placeholder' => 'Razón para rechazar la licencia', 'ng-model' => 'rejectReason', 'ng-change' => 'rejectActionButton = rejectReason.length ? (rejectAction.length ? true : false) : false']) !!}
-                    {!! Form::select('rejectAction', $rejectStatuses, null, ['class' => 'form-control', 'placeholder' => 'Selecciona un tipo de rechazo', 'ng-model' => 'rejectAction', 'ng-change' => 'rejectActionButton = rejectReason.length ? (rejectAction.length? true : false) : false', 'ng-init' => 'rejectAction="' . (($license->license_status_id == $initialStatus->id) || ($license->license_status_id == $reopenStatus->id)) ? null : $license->license_status_id . '"']) !!}
+        <div class="row">
+            <div class="col-lg-12" style="padding-top:8px">
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12" style="padding-top:8px">
+                    {!! Form::label('rejectReason', 'Razón', ['class' => 'control-label']) !!}
                 </div>
-            </div>
-            <div class="col-md-2 text-left">
-                <button class="btn btn-danger" type="button" ng-click="changeStatusLicense()" ng-show="rejectActionButton">Rechazar Licencia</button>
+                <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-inline form-group">
+                        {!! Form::text('rejectReason', null, ['class' => 'form-control', 'id' => 'reason', 'placeholder' => 'Razón para rechazar la licencia', 'ng-model' => 'rejectReason', 'ng-change' => 'rejectActionButton = rejectReason.length ? (rejectAction.length ? true : false) : false']) !!}
+                        {!! Form::select('rejectAction', $rejectStatuses, null, ['class' => 'form-control', 'placeholder' => 'Selecciona un tipo de rechazo', 'ng-model' => 'rejectAction', 'ng-change' => 'rejectActionButton = rejectReason.length ? (rejectAction.length? true : false) : false', 'ng-init' => 'rejectAction="' . (($license->license_status_id == $initialStatus->id) || ($license->license_status_id == $reopenStatus->id)) ? null : $license->license_status_id . '"']) !!}
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <button class="btn btn-danger" type="button" ng-click="changeStatusLicense()" ng-show="rejectActionButton">Rechazar Licencia</button>
+                </div>
             </div>
         </div>
 </div>
 
 @if($license->license_status_id === 1 || $license->license_status_id === 2)
 <div class="panel panel-default" ng-show="license.identifier !== null && (license.license_status_id != {!! $reopenStatus->id !!} && license.license_status_id != {!! $initialStatus->id !!})" style="background-color:aliceblue">
-    <div class="row" style="margin:10px">
-        <div class="col-md-2 text-right" style="padding-top:8px">
-            {!! Form::label('successReason', 'Razón', ['class' => 'control-label']) !!}
-        </div>
-        <div class="col-md-8 text-center">
-            <div class="form-inline form-group">
-                {!! Form::text('successReason', null, ['class' => 'form-control', 'id' => 'reason', 'placeholder' => 'Razón para cambiar el estado', 'ng-model' => 'successReason', 'ng-change' => 'successActionButton = successReason.length ? (successAction.length? true : false) : false']) !!}
-                {!! Form::select('successAction', $successStatuses, null, ['class' => 'form-control', 'placeholder' => 'Selecciona un estado', 'ng-model' => 'successAction', 'ng-change' => 'successActionButton = successReason.length ? (successAction.length? true : false) : false', 'ng-init' => 'successAction="' . $license->license_status_id . '"']) !!}
+    <div class="row">
+        <div class="col-lg-12" style="padding-top:8px">
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12" style="padding-top:8px">
+                {!! Form::label('successReason', 'Razón', ['class' => 'control-label']) !!}
             </div>
-        </div>
-        <div class="col-md-2 text-left">
-            <button class="btn btn-danger" type="button" ng-click="changeStatusLicense()" ng-show="successActionButton">Cambiar estado</button>
+            <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-inline form-group">
+                    {!! Form::text('successReason', null, ['class' => 'form-control', 'id' => 'reason', 'placeholder' => 'Razón para cambiar el estado', 'ng-model' => 'successReason', 'ng-change' => 'successActionButton = successReason.length ? (successAction.length? true : false) : false']) !!}
+                    {!! Form::select('successAction', $successStatuses, null, ['class' => 'form-control', 'placeholder' => 'Selecciona un estado', 'ng-model' => 'successAction', 'ng-change' => 'successActionButton = successReason.length ? (successAction.length? true : false) : false', 'ng-init' => 'successAction="' . $license->license_status_id . '"']) !!}
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                <button class="btn btn-danger" type="button" ng-click="changeStatusLicense()" ng-show="successActionButton">Cambiar estado</button>
+            </div>
         </div>
     </div>
 </div>

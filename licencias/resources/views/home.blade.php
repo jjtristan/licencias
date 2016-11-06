@@ -10,7 +10,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-book-open fa-2x"></i>
                             <div class="h1 font-w700">{{ $activityCommunicationAmount }}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Actividades inocuas</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">Declaración responsable - Actividades inocuas</div>
                         </div>
                         <div class="block-content block-content-full block-content-mini bg-danger text-white">
                         </div>
@@ -32,7 +32,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-book-open fa-2x"></i>
                             <div class="h1 font-w700">{{ $withoutQualificationAmount }}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Actividades sujetas a declaración responsable</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">Declaración responsable - Actividades no inocuas</div>
                         </div>
                     </div>
                     <div class="block-content block-content-full block-content-mini bg-primary text-white">
@@ -265,6 +265,7 @@
                     $scope.nifs.push(value.titular.nif);
                     value.nif = value.titular.nif;
                     value.titular_name = value.titular.first_name +' '+ value.titular.last_name;
+                    value.is_law = value.is_law === 1 ? 'Si' : 'No';
                     if($scope.titulares.indexOf(value.titular_name) == -1){
                         $scope.titulares.push(value.titular.first_name +' '+ value.titular.last_name);
                     }
@@ -292,6 +293,7 @@
                 { key: "activity_name", name: "Actividad", placeholder: "Actividad...", restrictToSuggestedValues: true, suggestedValues: $scope.getAllActivities },
                 { key: "street_name", name: "Dirección", placeholder: "Dirección..." , restrictToSuggestedValues: true, suggestedValues: $scope.getAllStreets  },
                 { key: "commerce_name", name: "Nombre Comercial" , placeholder: "Nombre Comercial..." },
+                { key: "is_law", name: "Ley 12/2012" , placeholder: "Ley 12/2012...", restrictToSuggestedValues: true, suggestedValues: ['Si','No'] },
             ];
 
 

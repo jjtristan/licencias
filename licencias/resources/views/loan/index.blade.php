@@ -20,8 +20,9 @@
             <table class="table table-header-bg table-striped js-dataTable-full-pagination">
                 <thead>
                     <tr>
-                        <th>Licencia</th>
-                        <th>Persona</th>
+                        <th>Nº de Expediente</th>
+                        <th>Número de registro</th>
+                        <th>Titular</th>
                         <th>Fecha de préstamo</th>
                         <th>Fecha de devolución</th>
                         <th>Estatus</th>
@@ -31,6 +32,7 @@
                 <tbody>
                     @foreach($loans as $loan)
                         <tr>
+                            <td>{{ $loan->license->expedient_number }}</td>
                             <td>{{ $loan->license->number }}</td>
                             <td>{{ $loan->person->first_name }} {{ $loan->person->last_name }}</td>
                             <td>{{ $loan->loan_date_output }}</td>

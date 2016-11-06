@@ -5,7 +5,7 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-8">
-                    Alta de licencias
+                    <h3>Alta de licencias</h3>
                 </div>
                 <div class="col-md-4 text-right">
                     <a class="btn btn-warning" href="{{ route('license.index') }}" role="button">Volver al listado</a>

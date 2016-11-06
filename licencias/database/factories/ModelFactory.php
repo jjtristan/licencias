@@ -104,6 +104,7 @@ $factory->define(CityBoard\Entities\License::class,
         'closet' => 'A',
         'volume_year' => null,
         'on_query' => false,
+        'is_law' => $faker->randomElement($array = array (true, false)),
       ];
   });
 

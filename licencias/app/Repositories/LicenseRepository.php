@@ -38,7 +38,11 @@ class LicenseRepository implements RepositoryInterface
      */
     public function findOrFailById($id)
     {
-        return License::with('titular', 'licenseCurrentStages', 'licenseCurrentStages.licenseStage', 'licenseCurrentStages.person', 'licenseCurrentStages.file', 'licenseCurrentStages.objections', 'licenseCurrentStages.objections.firstPersonPosition', 'licenseCurrentStages.objections.secondPersonPosition', 'licenseCurrentStages.objections.file', 'licenseCurrentStages.objections.objectionNotifications', 'loans', 'loans.person')->findOrFail($id);
+        return License::with('titular', 'licenseCurrentStages', 'licenseCurrentStages.licenseStage',
+            'licenseCurrentStages.person', 'licenseCurrentStages.file', 'licenseCurrentStages.objections',
+            'licenseCurrentStages.objections.firstPersonPosition',
+            'licenseCurrentStages.objections.secondPersonPosition', 'licenseCurrentStages.objections.file',
+            'licenseCurrentStages.objections.objectionNotifications', 'loans', 'loans.person')->findOrFail($id);
     }
 
     /**
@@ -146,8 +150,15 @@ class LicenseRepository implements RepositoryInterface
             $license->license_status_id = $licenseStatus->id;
         }
 
-        $license->lat = $license->street->name." ". $license->street_number .", ".$license->city;;
-        $license->lng = $license->street->name." ". $license->street_number .", ".$license->city;;
+        $license->lat = $license->street->name." ". $license->street_number .", ".$license->city;
+        $license->lng = $license->street->name." ". $license->street_number .", ".$license->city;
+
+        if ($request->has('is_law')) {
+            $license->is_law = true;
+        }else{
+            $license->is_law = false;
+        }
+
 
         $license->save();
         
@@ -252,6 +263,13 @@ class LicenseRepository implements RepositoryInterface
         }
         $license->lat = $license->street->name." ". $license->street_number .", ".$license->city;
         $license->lng = $license->street->name." ". $license->street_number .", ".$license->city;
+
+        if ($request->has('is_law')) {
+            $license->is_law = true;
+        }else{
+            $license->is_law = false;
+        }
+
 
         $license->save();
 

@@ -180,9 +180,15 @@
                                 <div class="col-md-4">
                                     <p><strong>Número de registro:</strong> {{ $license->register_number }}</p>
                                 </div>
+
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                @if($license->is_law)
+                                    <div class="col-md-4">
+                                        <p><strong>Aplica en Ley 12/2012</strong></p>
+                                    </div>
+                                @endif
+                                <div class="col-md-6">
                                     <p><strong>Actividad:</strong> {{ $license->activity->name }}</p>
                                 </div>
                             </div>
