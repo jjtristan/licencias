@@ -52,7 +52,12 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="col-md-12">
+                    @if($loan->license->is_law)
+                        <div class="col-md-4">
+                            <p><strong>Aplica en Ley 12/2012</strong></p>
+                        </div>
+                    @endif
+                    <div class="col-md-6">
                         <p><strong>Actividad:</strong> {{ $loan->license->activity->name }}</p>
                     </div>
                 </div>

@@ -73,6 +73,7 @@ class CreateLicensesTable extends Migration
             $table->string('lng')->default("");
             $table->date('visit_date');
             $table->string('expiration')->default(null);
+            $table->boolean('is_law')->default(false);
 
 
             $table->timestamps();

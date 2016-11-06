@@ -5,7 +5,7 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-8">
-                    Editar {{ $license->licenseType->name }} {{ $license->number }}/{{ $license->year }}
+                    <h3>Editar {{ $license->licenseType->name }} {{ $license->number }}/{{ $license->year }}</h3>
                 </div>
                 <div class="col-md-4 text-right">
                     <a class="btn btn-primary" href="{{ route('license.index') }}" role="button">Volver al listado</a>

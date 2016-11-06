@@ -127,6 +127,7 @@
                     value.activity_name = value.activity.name;
                     value.street_name = value.street.name;
                     value.status = value.license_status.name;
+                    value.is_law = value.is_law === 1 ? 'Si' : 'No';
                     value.titular_name = value.titular.first_name +' '+ value.titular.last_name;
                     if($scope.titulares.indexOf(value.titular_name) == -1){
                         $scope.titulares.push(value.titular.first_name +' '+ value.titular.last_name);
@@ -157,6 +158,7 @@
                 { key: "commerce_name", name: "Nombre Comercial" , placeholder: "Nombre Comercial..." },
                 { key: "volumeyear", name: "Archivo" , placeholder: "Archivo..." },
                 { key: "closet", name: "Armario" , placeholder: "Armario..." },
+                { key: "is_law", name: "Ley 12/2012" , placeholder: "Ley 12/2012...", restrictToSuggestedValues: true, suggestedValues: ['Si','No'] },
             ];
 
             $scope.activitySearch = function () {

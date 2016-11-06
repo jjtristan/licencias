@@ -15,19 +15,28 @@
                 @endif
             </div>
             <div class="col-md-6">
+                <div class="form-group @if($errors->first('is_law')) has-error @endif">
+                    {!! Form::label('is_law', 'Ley 12/2012', ['class' => 'control-label']) !!}
+                    {!! Form::checkbox('is_law', null) !!}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="form-group @if($errors->first('expedient_number')) has-error @endif">
                     {!! Form::label('expedient_number', 'Número de expediente', ['class' => 'control-label']) !!}
                     {!! Form::text('expedient_number', null, ['class' => 'form-control', 'id' => 'expedient_number_input', 'placeholder' => 'Número de expediente']) !!}
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="col-md-6">
                 <div class="form-group @if($errors->first('register_number')) has-error @endif">
                     {!! Form::label('register_number', 'Número de registro', ['class' => 'control-label']) !!}
                     {!! Form::text('register_number', null, ['class' => 'form-control', 'id' => 'register_number_input', 'placeholder' => 'Número de registro']) !!}
                 </div>
             </div>
+
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group @if($errors->first('register_date')) has-error @endif">
                     {!! Form::label('register_date', 'Fecha de registro', ['class' => 'control-label']) !!}
@@ -38,9 +47,7 @@
                     @endif
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 @if(isset($license->closet))
                     <div class="form-group @if($errors->first('closet')) has-error @endif">
                         {!! Form::label('closet', 'Armario', ['class' => 'control-label']) !!}

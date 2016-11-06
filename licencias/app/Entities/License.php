@@ -59,6 +59,7 @@ class License extends Model
         'lat',
         'lng',
         'visit_date',
+        'is_law',
     ];
 
 

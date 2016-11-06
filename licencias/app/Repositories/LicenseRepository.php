@@ -150,8 +150,15 @@ class LicenseRepository implements RepositoryInterface
             $license->license_status_id = $licenseStatus->id;
         }
 
-        $license->lat = $license->street->name." ". $license->street_number .", ".$license->city;;
-        $license->lng = $license->street->name." ". $license->street_number .", ".$license->city;;
+        $license->lat = $license->street->name." ". $license->street_number .", ".$license->city;
+        $license->lng = $license->street->name." ". $license->street_number .", ".$license->city;
+
+        if ($request->has('is_law')) {
+            $license->is_law = true;
+        }else{
+            $license->is_law = false;
+        }
+
 
         $license->save();
         
@@ -256,6 +263,9 @@ class LicenseRepository implements RepositoryInterface
         }
         $license->lat = $license->street->name." ". $license->street_number .", ".$license->city;
         $license->lng = $license->street->name." ". $license->street_number .", ".$license->city;
+
+        $license->is_law = $request->input('is_law');
+
 
         $license->save();
 
