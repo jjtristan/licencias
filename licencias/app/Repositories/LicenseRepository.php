@@ -38,7 +38,11 @@ class LicenseRepository implements RepositoryInterface
      */
     public function findOrFailById($id)
     {
-        return License::with('titular', 'licenseCurrentStages', 'licenseCurrentStages.licenseStage', 'licenseCurrentStages.person', 'licenseCurrentStages.file', 'licenseCurrentStages.objections', 'licenseCurrentStages.objections.firstPersonPosition', 'licenseCurrentStages.objections.secondPersonPosition', 'licenseCurrentStages.objections.file', 'licenseCurrentStages.objections.objectionNotifications', 'loans', 'loans.person')->findOrFail($id);
+        return License::with('titular', 'licenseCurrentStages', 'licenseCurrentStages.licenseStage',
+            'licenseCurrentStages.person', 'licenseCurrentStages.file', 'licenseCurrentStages.objections',
+            'licenseCurrentStages.objections.firstPersonPosition',
+            'licenseCurrentStages.objections.secondPersonPosition', 'licenseCurrentStages.objections.file',
+            'licenseCurrentStages.objections.objectionNotifications', 'loans', 'loans.person')->findOrFail($id);
     }
 
     /**

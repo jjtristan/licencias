@@ -10,7 +10,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-book-open fa-2x"></i>
                             <div class="h1 font-w700">{{ $activityCommunicationAmount }}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Actividades inocuas</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">Declaración responsable - Actividades inocuas</div>
                         </div>
                         <div class="block-content block-content-full block-content-mini bg-danger text-white">
                         </div>
@@ -32,7 +32,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-book-open fa-2x"></i>
                             <div class="h1 font-w700">{{ $withoutQualificationAmount }}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Actividades sujetas a declaración responsable</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">Declaración responsable - Actividades no inocuas</div>
                         </div>
                     </div>
                     <div class="block-content block-content-full block-content-mini bg-primary text-white">
