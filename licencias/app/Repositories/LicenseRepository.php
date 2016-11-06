@@ -264,7 +264,11 @@ class LicenseRepository implements RepositoryInterface
         $license->lat = $license->street->name." ". $license->street_number .", ".$license->city;
         $license->lng = $license->street->name." ". $license->street_number .", ".$license->city;
 
-        $license->is_law = $request->input('is_law');
+        if ($request->has('is_law')) {
+            $license->is_law = true;
+        }else{
+            $license->is_law = false;
+        }
 
 
         $license->save();
