@@ -528,6 +528,8 @@ stageApp.controller('currentStageController', ['$scope', '$http', 'Upload', '$ti
         initializeStageFields(response);
         if (response.data.stageData !== null) {
             $scope.stageData = response.data.stageData;
+            $scope.stageData.proceeds_visit = $scope.stageData.proceeds_visit == 1? 'true' : 'false';
+
             sanitizeStageData();
         }
 
