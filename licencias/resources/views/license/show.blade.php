@@ -15,7 +15,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-12">
-                            Localización
+                            <h3>Localización</h3>
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-8">
-                            {{ $license->licenseType->name }} {{ $license->number }}/{{ $license->year }}
+                            <h3>{{ $license->licenseType->name }} {{ $license->number }}/{{ $license->year }}</h3>
                         </div>
                         <div class="col-md-4 text-right">
                             <a class="btn btn-warning" href="{{ route('license.index') }}" role="button">Volver al listado</a>
@@ -253,84 +253,85 @@
                         </div>
                         <div role="tabpanel" class="tab-pane panel panel-body" id="license-details">
                             <!-- Detalles -->
-                            <div ng-repeat="value in licenseObject">
-                                <h3>@{{ value.license_stage.name }}</h3>
-                                <div ng-if="value.date">
-                                    <p><strong>Fecha:</strong> @{{ value.date | date:'dd-MM-yyyy' }}</p>
-                                </div>
-                                <div ng-if="value.person_id">
-                                    <p><strong>Persona:</strong> @{{ value.person.first_name }} @{{value.person.first_name}}</p>
-                                </div>
-                                <div ng-if="value.number">
-                                    <p><strong>Número:</strong> @{{ value.number }}</p>
-                                </div>
-                                <div ng-if="value.file_id">
-                                    <p><strong>Fichero:</strong> <a ng-href="../file/download/@{{ value.file_id }}" target="_blank">Descargar @{{  value.file.filename }}</a></p>
-                                </div>
-                                <div ng-if="value.objections.length">
-                                    <p><strong>Reparos</strong></p>
-                                    <div ng-repeat="objection in value.objections">
-                                        <div class="col-md-1">
-                                        </div>
-                                        <div class="col-md-11">
-                                            <p><strong>Reparo @{{ objection.id }}</strong></p>
-                                            <div ng-if="objection.first_person_position_id">
-                                                <p>Primera Posición de Persona: @{{ objection.first_person_position.name }}</p>
-                                            </div>
-                                            <div ng-if="objection.second_person_position_id">
-                                                <p>Segunda Posición de Persona: @{{ objection.second_person_position.name }}</p>
-                                            </div>
-                                            <div ng-if="objection.report_date">
-                                                <p>Fecha de reporte: @{{ objection.report_date | date:'dd-MM-yyyy' }}</p>
-                                            </div>
-                                            <div ng-repeat="notification in objection.objection_notifications">
-                                                <p>Notificación: @{{ notification.notification_date | date:'dd-MM-yyyy'}} Fecha de Finalización: @{{ notification.finish_date | date:'dd-MM-yyyy'}}</p>
-                                            </div>
-                                            <div ng-if="objection.correction_date">
-                                                <p>Fecha de subsanación: @{{ objection.correction_date | date:'dd-MM-yyyy'}}</p>
-                                            </div>
-                                        </div>
+                            <div class="list-group">
+                                <div class="list-group-item" ng-repeat="value in licenseObject">
+                                    <h3>@{{ value.license_stage.name }}</h3>
+                                    <div ng-if="value.date">
+                                        <p><strong>Fecha:</strong> @{{ value.date | date:'dd-MM-yyyy' }}</p>
                                     </div>
-                                </div>
-                                <!-- JGT: Se agregan los nuevos campos-->
-                                <div ng-if="value.proceeds_visit">
-                                    <p>
-                                        <div ng-switch="value.proceeds_visit">
-                                            <div ng-switch-when="1">
-                                                Si
-                                            </div>
-                                            <div ng-switch-when="0">
-                                                No
-                                            </div>
-                                            <div ng-switch-default></div>
-                                        </div>
-                                    </p>
-                                </div>
-                                <div ng-if="value.license_stage.date_firsh_visit">
-                                    <br>
-                                    <div ng-if="visitObject.length">
-                                        <table class="table table-condensed">
+                                    <div ng-if="value.person_id">
+                                        <p><strong>Persona:</strong> @{{ value.person.first_name }} @{{value.person.first_name}}</p>
+                                    </div>
+                                    <div ng-if="value.number">
+                                        <p><strong>Número:</strong> @{{ value.number }}</p>
+                                    </div>
+                                    <div ng-if="value.file_id">
+                                        <p><strong>Fichero:</strong> <a ng-href="../file/download/@{{ value.file_id }}" target="_blank">Descargar @{{  value.file.filename }}</a></p>
+                                    </div>
+                                    <div ng-if="value.objections.length">
+                                        <h3>Historico de Reparos</h3>
+                                        <table class="table table-hover table-header-bg">
                                             <thead>
-                                                <tr>
-                                                    <th>Fecha</th>
-                                                    <th>Sanción</th>
-                                                    <th>Acta</th>
-                                                </tr>
+                                            <tr>
+                                                <th>Reparo</th>
+                                                <th>Cargo 1</th>
+                                                <th>Cargo 2</th>
+                                                <th>Fecha de informe</th>
+                                                <th>Fecha de subsanación</th>
+                                            </tr>
                                             </thead>
-                                            <tbody ng-repeat="visits in visitObject">
-                                                <tr>
-                                                    <td>@{{visits.date_visit | date:'dd-MM-yyyy'}}</td>
-                                                    <td>@{{visits.sanctions}}</td>
-                                                    <td>
-                                                        <div ng-switch="@{{visits.act}}">
-                                                            <div ng-switch-when="1">Favorable</div>
-                                                            <div ng-switch-when="0">Desfavorable</div>
-                                                            <div ng-switch-default></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                            <tbody>
+                                            <tr ng-repeat="objection in value.objections">
+                                                <td>@{{ objection.id }}</td>
+                                                <td>@{{ objection.first_person_position.name }}</td>
+                                                <td>@{{ objection.second_person_position.name }}</td>
+                                                <td>@{{ objection.report_date | date:'dd-MM-yyyy'}}</td>
+                                                <td>@{{ objection.correction_date | date:'dd-MM-yyyy' }}</td>
+                                            </tr>
                                             </tbody>
                                         </table>
+
+                                    </div>
+                                    <!-- JGT: Se agregan los nuevos campos-->
+                                    <div ng-if="value.proceeds_visit">
+                                        <p>
+                                            <div ng-switch="value.proceeds_visit">
+                                                <div ng-switch-when="1">
+                                                    Si
+                                                </div>
+                                                <div ng-switch-when="0">
+                                                    No
+                                                </div>
+                                                <div ng-switch-default></div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                    <div ng-if="value.license_stage.date_firsh_visit">
+                                        <br>
+                                        <div ng-if="visitObject.length">
+                                            <table class="table table-hover table-header-bg">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="15%">Fecha</th>
+                                                        <th>Sanción</th>
+                                                        <th width="30%">Acta</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody ng-repeat="visits in visitObject">
+                                                    <tr>
+                                                        <td>@{{visits.date_visit | date:'dd-MM-yyyy'}}</td>
+                                                        <td>@{{visits.sanctions}}</td>
+                                                        <td>
+                                                            <div ng-switch="@{{visits.act}}">
+                                                                <div ng-switch-when="1">Favorable</div>
+                                                                <div ng-switch-when="0">Desfavorable</div>
+                                                                <div ng-switch-default></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
