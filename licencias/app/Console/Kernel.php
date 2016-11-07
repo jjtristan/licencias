@@ -43,11 +43,13 @@ class Kernel extends ConsoleKernel
                         ->where('id', $value->last_current_stage_id)->get()[0];
                     
                     $fechaActual = Carbon::now();
-                    $ultimaModificacion = Carbon::parse($licenciaCurrentStage->updated_at);
+                    $fechaUpdate = Carbon::parse($licenciaCurrentStage->updated_at);
                     
                     $timeLimit = TimeLimit::where('code', 'LTAP')->get()[0];
+
+                    $ultimaModificacion = $fechaUpdate->addWeekdays($timeLimit->days);
                     
-                    if ($fechaActual->diffInDays($ultimaModificacion) > $timeLimit->days) {
+                    if ($fechaActual->diffInDays($ultimaModificacion, false) <= 0) {
                         $descripcion = '';
                         $alertPlaso = Alert::where('license_id', $value->id)
                             ->where('type_alert_id', 3)->get();
