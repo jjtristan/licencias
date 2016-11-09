@@ -112,7 +112,7 @@
                             <th>Dirección</th>
                             <th>Titular</th>
                             <th>Tipo</th>
-                            <!-- <th>Fecha Último cambio</th> -->
+                            <th>Fecha Último cambio</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -125,9 +125,9 @@
                             <td>
                                 @{{ license.type }}
                             </td>
-                            {{--<td>
-                                @{{ license.updated_at }}
-                            </td> --}}
+                            <td>
+                                @{{ license.fecha_format }}
+                            </td>
                            {{-- <td>
                                  @if (isset($license->license_data_current_stage))
                                      @{{ $license->license_data_current_stage->updated_at }}
