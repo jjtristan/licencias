@@ -45,7 +45,7 @@
             <h2 ng-show="license.identifier !== null">Número de licencia: @{{ license.identifier }}</h2>
         </div>
         <div class="col-md-6 text-right">
-            <button class="btn btn-warning" type="button" ng-click="openLicense()">Reabrir Licencia</button>
+            <button class="btn btn-danger" type="button" ng-click="openLicense()">Reabrir Licencia</button>
         </div>
     </div>
     
@@ -160,7 +160,7 @@
                                 <!-- JGT: Campo de acta -->
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 form-group" ng-class="stageError.act ? 'has-error' : ''" >
                                     {!! Form::label('act', 'Tipo de acta:', ['class' => 'control-label']) !!}
-                                    {!! Form::select('act', ['1' => 'Favorable', '0' => 'Desfavorable'], null, ['class' => 'form-control', 'ng-model' => 'visit.act']) !!}
+                                    {!! Form::select('act', ['1' => 'Favorable', '0' => 'Desfavorable'], null, ['class' => 'form-control', 'ng-model' => 'visit.act', 'placeholder'=> 'Selecciona...']) !!}
                                 </div>
 
                                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 form-group" ng-class="stageError.penalties ? 'has-error' : ''" >
@@ -218,8 +218,121 @@
                         @endif
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                             <span ng-show="AddObjectionButton">
-                                <button class="btn btn-success pull-left" type="button" ng-click="hideAddObjectionButton()"><i class="glyphicon glyphicon-screenshot"></i> Añadir Reparo</button>
+                                <button class="btn btn-success pull-left" type="button" ng-click="hideAddObjectionButton()" style="margin-bottom: 15px"><i class="glyphicon glyphicon-screenshot"></i> Añadir Reparo</button>
                             </span>
+                        </div>
+
+{{--
+                        <div ng-hide="AddObjectionButton" class="block block-themed" style="border: 1px #F0F0F0 solid">
+--}}
+                        <div ng-hide="AddObjectionButton" class="block block-themed">
+                            <div ng-class="stageError['stageObjection.first_person_position_id'] ? 'has-error' : ''"
+                                 ng-show="stageFields.objection">
+                                <div class="block-header bg-warning">
+                                    <h3 class="block-title text-white" ng-show="stageFields.id">Reparos</h3>
+                                </div>
+                                <div class="block-content">
+                                        {!! Form::hidden('objection_id', null, ['ng-model' => 'stageData.objection_id', 'ng-change' => 'stageSave = true']) !!}
+                                        {!! Form::hidden('license_id', null, ['ng-model' => 'stageObjection.license_id', 'ng-init' => 'stageObjection.license_id=' . $license->id]) !!}
+                                        {!! Form::hidden('license_stage_id', null, ['ng-model' => 'stageObjection.license_stage_id']) !!}
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group" ng-class="stageError.objection.first_person_position_id ? 'has-error' : ''">
+                                                {!! Form::label('first_person_position_id', 'Primera Posición de persona', ['class' => 'control-label']) !!}
+                                                <div ng-show="stageObjection.first_person_position_id">
+                                                    {!! Form::select('first_person_position_id', $personPositions, null, ['class' => 'form-control', 'placeholder' => 'Selecciona una Posición...', 'ng-model' => 'stageObjection.first_person_position_id', 'ng-change' => 'changeFirstPersonPosition()', 'convert-to-number' => '']) !!}
+                                                </div>
+                                                <div ng-hide="stageObjection.first_person_position_id">
+                                                    {!! Form::select('first_person_position_id', $personPositions, null, ['class' => 'form-control', 'placeholder' => 'Selecciona una Posición...', 'ng-model' => 'stageObjection.first_person_position_id', 'ng-change' => 'changeFirstPersonPosition()']) !!}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" ng-show="stageFields.name === 'Encargo Informe Ambiental'">
+                                            <div class="form-group" ng-class="stageError.objection.second_person_position_id ? 'has-error' : ''" ng-show="stageFields.name === 'Encargo Informe Ambiental'">
+                                                {!! Form::label('second_person_position_id', 'Segunda Posición de persona', ['class' => 'control-label']) !!}
+                                                <div ng-show="stageObjection.second_person_position_id">
+                                                    {!! Form::select('second_person_position_id', $personPositions, null, ['class' => 'form-control', 'placeholder' => 'Selecciona una Posición de persona...', 'ng-model' => 'stageObjection.second_person_position_id', 'ng-change' => 'changeFirstPersonPosition()', 'convert-to-number' => '']) !!}
+                                                </div>
+                                                <div ng-hide="stageObjection.second_person_position_id">
+                                                    {!! Form::select('second_person_position_id', $personPositions, null, ['class' => 'form-control', 'placeholder' => 'Selecciona una Posición de persona...', 'ng-model' => 'stageObjection.second_person_position_id', 'ng-change' => 'changeFirstPersonPosition()']) !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span ng-show="showObjectionDate">
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="form-group" ng-class="stageError.objection.report_date ? 'has-error' : ''">
+                                                    {!! Form::label('report_date', 'Fecha Informe', ['class' => 'control-label']) !!}
+                                                    {!! Form::date('report_date', null, ['class' => 'form-control', 'ng-model' => 'stageObjection.report_date', 'ng-change' => 'stageSave = true']) !!}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 form-group">
+                                                {!! Form::label(null, '', ['class' => 'control-label']) !!}
+                                                <button style="margin-top:25px;" class="btn btn-success" type="boton" ng-click="saveObjection()"><i class="fa fa-save"></i> Guardar reparo</button>
+                                            </div>
+                                        </span>
+                                    </div>
+                                    <span ng-show="showObjectionDate">
+                                        <div class="row">
+                                            <div ng-show="stageObjectionNotifications.length" class="col-lg-12">
+                                                <h4 class="text-center">Notificaciones De Reparos</h4>
+                                                <table class="table table-hover table-header-bg">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Fecha de notificación</th>
+                                                            <th>Fin de plazo</th>
+                                                            <th width="10%"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="objectionNotification in stageObjectionNotifications">
+                                                            <td>@{{ objectionNotification.notification_date | date:'dd-MM-yyyy'}}</td>
+                                                            <td>@{{ objectionNotification.finish_date | date:'dd-MM-yyyy'}}</td>
+                                                            <td><button class="btn btn-danger" type="button" ng-click="deleteObjectionNotification(objectionNotification.id)"><i class="fa fa-trash-o"></i> Borrar</button></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="form-group" ng-class="stageError.objection.notification_date ? 'has-error' : ''" ng-show="showNotificationDate">
+                                                    {!! Form::label('notification_date', 'Fecha Notificación', ['class' => 'control-label']) !!}
+                                                    {!! Form::date('notification_date', null, ['class' => 'form-control', 'ng-model' => 'stageObjection.notification_date', 'ng-change' => 'stageSave = true']) !!}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 form-group" ng-show="showNotificationDate">
+                                                <button style="margin-top:25px;" class="btn btn-success" type="button" ng-click="nextObjectionNotification()" ng-show="stageObjectionNotificationNext"><i class="fa fa-bell"></i> Notificación plazo @{{ stageObjectionNotificationNext.weight }}</button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="form-group" ng-class="stageError.objection.correction_date ? 'has-error' : ''" ng-show="showNotificationDate">
+                                                    {!! Form::label('correction_date', 'Fecha Subsanación', ['class' => 'control-label']) !!}
+                                                    {!! Form::date('correction_date', null, ['class' => 'form-control', 'ng-model' => 'stageObjection.correction_date', 'ng-change' => 'stageSave = true']) !!}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="form-group" ng-class="stageError.objection.correction_date ? 'has-error' : ''" ng-show="showNotificationDate">
+                                                    <button style="margin-top:25px;" class="btn btn-danger" type="button" ng-click="closeObjection()"  ng-hide="AddObjectionButton"><i class="fa fa-close"></i> Cerrar Reparo</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+
+                                        <button class="btn btn-warning" type="button" ng-click="openObjection()"  ng-show="AddObjectionButton">Abrir Reparo</button>
+                                        @if(env('FILE_UPLOAD'))
+                                            <div class="form-group" ng-class="stageError.objection.file_id ? 'has-error' : ''">
+                                                {!! Form::label('objectionFilename', 'Fichero del Reparo', ['class' => 'control-label']) !!}
+                                                <div ng-show="stageObjectionFile.id">
+                                                    <a href="../file/download/@{{ stageObjectionFile.id }}" target="_blank">Descargar @{{ stageObjectionFile.filename }}</a>
+                                                    {!! Form::hidden('objection_file_id', null, ['ng-model' => 'stageObjectionFile.id', 'ng-change' => 'stageSave = true']) !!}
+                                                </div>
+                                                <div class="btn btn-warning" ngf-select="uploadObjection($file)">Subir un fichero al reparo</div>
+                                            </div>
+                                        @endif
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div ng-show="stageObjections.length" class="col-lg-12">
@@ -246,139 +359,23 @@
                                 </table>
                             </div>
                         </div>
-{{--
-                        <div ng-hide="AddObjectionButton" class="block block-themed" style="border: 1px #F0F0F0 solid">
---}}
-                        <div ng-hide="AddObjectionButton" class="block block-themed">
-                            <div ng-class="stageError['stageObjection.first_person_position_id'] ? 'has-error' : ''"
-                                 ng-show="stageFields.objection">
-                                <div class="block-header bg-warning">
-                                    <h3 class="block-title text-white" ng-show="stageFields.id">Reparos</h3>
-                                </div>
-                                <div class="block-content">
-                                        {!! Form::hidden('objection_id', null, ['ng-model' => 'stageData.objection_id', 'ng-change' => 'stageSave = true']) !!}
-                                        {!! Form::hidden('license_id', null, ['ng-model' => 'stageObjection.license_id', 'ng-init' => 'stageObjection.license_id=' . $license->id]) !!}
-                                        {!! Form::hidden('license_stage_id', null, ['ng-model' => 'stageObjection.license_stage_id']) !!}
-
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                            <div class="form-group" ng-class="stageError.objection.first_person_position_id ? 'has-error' : ''">
-                                                {!! Form::label('first_person_position_id', 'Primera Posición de persona', ['class' => 'control-label']) !!}
-                                                <div ng-show="stageObjection.first_person_position_id">
-                                                    {!! Form::select('first_person_position_id', $personPositions, null, ['class' => 'form-control', 'placeholder' => 'Selecciona una Posición...', 'ng-model' => 'stageObjection.first_person_position_id', 'ng-change' => 'changeFirstPersonPosition()', 'convert-to-number' => '']) !!}
-                                                </div>
-                                                <div ng-hide="stageObjection.first_person_position_id">
-                                                    {!! Form::select('first_person_position_id', $personPositions, null, ['class' => 'form-control', 'placeholder' => 'Selecciona una Posición...', 'ng-model' => 'stageObjection.first_person_position_id', 'ng-change' => 'changeFirstPersonPosition()']) !!}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" ng-show="stageFields.name === 'Encargo Informe Ambiental'">
-                                            <div class="form-group" ng-class="stageError.objection.second_person_position_id ? 'has-error' : ''" ng-show="stageFields.name === 'Encargo Informe Ambiental'">
-                                                {!! Form::label('second_person_position_id', 'Segunda Posición de persona', ['class' => 'control-label']) !!}
-                                                <div ng-show="stageObjection.second_person_position_id">
-                                                    {!! Form::select('second_person_position_id', $personPositions, null, ['class' => 'form-control', 'placeholder' => 'Selecciona una Posición de persona...', 'ng-model' => 'stageObjection.second_person_position_id', 'ng-change' => 'changeFirstPersonPosition()', 'convert-to-number' => '']) !!}
-                                                </div>
-                                                <div ng-hide="stageObjection.second_person_position_id">
-                                                    {!! Form::select('second_person_position_id', $personPositions, null, ['class' => 'form-control', 'placeholder' => 'Selecciona una Posición de persona...', 'ng-model' => 'stageObjection.second_person_position_id', 'ng-change' => 'changeFirstPersonPosition()']) !!}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <span ng-show="showObjectionDate">
-                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                <div class="form-group" ng-class="stageError.objection.report_date ? 'has-error' : ''">
-                                                    {!! Form::label('report_date', 'Fecha Informe', ['class' => 'control-label']) !!}
-                                                    {!! Form::date('report_date', null, ['class' => 'form-control', 'ng-model' => 'stageObjection.report_date', 'ng-change' => 'stageSave = true']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 form-group">
-                                                {!! Form::label(null, null, ['class' => 'control-label']) !!}
-                                                <button class="btn btn-success" type="boton" ng-click="saveObjection()"><i class="fa fa-save"></i> Guardar reparo</button>
-                                            </div>
-
-
-                                            <div ng-show="stageObjectionNotifications.length" class="col-lg-12">
-                                                <h4 class="text-center">Notificaciones De Reparos</h4>
-                                                <table class="table table-hover table-header-bg">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Fecha de notificación</th>
-                                                            <th>Fin de plazo</th>
-                                                            <th width="10%"></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr ng-repeat="objectionNotification in stageObjectionNotifications">
-                                                            <td>@{{ objectionNotification.notification_date | date:'dd-MM-yyyy'}}</td>
-                                                            <td>@{{ objectionNotification.finish_date | date:'dd-MM-yyyy'}}</td>
-                                                            <td><button class="btn btn-danger" type="button" ng-click="deleteObjectionNotification(objectionNotification.id)"><i class="fa fa-trash-o"></i> Borrar</button></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="form-group" ng-class="stageError.objection.notification_date ? 'has-error' : ''" ng-show="showNotificationDate">
-                                                        {!! Form::label('notification_date', 'Fecha Notificación', ['class' => 'control-label']) !!}
-                                                        {!! Form::date('notification_date', null, ['class' => 'form-control', 'ng-model' => 'stageObjection.notification_date', 'ng-change' => 'stageSave = true']) !!}
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 form-group" ng-show="showNotificationDate">
-                                                    {!! Form::label(null,'', ['class' => 'control-label']) !!}
-                                                    <button class="btn btn-success" type="button" ng-click="nextObjectionNotification()" ng-show="stageObjectionNotificationNext"><i class="fa fa-bell"></i> Notificación plazo @{{ stageObjectionNotificationNext.weight }}</button>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-12">
-                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="form-group" ng-class="stageError.objection.correction_date ? 'has-error' : ''" ng-show="showNotificationDate">
-                                                        {!! Form::label('correction_date', 'Fecha Subsanación', ['class' => 'control-label']) !!}
-                                                        {!! Form::date('correction_date', null, ['class' => 'form-control', 'ng-model' => 'stageObjection.correction_date', 'ng-change' => 'stageSave = true']) !!}
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="form-group" ng-class="stageError.objection.correction_date ? 'has-error' : ''" ng-show="showNotificationDate">
-                                                        {!! Form::label(null, null, ['class' => 'control-label']) !!}
-                                                        <button class="btn btn-danger" type="button" ng-click="closeObjection()"  ng-hide="AddObjectionButton"><i class="fa fa-close"></i> Cerrar Reparo</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </span>
-
-                                        <button class="btn btn-warning" type="button" ng-click="openObjection()"  ng-show="AddObjectionButton">Abrir Reparo</button>
-                                        @if(env('FILE_UPLOAD'))
-                                            <div class="form-group" ng-class="stageError.objection.file_id ? 'has-error' : ''">
-                                                {!! Form::label('objectionFilename', 'Fichero del Reparo', ['class' => 'control-label']) !!}
-                                                <div ng-show="stageObjectionFile.id">
-                                                    <a href="../file/download/@{{ stageObjectionFile.id }}" target="_blank">Descargar @{{ stageObjectionFile.filename }}</a>
-                                                    {!! Form::hidden('objection_file_id', null, ['ng-model' => 'stageObjectionFile.id', 'ng-change' => 'stageSave = true']) !!}
-                                                </div>
-                                                <div class="btn btn-warning" ngf-select="uploadObjection($file)">Subir un fichero al reparo</div>
-                                            </div>
-                                        @endif
-                                    </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 text-left">
-                            <button class="btn btn-warning" type="button" ng-click="previousStage()" ng-show="stagePrevious"><i class="si si-action-undo"></i> Paso Anterior</button>
-                        </div>
-                        <div class="col-md-4 text-center">
-                            <button class="btn btn-danger" type="button" ng-click="saveStage()" ng-show="stageSave"><i class="fa fa-save"></i> Guardar cambios</button>
-                        </div>
-                        <div class="col-md-4 text-right" ng-hide="ver">
-                            <button class="btn btn-warning" type="button" ng-click="nextStage()" ng-show="stageNext"><i class="si si-action-redo"></i> Siguiente paso</button>
-                            <button class="btn btn-success" type="button" ng-click="finishLicense()" ng-hide="stageNext"><i class="si si-flag"></i> Finalizar licencia</button>
-                        </div>
+                </div>
+            </div>
+            <div class="block-content block-content-mini block-content-full border-t">
+                <div class="row">
+                    <div class="col-md-4 text-left">
+                        <button class="btn btn-warning" type="button" ng-click="previousStage()" ng-show="stagePrevious"><i class="si si-action-undo"></i> Paso Anterior</button>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-danger" type="button" ng-click="saveStage()" ng-show="stageSave"><i class="fa fa-save"></i> Guardar cambios</button>
+                    </div>
+                    <div class="col-md-4 text-right" ng-hide="ver">
+                        <button class="btn btn-warning" type="button" ng-click="nextStage()" ng-show="stageNext"><i class="si si-action-redo"></i> Siguiente paso</button>
+                        <button class="btn btn-success" type="button" ng-click="finishLicense()" ng-hide="stageNext"><i class="si si-flag"></i> Finalizar licencia</button>
                     </div>
                 </div>
             </div>
         </div>
-
-            <!-- Anterior -->
-
-
     </div>
 </div>

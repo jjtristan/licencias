@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group @if($errors->first('is_law')) has-error @endif">
-                    {!! Form::label('is_law', 'Ley 12/2012', ['class' => 'control-label']) !!}
+                    {!! Form::label('is_law', 'Incluida en Ley 12/2012', ['class' => 'control-label']) !!}
                     {!! Form::checkbox('is_law', null) !!}
                 </div>
             </div>
