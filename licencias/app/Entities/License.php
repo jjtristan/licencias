@@ -358,7 +358,7 @@ class License extends Model
         $geocode=file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
 
         $output= json_decode($geocode);
-        if($output->status == "ZERO_RESULTS"){
+        if($output->status == "ZERO_RESULTS" || $output->status == "OVER_QUERY_LIMIT" ){
             $this->attributes['lat'] = "";
         }else{
             $this->attributes['lat'] = $output->results[0]->geometry->location->lat;
@@ -369,7 +369,7 @@ class License extends Model
         $prepAddr = str_replace(' ','+',$value);
         $geocode=file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$prepAddr.'&sensor=false');
         $output= json_decode($geocode);
-        if($output->status == "ZERO_RESULTS"){
+        if($output->status == "ZERO_RESULTS" || $output->status == "OVER_QUERY_LIMIT"){
             $this->attributes['lng'] = "";
         }else{
             $this->attributes['lng'] = $output->results[0]->geometry->location->lng;
