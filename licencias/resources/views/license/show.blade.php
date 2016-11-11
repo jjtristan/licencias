@@ -15,127 +15,175 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-12">
-                            Localización
+                            <h3>Localización</h3>
                         </div>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p>
-                                <label for="closet">Armario</label>
-                                <span ng-hide="licenseClosetEdit">@{{ license.closet }}</span>
-                                <span ng-hide="license.closet">Ninguno</span>
-                                <span ng-show="licenseClosetEdit">
-                                    <select
-                                        ng-model="license.closet"
-                                        name="closet"
-                                        ng-options="closet for closet in closets">
-                                    </select>
-                                </span>
-                                <button class="btn btn-warning" ng-click="licenseClosetEdit=true;license.closet = (license.closet === null ? 'A' : license.closet)" ng-hide="licenseClosetEdit">
-                                Editar
-                                </button>
-                                <button class="btn btn-warning" ng-click="saveLicenseCloset()" ng-show="licenseClosetEdit">
-                                Guardar Cambios
-                                </button>
-                                <button class="btn btn-danger" ng-click="deleteLicenseCloset()" ng-show="licenseClosetEdit">
-                                Borrar dato
-                                </button>
-                            </p>
-                            <div ng-show="license.finished">
-                                <p>
-                                    <button class="btn btn-success" ng-click="licenseVolumeYearEdit=true" ng-hide="license.volume_year">
-                                    Archivar
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                                    <strong>Armario: </strong>
+                                    <span ng-hide="licenseClosetEdit">@{{ license.closet }}</span>
+                                    <span ng-hide="license.closet">Ninguno</span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <span ng-show="licenseClosetEdit">
+                                        <select class="form-control pull-left"
+                                                ng-model="license.closet"
+                                                name="closet"
+                                                ng-options="closet for closet in closets">
+                                        </select>
+                                    </span>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <button class="btn btn-warning pull-right" ng-click="licenseClosetEdit=true;license.closet = (license.closet === null ? 'A' : license.closet)" ng-hide="licenseClosetEdit">
+                                        Editar
                                     </button>
+                                    <button class="btn btn-warning" ng-click="saveLicenseCloset()" ng-show="licenseClosetEdit">
+                                        Guardar Cambios
+                                    </button>
+                                    <button class="btn btn-danger pull-right" ng-click="deleteLicenseCloset()" ng-show="licenseClosetEdit">
+                                        Borrar dato
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="license.finished" class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <strong>Tomo/Año:</strong>
                                     <span ng-show="licenseVolumeYearEdit || license.volume_year">
-                                        <label for="volume_year">
-                                            Tomo/Año
-                                        </label>
                                         <span ng-hide="licenseVolumeYearEdit">@{{ license.volume_year }}</span>
                                         <span ng-show="licenseVolumeYearEdit">
-                                            <input name="volume_year" ng-model="license.volume_year">
+                                            <input class="form-control" name="volume_year" ng-model="license.volume_year">
                                         </span>
+                                    </span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <button class="btn btn-success pull-right" ng-click="licenseVolumeYearEdit=true" ng-hide="license.volume_year">
+                                        Archivar
+                                    </button>
+                                    <span ng-show="licenseVolumeYearEdit || license.volume_year">
                                         <button
-                                        class="btn btn-warning"
-                                        ng-click="licenseVolumeYearEdit=true"
-                                        ng-hide="licenseVolumeYearEdit">
-                                        Editar
+                                                class="btn btn-warning pull-right"
+                                                ng-click="licenseVolumeYearEdit=true"
+                                                ng-hide="licenseVolumeYearEdit">
+                                            Editar
                                         </button>
-                                        <button class="btn btn-success" ng-click="saveLicenseVolumeYear()" ng-show="licenseVolumeYearEdit">
-                                        Guardar
+                                        <button class="btn btn-success pull-right" ng-click="saveLicenseVolumeYear()" ng-show="licenseVolumeYearEdit">
+                                            Guardar
                                         </button>
                                     </span>
-                                </p>
-                                <p>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="license.finished" class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-12">
                                     <span ng-hide="license.on_query">
-                                        <button class="btn btn-danger" ng-click="saveLicenseOnQuery(true)" ng-hide="license.on_query">
+                                        <button class="btn btn-danger pull-right" ng-click="saveLicenseOnQuery(true)" ng-hide="license.on_query">
                                         Consulta
                                         </button>
                                     </span>
                                     <span ng-show="license.on_query">
-                                        <button class="btn btn-success" ng-click="saveLicenseOnQuery(false)" ng-show="license.on_query">
+                                        <button class="btn btn-success pull-right" ng-click="saveLicenseOnQuery(false)" ng-show="license.on_query">
                                         Devolver a archivo
                                         </button>
                                     </span>
-                                </p>
+                                </div>
                             </div>
-                            <div>
-                                @if($license->license_status_id != 4)
-                                <button class="btn btn-success" ng-click="licenseLoanEdit=true" ng-hide="licenseLoanEdit || license.on_loan">
-                                Prestar
-                                </button>
-                                @endif
-                                <span ng-show="licenseLoanEdit || license.on_loan">
-                                    <label for="loan_person" ng-hide="license.on_loan">
-                                        Prestar a
-                                    </label>
-                                    <label for="loan_person" ng-show="license.on_loan">
-                                        Prestado a
-                                    </label>
-                                    <span ng-hide="licenseLoanEdit">@{{ license.active_loan.person.first_name }} @{{ license.active_loan.person.last_name }} <span ng-show="license.active_loan.person.email"><@{{ license.active_loan.person.email }}></span></span>
-                                    <div ng-if="licenseLoanEdit">
-                                        <input type="hidden" name="person_id" id="active_loan_person_id" ng-model="license.active_loan.person.id">
-                                        <label for="first_name">
-                                            Nombre:
-                                        </label>
-                                        <input type="text" name="first_name" id="active_loan_first_name" placeholder="Nombre" ng-model="license.active_loan.person.first_name" ng-init="autocompleteLoanPerson()">
-                                        <label for="last_name">
-                                            Apellidos:
-                                        </label>
-                                        <input type="text" name="last_name" id="active_loan_last_name" placeholder="Apellidos" ng-model="license.active_loan.person.last_name">
-                                        <label for="email">
-                                            Correo electrónico:
-                                        </label>
-                                        <input type="text" name="email" id="active_loan_email" placeholder="Correo Electrónico" ng-model="license.active_loan.person.email">
-                                        <div ng-show="license.active_loan.person.first_name && license.active_loan.person.last_name">
-                                            <label for="loan_date">
-                                                Fecha de préstamo
+                        </div>
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+                                    <span ng-show="licenseLoanEdit || license.on_loan">
+                                        <strong for="loan_person" ng-show="license.on_loan">Prestado a : </strong> <span ng-hide="licenseLoanEdit">@{{ license.active_loan.person.first_name }} @{{ license.active_loan.person.last_name }} <span ng-show="license.active_loan.person.email"><@{{ license.active_loan.person.email }}></span></span>
+                                    </span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+                                    @if($license->license_status_id != 4)
+                                    <button class="btn btn-success pull-right" ng-click="licenseLoanEdit=true" ng-hide="licenseLoanEdit || license.on_loan">
+                                        Prestar
+                                    </button>
+                                    @endif
+                                    <span ng-show="licenseLoanEdit || license.on_loan">
+                                        <button
+                                                class="btn btn-warning pull-right"
+                                                ng-click="licenseLoanEdit=true"
+                                                ng-hide="licenseLoanEdit">
+                                            Editar
+                                        </button>
+                                        <button class="btn btn-success pull-right" ng-click="saveLicenseLoan()" ng-show="licenseLoanEdit && license.active_loan.person.first_name && license.active_loan.person.last_name">
+                                            Guardar
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <div ng-show="licenseLoanEdit || license.on_loan" class="row">
+                                <h4 for="loan_person" ng-hide="license.on_loan">
+                                    Prestar a
+                                </h4>
+                                <input class="form-control" type="hidden" name="person_id" id="active_loan_person_id" ng-model="license.active_loan.person.id">
+                                <span ng-if="licenseLoanEdit">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="first_name" class="control-label">
+                                                Nombre:
                                             </label>
-                                            <input name="loan_date" type="date" ng-model="license.active_loan.loan_date" ng-init="license.active_loan.loan_date = formatDate(license.active_loan.loan_date)">
-                                            <button class="btn btn-success" ng-click="savePersonDateActiveLoan()" ng-hide="licenseLoanDate || license.on_loan">
-                                            Prestar
-                                            </button>
-                                            <div ng-show="licenseLoanDate || license.on_loan">
-                                                <label for="giving_back_date">
-                                                    Fecha de devolución
+                                            <input class="form-control" type="text" name="first_name" id="active_loan_first_name" placeholder="Nombre" ng-model="license.active_loan.person.first_name" ng-init="autocompleteLoanPerson()">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="last_name" class="control-label">
+                                                Apellidos:
+                                            </label>
+                                            <input class="form-control" type="text" name="last_name" id="active_loan_last_name" placeholder="Apellidos" ng-model="license.active_loan.person.last_name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label for="email" class="control-label">
+                                                Correo electrónico:
+                                            </label>
+                                            <input type="text" class="form-control" name="email" id="active_loan_email" placeholder="Correo Electrónico" ng-model="license.active_loan.person.email">
+                                        </div>
+                                    </div>
+                                    <div ng-show="license.active_loan.person.first_name && license.active_loan.person.last_name">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="loan_date" class="control-label">
+                                                    Fecha de préstamo
                                                 </label>
-                                                <input name="giving_back_date" type="date" ng-model="license.active_loan.giving_back_date" ng-init="license.active_loan.giving_back_date = formatDate(license.active_loan.giving_back_date)">
-                                                <button class="btn btn-warning" ng-click="closeActiveLoan()">
-                                                Cerrar préstamo
+                                                <input name="loan_date" class="form-control"  type="date" ng-model="license.active_loan.loan_date" ng-init="license.active_loan.loan_date = formatDate(license.active_loan.loan_date)">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" ng-hide="licenseLoanDate || license.on_loan">
+                                            <div class="form-group">
+                                                <button style="margin-top:25px;" class="btn btn-success" ng-click="savePersonDateActiveLoan()" ng-hide="licenseLoanDate || license.on_loan">
+                                                    Prestar
                                                 </button>
                                             </div>
                                         </div>
+
+                                        <div ng-show="licenseLoanDate || license.on_loan" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label for="giving_back_date" class="control-label">
+                                                    Fecha de devolución
+                                                </label>
+                                                <input  class="form-control" name="giving_back_date" type="date" ng-model="license.active_loan.giving_back_date" ng-init="license.active_loan.giving_back_date = formatDate(license.active_loan.giving_back_date)">
+                                            </div>
+                                        </div>
+                                        <div ng-show="licenseLoanDate || license.on_loan" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            <button style="margin-top:25px;" class="btn btn-danger" ng-click="closeActiveLoan()">
+                                                Cerrar préstamo
+                                            </button>
+                                        </div>
                                     </div>
-                                    <button
-                                    class="btn btn-warning"
-                                    ng-click="licenseLoanEdit=true"
-                                    ng-hide="licenseLoanEdit">
-                                    Editar
-                                    </button>
-                                    <button class="btn btn-success" ng-click="saveLicenseLoan()" ng-show="licenseLoanEdit && license.active_loan.person.first_name && license.active_loan.person.last_name">
-                                    Guardar
-                                    </button>
                                 </span>
                             </div>
                         </div>
@@ -146,7 +194,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-8">
-                            {{ $license->licenseType->name }} {{ $license->number }}/{{ $license->year }}
+                            <h3>{{ $license->licenseType->name }} {{ $license->number }}/{{ $license->year }}</h3>
                         </div>
                         <div class="col-md-4 text-right">
                             <a class="btn btn-warning" href="{{ route('license.index') }}" role="button">Volver al listado</a>
@@ -186,7 +234,7 @@
                             <div class="row">
                                 @if($license->is_law)
                                     <div class="col-md-4">
-                                        <p><strong>Aplica en Ley 12/2012</strong></p>
+                                        <p><strong>Incluida en Ley 12/2012</strong></p>
                                     </div>
                                 @endif
                                 <div class="col-md-6">
@@ -253,84 +301,85 @@
                         </div>
                         <div role="tabpanel" class="tab-pane panel panel-body" id="license-details">
                             <!-- Detalles -->
-                            <div ng-repeat="value in licenseObject">
-                                <h3>@{{ value.license_stage.name }}</h3>
-                                <div ng-if="value.date">
-                                    <p><strong>Fecha:</strong> @{{ value.date | date:'dd-MM-yyyy' }}</p>
-                                </div>
-                                <div ng-if="value.person_id">
-                                    <p><strong>Persona:</strong> @{{ value.person.first_name }} @{{value.person.first_name}}</p>
-                                </div>
-                                <div ng-if="value.number">
-                                    <p><strong>Número:</strong> @{{ value.number }}</p>
-                                </div>
-                                <div ng-if="value.file_id">
-                                    <p><strong>Fichero:</strong> <a ng-href="../file/download/@{{ value.file_id }}" target="_blank">Descargar @{{  value.file.filename }}</a></p>
-                                </div>
-                                <div ng-if="value.objections.length">
-                                    <p><strong>Reparos</strong></p>
-                                    <div ng-repeat="objection in value.objections">
-                                        <div class="col-md-1">
-                                        </div>
-                                        <div class="col-md-11">
-                                            <p><strong>Reparo @{{ objection.id }}</strong></p>
-                                            <div ng-if="objection.first_person_position_id">
-                                                <p>Primera Posición de Persona: @{{ objection.first_person_position.name }}</p>
-                                            </div>
-                                            <div ng-if="objection.second_person_position_id">
-                                                <p>Segunda Posición de Persona: @{{ objection.second_person_position.name }}</p>
-                                            </div>
-                                            <div ng-if="objection.report_date">
-                                                <p>Fecha de reporte: @{{ objection.report_date | date:'dd-MM-yyyy' }}</p>
-                                            </div>
-                                            <div ng-repeat="notification in objection.objection_notifications">
-                                                <p>Notificación: @{{ notification.notification_date | date:'dd-MM-yyyy'}} Fecha de Finalización: @{{ notification.finish_date | date:'dd-MM-yyyy'}}</p>
-                                            </div>
-                                            <div ng-if="objection.correction_date">
-                                                <p>Fecha de subsanación: @{{ objection.correction_date | date:'dd-MM-yyyy'}}</p>
-                                            </div>
-                                        </div>
+                            <div class="list-group">
+                                <div class="list-group-item" ng-repeat="value in licenseObject">
+                                    <h3>@{{ value.license_stage.name }}</h3>
+                                    <div ng-if="value.date">
+                                        <p><strong>Fecha:</strong> @{{ value.date | date:'dd-MM-yyyy' }}</p>
                                     </div>
-                                </div>
-                                <!-- JGT: Se agregan los nuevos campos-->
-                                <div ng-if="value.proceeds_visit">
-                                    <p>
-                                        <div ng-switch="value.proceeds_visit">
-                                            <div ng-switch-when="1">
-                                                Si
-                                            </div>
-                                            <div ng-switch-when="0">
-                                                No
-                                            </div>
-                                            <div ng-switch-default></div>
-                                        </div>
-                                    </p>
-                                </div>
-                                <div ng-if="value.license_stage.date_firsh_visit">
-                                    <br>
-                                    <div ng-if="visitObject.length">
-                                        <table class="table table-condensed">
+                                    <div ng-if="value.person_id">
+                                        <p><strong>Persona:</strong> @{{ value.person.first_name }} @{{value.person.first_name}}</p>
+                                    </div>
+                                    <div ng-if="value.number">
+                                        <p><strong>Número:</strong> @{{ value.number }}</p>
+                                    </div>
+                                    <div ng-if="value.file_id">
+                                        <p><strong>Fichero:</strong> <a ng-href="../file/download/@{{ value.file_id }}" target="_blank">Descargar @{{  value.file.filename }}</a></p>
+                                    </div>
+                                    <div ng-if="value.objections.length">
+                                        <h3>Historico de Reparos</h3>
+                                        <table class="table table-hover table-header-bg">
                                             <thead>
-                                                <tr>
-                                                    <th>Fecha</th>
-                                                    <th>Sanción</th>
-                                                    <th>Acta</th>
-                                                </tr>
+                                            <tr>
+                                                <th>Reparo</th>
+                                                <th>Cargo 1</th>
+                                                <th>Cargo 2</th>
+                                                <th>Fecha de informe</th>
+                                                <th>Fecha de subsanación</th>
+                                            </tr>
                                             </thead>
-                                            <tbody ng-repeat="visits in visitObject">
-                                                <tr>
-                                                    <td>@{{visits.date_visit | date:'dd-MM-yyyy'}}</td>
-                                                    <td>@{{visits.sanctions}}</td>
-                                                    <td>
-                                                        <div ng-switch="@{{visits.act}}">
-                                                            <div ng-switch-when="1">Favorable</div>
-                                                            <div ng-switch-when="0">Desfavorable</div>
-                                                            <div ng-switch-default></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                            <tbody>
+                                            <tr ng-repeat="objection in value.objections">
+                                                <td>@{{ objection.id }}</td>
+                                                <td>@{{ objection.first_person_position.name }}</td>
+                                                <td>@{{ objection.second_person_position.name }}</td>
+                                                <td>@{{ objection.report_date | date:'dd-MM-yyyy'}}</td>
+                                                <td>@{{ objection.correction_date | date:'dd-MM-yyyy' }}</td>
+                                            </tr>
                                             </tbody>
                                         </table>
+
+                                    </div>
+                                    <!-- JGT: Se agregan los nuevos campos-->
+                                    <div ng-if="value.proceeds_visit">
+                                        <p>
+                                            <div ng-switch="value.proceeds_visit">
+                                                <div ng-switch-when="1">
+                                                    Si
+                                                </div>
+                                                <div ng-switch-when="0">
+                                                    No
+                                                </div>
+                                                <div ng-switch-default></div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                    <div ng-if="value.license_stage.date_firsh_visit">
+                                        <br>
+                                        <div ng-if="visitObject.length">
+                                            <table class="table table-hover table-header-bg">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="15%">Fecha</th>
+                                                        <th>Sanción</th>
+                                                        <th width="30%">Acta</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody ng-repeat="visits in visitObject">
+                                                    <tr>
+                                                        <td>@{{visits.date_visit | date:'dd-MM-yyyy'}}</td>
+                                                        <td>@{{visits.sanctions}}</td>
+                                                        <td>
+                                                            <div ng-switch="@{{visits.act}}">
+                                                                <div ng-switch-when="1">Favorable</div>
+                                                                <div ng-switch-when="0">Desfavorable</div>
+                                                                <div ng-switch-default></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -447,7 +496,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <table class="table table-condensed">
+                                <table class="table table-hover table-header-bg">
                                     <thead>
                                         <tr>
                                             <th>Número expediente</th>
@@ -482,11 +531,11 @@
                         <div role="tabpanel" class="tab-pane panel panel-body" id="license-avisos">
                             <!-- Avisos/Alertas-->
                             <div class="col-md-12 text-right">
-                                <button class="btn btn-success" data-toggle="modal" data-target="#modal-alert" type="button">
+                                <button style="margin-bottom: 10px" class="btn btn-success" data-toggle="modal" data-target="#modal-alert" type="button">
                                 <i class="fa fa-plus" aria-hidden="true"></i> Agregar alerta
                                 </button>
                             </div>
-                            <table class="table table-condensed">
+                            <table class="table table-hover table-header-bg">
                                 <thead>
                                     <tr>
                                         <th>Titulo</th>
@@ -510,11 +559,11 @@
                         <div role="tabpanel" class="tab-pane panel panel-body" id="license-caducidad">
                             <!-- Caducidad-->
                             <div class="col-md-12 text-right">
-                                <button class="btn btn-success" type="button" ng-click="caducarlicenciaShow()">
+                                <button style="margin-bottom: 10px" class="btn btn-success" type="button" ng-click="caducarlicenciaShow()">
                                 <i class="fa fa-plus" aria-hidden="true"></i> Iniciar Caducidad
                                 </button>
                             </div>
-                            <table class="table table-condensed">
+                            <table class="table table-hover table-header-bg">
                                 <thead>
                                     <tr>
                                         <th>Registro interno</th>
@@ -546,11 +595,11 @@
                             <!-- Visitas-->
                             @if(! is_null($license->identifier))
                             <div class="col-md-12 text-right">
-                                <button class="btn btn-success" data-toggle="modal" data-target="#modal-visit" type="button">
+                                <button style="margin-bottom: 10px" class="btn btn-success" data-toggle="modal" data-target="#modal-visit" type="button">
                                 <i class="fa fa-plus" aria-hidden="true"></i> Agregar visita
                                 </button>
                             </div>
-                            <table class="table table-condensed">
+                            <table class="table table-hover table-header-bg">
                                 <thead>
                                     <tr>
                                         <th>Fecha</th>
