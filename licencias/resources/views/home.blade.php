@@ -289,9 +289,9 @@
                 { key: "register_number", name: "No de registro", placeholder: "No de registro..." },
                 { key: "identifier", name: "No de licencia", placeholder: "No de licencia..."},
                 { key: "nif", name: "NIF", placeholder: "NIF...", restrictToSuggestedValues: true, suggestedValues: $scope.nifs },
-                { key: "titular_name", name: "Titular", placeholder: "Titular...", restrictToSuggestedValues: true, suggestedValues: $scope.titulares },
+                { key: "titular_name", name: "Titular", placeholder: "Titular..." },
                 { key: "activity_name", name: "Actividad", placeholder: "Actividad...", restrictToSuggestedValues: true, suggestedValues: $scope.getAllActivities },
-                { key: "street_name", name: "Dirección", placeholder: "Dirección..." , restrictToSuggestedValues: true, suggestedValues: $scope.getAllStreets  },
+                { key: "street_name", name: "Dirección", placeholder: "Dirección..."  },
                 { key: "commerce_name", name: "Nombre Comercial" , placeholder: "Nombre Comercial..." },
                 { key: "is_law", name: "Ley 12/2012" , placeholder: "Ley 12/2012...", restrictToSuggestedValues: true, suggestedValues: ['Si','No'] },
             ];
