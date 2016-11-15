@@ -110,7 +110,7 @@
 
     <div class="panel-body">
         <div class="block block-themed" style="border: 1px #F0F0F0 solid">
-            <div class="block-header bg-info">
+            <div class="block-header bg-info" style="background-color: #44b4a6">
                 <h3 class="block-title" ng-show="stageFields.id">@{{ stageFields.name }}</h3>
             </div>
             <div class="block-content">
