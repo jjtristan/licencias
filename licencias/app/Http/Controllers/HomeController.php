@@ -9,11 +9,13 @@ use CityBoard\Entities\LicenseType;
 use CityBoard\Entities\Titular;
 use CityBoard\Entities\TitularityChange;
 use CityBoard\Entities\Alert;
+use CityBoard\Entities\TypeAlert;
 use CityBoard\Repositories\ActivityRepository;
 use CityBoard\Repositories\LicenseRepository;
 use CityBoard\Repositories\LicenseStatusRepository;
 use CityBoard\Repositories\LicenseTypeRepository;
 use CityBoard\Repositories\StreetRepository;
+use CityBoard\Entities\LicenseType as TypeLicense;
 use Illuminate\Http\Request;
 
 use CityBoard\Http\Requests;
@@ -165,11 +167,14 @@ class HomeController extends Controller
         
         
         $typeAlert = Alert::where('type_alert_id', 1)->count();
+        $typeAlertName = TypeAlert::where('id', 1)->get()[0];
         $typeAlert2 = Alert::where('type_alert_id', 3)->count();
+        $typeAlertName2 = TypeAlert::where('id', 3)->get()[0];
         $typeAlert3 = Alert::where('type_alert_id', 4)->count();
+        $typeAlertName3 = TypeAlert::where('id', 4)->get()[0];
         $typeAlert4 = Alert::where('type_alert_id', 2)->count();
-
-        
+        $typeAlertName4 = TypeAlert::where('id', 2)->get()[0];
+        $typeLicenceName = LicenseType::all();
 
         $variables = compact(
           'licenses',
@@ -202,7 +207,12 @@ class HomeController extends Controller
           'typeAlert',
           'typeAlert2',
           'typeAlert3',
-          'typeAlert4'
+          'typeAlert4',
+            'typeAlertName',
+            'typeAlertName2',
+            'typeAlertName3',
+            'typeAlertName4',
+            'typeLicenceName'
         );
 
         return view('home', $variables);

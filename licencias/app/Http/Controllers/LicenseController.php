@@ -468,8 +468,11 @@ class LicenseController extends Controller
     public function getAllLicense(){
         $licenses = License::with('activity')->with('street')
             ->with('titular')->with('licenseStatus')->with('licenseCurrentStages')->get();
+
         foreach($licenses as $value){
+            $value->last_step = $value->current_stage->name;
             $value->fecha_format = Carbon::parse($value->updated_at)->format('d-m-Y');#JGT: Se le da formato a la fecha de ultimo cambio
+
         }
         $response = [
             'data' => $licenses,

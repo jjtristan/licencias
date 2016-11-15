@@ -58,9 +58,7 @@
                             @endif
 
                             <td>
-                                @if(isset($titularityChange->lastTitular))
-                                    {{ $titularityChange->lastTitular->first_name}} {{ $titularityChange->lastTitular->last_name }}
-                                @endif
+                                {{ $titularityChange->titularBefore->first_name}} {{ $titularityChange->titularBefore->last_name }}
                             </td>
                             <td>
                                 {{ $titularityChange->titular->first_name }} {{ $titularityChange->titular->last_name }}
