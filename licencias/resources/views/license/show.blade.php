@@ -15,13 +15,22 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3>Localización</h3>
+                            <h3>Localizacion</h3>
                         </div>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div class="list-group">
-                        <div class="list-group-item">
+
+                    <ul class="nav nav-tabs" role="tablist" id="location-tabs">
+                        <li role="presentation" class="active"><a href="#location-location" aria-controls="location-location" role="tab" data-toggle="tab">Armarios</a></li>
+                        <li role="presentation"><a href="#location-library" aria-controls="location-library" role="tab" data-toggle="tab">Tomo</a></li>
+                        <li role="presentation"><a href="#location-files" aria-controls="location-files" role="tab" data-toggle="tab">Archivo</a></li>
+                        <li role="presentation"><a href="#location-prest" aria-controls="location-prest" role="tab" data-toggle="tab">Prestamos</a></li>
+                    </ul>
+                    <!-- El cuerpo de las pestañas -->
+                    <div class="tab-content">
+                        <!-- ARMARIOS -->
+                        <div role="tabpanel" class="tab-pane active panel panel-body" id="location-location">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                     <strong>Armario: </strong>
@@ -50,21 +59,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div ng-show="license.finished" class="list-group-item">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <strong>Tomo/Año:</strong>
+                        <!-- LIBROS -->
+                        <div role="tabpanel" class="tab-pane active panel panel-body" id="location-library">
+                            <div ng-show="license.finished">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <strong>Tomo/Año:</strong>
                                     <span ng-show="licenseVolumeYearEdit || license.volume_year">
                                         <span ng-hide="licenseVolumeYearEdit">@{{ license.volume_year }}</span>
                                         <span ng-show="licenseVolumeYearEdit">
                                             <input class="form-control" name="volume_year" ng-model="license.volume_year">
                                         </span>
                                     </span>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <button class="btn btn-success pull-right" ng-click="licenseVolumeYearEdit=true" ng-hide="license.volume_year">
-                                        Archivar
-                                    </button>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <button class="btn btn-success pull-right" ng-click="licenseVolumeYearEdit=true" ng-hide="license.volume_year">
+                                            Archivar
+                                        </button>
                                     <span ng-show="licenseVolumeYearEdit || license.volume_year">
                                         <button
                                                 class="btn btn-warning pull-right"
@@ -76,26 +87,31 @@
                                             Guardar
                                         </button>
                                     </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div ng-show="license.finished" class="list-group-item">
-                            <div class="row">
-                                <div class="col-lg-12">
+                        <!-- ARCHIVOS -->
+                        <div role="tabpanel" class="tab-pane active panel panel-body" id="location-files">
+                            <div ng-show="license.finished">
+                                <div class="row">
+                                    <div class="col-lg-12">
                                     <span ng-hide="license.on_query">
                                         <button class="btn btn-danger pull-right" ng-click="saveLicenseOnQuery(true)" ng-hide="license.on_query">
-                                        Consulta
+                                            Consulta
                                         </button>
                                     </span>
                                     <span ng-show="license.on_query">
                                         <button class="btn btn-success pull-right" ng-click="saveLicenseOnQuery(false)" ng-show="license.on_query">
-                                        Devolver a archivo
+                                            Devolver a archivo
                                         </button>
                                     </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="list-group-item">
+                        <!-- PRESTAMOS -->
+                        <div role="tabpanel" class="tab-pane active panel panel-body" id="location-prest">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                                     <span ng-show="licenseLoanEdit || license.on_loan">
@@ -104,9 +120,9 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                                     @if($license->license_status_id != 4)
-                                    <button class="btn btn-success pull-right" ng-click="licenseLoanEdit=true" ng-hide="licenseLoanEdit || license.on_loan">
-                                        Prestar
-                                    </button>
+                                        <button class="btn btn-success pull-right" ng-click="licenseLoanEdit=true" ng-hide="licenseLoanEdit || license.on_loan">
+                                            Prestar
+                                        </button>
                                     @endif
                                     <span ng-show="licenseLoanEdit || license.on_loan">
                                         <button
@@ -121,8 +137,6 @@
                                     </span>
                                 </div>
                             </div>
-
-
                             <div ng-show="licenseLoanEdit || license.on_loan" class="row">
                                 <h4 for="loan_person" ng-hide="license.on_loan">
                                     Prestar a
@@ -190,6 +204,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">

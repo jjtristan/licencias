@@ -5,39 +5,20 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="js-slider" data-slider-dots="true" data-slider-arrows="true" data-slider-autoplay="true">
+                @foreach($typeLicenceName as $value)
                 <div>
                     <div class="block text-center remove-margin-b">
                         <div class="block-content block-content-full">
                             <i class="si si-book-open fa-2x"></i>
-                            <div class="h1 font-w700">{{ $activityCommunicationAmount }}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Declaración responsable - Actividades inocuas</div>
+                            <div class="h1 font-w700">{{ CityBoard\Entities\License::where('finished', false)->where('license_type_id', $value->id)->count()
+}}</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">{{$value->name}}</div>
                         </div>
                         <div class="block-content block-content-full block-content-mini bg-danger text-white">
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div class="block text-center remove-margin-b">
-                        <div class="block-content block-content-full">
-                            <i class="si si-book-open fa-2x"></i>
-                            <div class="h1 font-w700">{{ $withQualificationAmount }}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Licencias de actividad</div>
-                        </div>
-                        <div class="block-content block-content-full block-content-mini bg-warning text-white">
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="block text-center remove-margin-b">
-                        <div class="block-content block-content-full">
-                            <i class="si si-book-open fa-2x"></i>
-                            <div class="h1 font-w700">{{ $withoutQualificationAmount }}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Declaración responsable - Actividades no inocuas</div>
-                        </div>
-                    </div>
-                    <div class="block-content block-content-full block-content-mini bg-primary text-white">
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -49,7 +30,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-bell fa-2x"></i>
                             <div class="h1 font-w700">{{$typeAlert}}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Reparos</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">{{$typeAlertName['type']}}</div>
                         </div>
                     </div>
                     <div class="block-content block-content-full block-content-mini bg-danger text-white">
@@ -60,7 +41,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-bell fa-2x"></i>
                             <div class="h1 font-w700">{{$typeAlert3}}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Creacion manual</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">{{$typeAlertName3['type']}}</div>
                         </div>
                     </div>
                     <div class="block-content block-content-full block-content-mini bg-warning text-white">
@@ -71,7 +52,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-bell fa-2x"></i>
                             <div class="h1 font-w700">{{$typeAlert2}}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Plazo de espera</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">{{$typeAlertName2['type']}}</div>
                         </div>
                     </div>
                     <div class="block-content block-content-full block-content-mini bg-primary text-white">
@@ -82,7 +63,7 @@
                         <div class="block-content block-content-full">
                             <i class="si si-bell fa-2x"></i>
                             <div class="h1 font-w700">{{$typeAlert4}}</div>
-                            <div class="h5 text-muted text-uppercase push-5-t">Información pública</div>
+                            <div class="h5 text-muted text-uppercase push-5-t">{{$typeAlertName4['type']}}</div>
                         </div>
                     </div>
                     <div class="block-content block-content-full block-content-mini bg-primary text-white">
@@ -112,6 +93,7 @@
                             <th>Dirección</th>
                             <th>Titular</th>
                             <th>Tipo</th>
+                            <th>Último cambio</th>
                             <th>Fecha Último cambio</th>
                             <th>Acciones</th>
                         </tr>
@@ -126,8 +108,12 @@
                                 @{{ license.type }}
                             </td>
                             <td>
+                                @{{ license.last_step }}
+                            </td>
+                            <td>
                                 @{{ license.fecha_format }}
                             </td>
+
                            {{-- <td>
                                  @if (isset($license->license_data_current_stage))
                                      @{{ $license->license_data_current_stage->updated_at }}
@@ -277,6 +263,11 @@
                             value.type = value2.name;
                         }
                     });
+                    angular.forEach($scope.licenses.license_current_stages, function(value3, key3){
+                        if(value3.id== value.last_current_stage_id){
+                            //value.last_step = value3.
+                        }
+                    })
                 });
                 $scope.searchParams.status = 'Solicitada';
             });
