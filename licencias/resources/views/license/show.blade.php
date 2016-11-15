@@ -23,7 +23,7 @@
 
                     <ul class="nav nav-tabs" role="tablist" id="location-tabs">
                         <li role="presentation" class="active"><a href="#location-location" aria-controls="location-location" role="tab" data-toggle="tab">Armarios</a></li>
-                        <li role="presentation"><a href="#location-library" aria-controls="location-library" role="tab" data-toggle="tab">Libros</a></li>
+                        <li role="presentation"><a href="#location-library" aria-controls="location-library" role="tab" data-toggle="tab">Tomo</a></li>
                         <li role="presentation"><a href="#location-files" aria-controls="location-files" role="tab" data-toggle="tab">Archivo</a></li>
                         <li role="presentation"><a href="#location-prest" aria-controls="location-prest" role="tab" data-toggle="tab">Prestamos</a></li>
                     </ul>
