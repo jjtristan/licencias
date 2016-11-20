@@ -21,27 +21,6 @@ class CreateLicenseTypesTable extends Migration
 
             $table->timestamps();
         });
-        $now = date('Y-m-d H:i:s');
-        \DB::table('license_types')->insert(
-            [
-                'name' => 'Declaración responsable - Actividades inocuas',
-                'description' => '',
-                'visit' => false,
-                'created_at' => $now,
-            ],
-            [
-                'name' => 'Declaración responsable - Actividades no inocuas',
-                'description' => '',
-                'visit' => false,
-                'created_at' => $now,
-            ],
-            [
-                'name' => 'Licencias de actividad',
-                'description' => '',
-                'visit' => true,
-                'created_at' => $now,
-            ]
-        );
     }
 
     /**

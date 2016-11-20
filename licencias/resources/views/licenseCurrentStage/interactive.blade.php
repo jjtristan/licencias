@@ -101,7 +101,7 @@
                 <button type="button" id="{{ $currentStage->license_stage_id }}" class="btn"
                         ng-class="{ 'btn-default' : requiredStages[{{ $currentStage->license_stage_id }}],
                                     'btn-success' : !requiredStages[{{ $currentStage->license_stage_id }}],
-                                    'btn-info' : stageData.license_stage_id == {{ $currentStage->license_stage_id }},
+                                    'current-stage' : stageData.license_stage_id == {{ $currentStage->license_stage_id }},
                                     'other-stage' : stageData.license_stage_id != {{ $currentStage->license_stage_id }} }"
                         ng-click="goToStage({{ $currentStage->license_stage_id }})">{{ $currentStage->licenseStage->name }}</button>
             </div>
