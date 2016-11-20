@@ -19,22 +19,6 @@ class CreateActivitiesTable extends Migration
 
             $table->timestamps();
         });
-        $now = date('Y-m-d H:i:s');
-        \DB::table('activities')->insert(
-            [
-                'name' => 'Bar',
-                'created_at' => $now,
-            ],
-            [
-                'name' => 'Industria',
-                'created_at' => $now,
-            ],
-            [
-                'name' => 'Academia',
-                'created_at' => $now,
-            ]
-        );
-
     }
 
     /**
