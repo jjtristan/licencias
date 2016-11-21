@@ -480,6 +480,18 @@ class CreateDatabase extends Migration
 
         $this->createStages($stagesTypeThree, 3);
 
+
+        // User
+        // Usuario Común
+        \DB::table('users')->insert([
+            'name' => 'Maria Morales',
+            'email' => 'maria.morales@cieza.es',
+            'password' => bcrypt('maria.morales'),
+            'user_type_id' => 2,
+            'remember_token' => str_random(10),
+            'created_at' => $now
+        ]);
+
     }
 
     /**
