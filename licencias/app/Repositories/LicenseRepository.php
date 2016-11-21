@@ -184,7 +184,7 @@ class LicenseRepository implements RepositoryInterface
     {
         $license = License::where('license_type_id', $license_type)->where('year', $year)->orderBy('number', 'desc')->first();
         if($license === null) {
-            return 0;
+            return env('LAST_NUMBER_OF_LICENSE');
         }
 
         return $license->number;
