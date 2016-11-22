@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <!-- LIBROS -->
-                        <div role="tabpanel" class="tab-pane active panel panel-body" id="location-library">
+                        <div role="tabpanel" class="tab-pane panel panel-body" id="location-library">
                             <div ng-show="license.finished">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                         <!-- ARCHIVOS -->
-                        <div role="tabpanel" class="tab-pane active panel panel-body" id="location-files">
+                        <div role="tabpanel" class="tab-pane panel panel-body" id="location-files">
                             <div ng-show="license.finished">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                         <!-- PRESTAMOS -->
-                        <div role="tabpanel" class="tab-pane active panel panel-body" id="location-prest">
+                        <div role="tabpanel" class="tab-pane panel panel-body" id="location-prest">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                                     <span ng-show="licenseLoanEdit || license.on_loan">
